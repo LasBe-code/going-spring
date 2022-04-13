@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://Java.sun.com/xml/ns/javaee 
+		http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="com.going" version="3.0">
+
+	<display-name>Going</display-name>
+
+	<jsp-config>
+		<jsp-property-group>
+			<url-pattern>/view/*</url-pattern>
+			<include-prelude>/common/head.jsp</include-prelude>
+		</jsp-property-group>
+	</jsp-config>
+
+	<servlet>
+		<servlet-name>memberController</servlet-name>
+		<servlet-class>controller.MemberController</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>memberController</servlet-name>
+		<url-pattern>/member/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>roomController</servlet-name>
+		<servlet-class>controller.RoomController</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>roomController</servlet-name>
+		<url-pattern>/room/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>searchController</servlet-name>
+		<servlet-class>controller.SearchController</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>searchController</servlet-name>
+		<url-pattern>/search/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>reservationController</servlet-name>
+		<servlet-class>controller.ReservationController</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>reservationController</servlet-name>
+		<url-pattern>/reservation/*</url-pattern>
+	</servlet-mapping>
+
+</web-app>

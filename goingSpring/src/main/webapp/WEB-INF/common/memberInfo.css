@@ -1,0 +1,221 @@
+@charset "UTF-8";
+
+#memberinfo_left_nav a{
+font-size: 1.4em; 
+color: black; 
+text-decoration-line: none
+}
+
+#memberinfo_left_nav a:hover{
+font-size: 1.4em; 
+color:#ffc107; 
+text-decoration-line: none; 
+}
+
+#memberinfo_left_nav{
+	margin-top: 55px;
+}
+
+.reservationList_table{
+	border : solid;
+	border-radius: 10px;
+	border-style: hidden;
+	box-shadow: 0 0 0 1px gray;	
+}
+
+.reservationList_table_head_text{
+	padding-top: 10px; 
+	margin-bottom: -20px;
+}
+
+
+#reservation_table_main_text a{
+font-size: 20px; 
+color: black; 
+text-decoration-line: none
+}
+
+#reservation_table_main_text a:hover{
+font-size: 20px; 
+color:#ffc107; 
+text-decoration-line: none; 
+}
+
+#reservation_table_main_text{
+	margin-top: 0px;
+}
+
+.reservationList_large_text{
+	font-size: 28px;
+	margin-top: 50px; 
+	color:black;
+}
+
+.reservationList_medium_text{
+	font-size: 20px;
+    margin-top: 45px; 
+    color:black;
+}
+
+.reservationList_small_text{
+	font-size: 18px;
+    margin-top: 45px; 
+    color:black;
+}
+
+.reservationList_image{
+	
+	 width:400px; 
+	 height:180px;
+}
+
+.reservation_btn_cancel{
+	border: none;
+    color: white;
+	height: 30px; 
+	width:100px; 
+	margin-top: 5px; 
+	background-color: red;
+}
+
+.reservation_table_box{
+	
+	padding-top : 2px;
+	border: solid 1px white;
+    color: white;
+	height: 30px; 
+	width:100px; 
+	margin-top: 5px;
+	margin-bottom : 5px; 
+	background-color: #ffc107;
+}
+
+
+.reservationDetail_head{
+	text-align:center;
+	margin-top : 55px;
+	border: solid 1px #ffc107;
+	border-radius: 2px;
+	border-style: hidden; 
+	background: #ffc107; 
+	color:white;
+	width:70px;
+}
+
+.reservationDetail_medium_text{
+	font-size: 22px;
+	margin-top: -10px;
+	
+}
+
+.reservationDetail_small_text{
+	font-size: 16px;
+	margin-top: -15px;
+}
+
+.reservationDetail_default_text{
+	font-size: 20px;
+}
+
+.reservationDetail_pay{
+	color : red;
+}
+
+.reservation_btn_chk{
+	border: none;
+    color: white;
+	height: 40px; 
+	width:60px; 
+	background-color: #ffc107;
+}
+
+.reservationDetail_noti_text{
+	font-size: 16px;
+	margin-top: -25px;
+	color: gray;
+}
+
+.reservationDetail_head_cancle{
+	text-align:center;
+	margin-top : 55px;
+	border: solid 1px #ffc107;
+	border-radius: 2px;
+	border-style: hidden; 
+	background: red; 
+	color:white;
+	width:70px;
+}
+
+.memberInfo_default_text{
+	font-size: 23px; 
+	
+}
+
+
+.memberInfo_large_text{
+	font-size: 28px;
+	margin-top: 50px; 
+	color:black;
+}
+
+.profile_img_box{
+	width : 150px;
+	height: 150px;
+	border-radius: 50%;
+	overflow: hidden;
+	background: #BDBDBD;
+	
+}
+.profile_user_img{
+	width : 100%;
+	height: 100%;
+	object-fit : cover;
+	align-content: center;
+}
+
+.memberInfo_btn_picture{
+	border: white;
+    color: white;
+	height: 30px; 
+	width:80px; 
+	background-color: #ffc107;
+}
+
+.memberInfo_defalut_btn{
+	border: white;
+    color: white;
+	height: 40px; 
+	width:120px; 
+	background-color: #ffc107;
+	text-align: center;
+	padding-top: 8px;
+}
+
+.memberInfo_small_text{
+	font-size: 16px;
+	color:#BDBDBD;
+}
+
+#memberinfo_bottom_text a{
+font-size: 16.5px; 
+color: black; 
+text-decoration-line: none
+}
+
+#memberinfo_bottom_text a:hover{
+font-size: 16.5px; 
+color:#ffc107; 
+text-decoration-line: none; 
+}
+
+#memberinfo_bottom_text{
+	font-size: 16.5px; 
+}
+
+
+
+
+
+
+
+	
