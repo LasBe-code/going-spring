@@ -9,6 +9,16 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <!-- jQuery -->
+<style>
+button:disabled {
+    background-color: -internal-light-dark(rgba(239, 239, 239, 0.3), rgba(19, 1, 1, 0.3)) !important;
+    color: -internal-light-dark(rgba(16, 16, 16, 0.3), rgba(255, 255, 255, 0.3));
+    border-color: -internal-light-dark(rgba(118, 118, 118, 0.3), rgba(195, 195, 195, 0.3));
+}
+</style>
+</head>
+<body>
+
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
@@ -53,15 +63,7 @@ function chk(){
 	}
 }
 </script>
-<style>
-button:disabled {
-    background-color: -internal-light-dark(rgba(239, 239, 239, 0.3), rgba(19, 1, 1, 0.3)) !important;
-    color: -internal-light-dark(rgba(16, 16, 16, 0.3), rgba(255, 255, 255, 0.3));
-    border-color: -internal-light-dark(rgba(118, 118, 118, 0.3), rgba(195, 195, 195, 0.3));
-}
-</style>
-</head>
-<body>
+
 
 <div class="default_width mt-5">
 	<div class="row" style="margin: 0 auto !important;">

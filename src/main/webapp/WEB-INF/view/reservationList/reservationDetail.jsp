@@ -8,7 +8,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/common/memberInfo.css">
 <style>
 tr {
 	width:300px !important;
@@ -21,6 +20,7 @@ table{
 }
 </style>
 </head>
+<body>
 <script>
 function deleteDetail() {
 	
@@ -31,11 +31,8 @@ function deleteDetail() {
 		return;
 	}
 }
-
-
 </script>
 
-<body>
 <div class="default_width ">
   <div class="row">
     <div class="col-sm-2" id="memberinfo_left_nav" >

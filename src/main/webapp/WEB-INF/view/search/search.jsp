@@ -8,6 +8,8 @@
 <meta charset="UTF-8">
 
 </head>
+
+<body>
 <script>
 	function NoMultiChk(chk) {
 		var obj = document.getElementsByName("bu_id");
@@ -18,7 +20,6 @@
 		}
 	}
 </script>
-<body>
 	<div class=default_width>
 		<div class="search_bottom_box mt-3">
 			

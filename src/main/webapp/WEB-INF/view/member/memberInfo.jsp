@@ -8,9 +8,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/common/memberInfo.css">
-<script type="text/javascript"  src="${pageContext.request.contextPath}/js/ajax.js"></script>
 </head>
+<body>
+
 <script>
 function logout() {
 	
@@ -22,7 +22,8 @@ function logout() {
 	}
 }
 </script>
-<body>
+
+
 <div class="default_width container-fluid">
   <div class="row">
     <div class="col-sm-2" id="memberinfo_left_nav" >

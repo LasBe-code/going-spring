@@ -1,4 +1,4 @@
-<%-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -9,6 +9,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+</head>
+<body>
+
 <script>
 	function roomDetail(ro_num, bu_email) {
 		const url = '${pageContext.request.contextPath}/reservation/roomDetail?ro_num='
@@ -19,8 +23,8 @@
 		open(url, '방 정보', op)
 	}
 </script>
-</head>
-<body>
+
+
 	<div class="default_width mt-5">
 		<div class="top row">
 			<!-- 숙소 사진 목록 -->
@@ -198,4 +202,4 @@
 		</div>
 	</div>
 </body>
-</html> --%>
+</html>

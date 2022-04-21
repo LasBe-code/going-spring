@@ -8,7 +8,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="<%=request.getContextPath()%>/js/ajax.js"></script>
+</head>
+<body>
+
 <script>
 
 let phoneAuth = true;
@@ -99,8 +101,6 @@ function inputCheck() {
 	}
 }
 </script>
-</head>
-<body>
 
 <div class="signup_form_width">
 		<div style="text-align : center;">
