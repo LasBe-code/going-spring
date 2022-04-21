@@ -1,16 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title><sitemesh:write property='title' /></title>
-
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reservationList.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -49,7 +46,6 @@ function dateChk(){ // 날짜 유효성 체크
 </script>
 </head>
 <body>
-	
 	<nav class="header navbar navbar-expand-sm bg-warning navbar-dark" style="margin-bottom: 0px !important;">
       <div class="default_width container-fluid ">
         	
