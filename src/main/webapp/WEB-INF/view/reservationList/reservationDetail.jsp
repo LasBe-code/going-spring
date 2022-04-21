@@ -54,7 +54,7 @@ function deleteDetail() {
 	    </c:choose>
     	
     	<p class="reservationDetail_medium_text"><b>${bookingDetail.bu_title}</b></p>
-      	<p class="reservationDetail_small_text" >${bookingDetail.ro_name}<b>ㆍ</b>  </p><br>
+      	<p class="reservationDetail_small_text" >${bookingDetail.ro_name}</p><br>
     	
     	<div class="mb-3" style="">
 			<div class="reservationDetail_medium_text mt-3 mb-3"><strong>객실기본정보</strong></div>

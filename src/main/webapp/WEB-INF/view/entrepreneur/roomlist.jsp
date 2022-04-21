@@ -17,7 +17,7 @@
 <body>
 
 <div class="container" style="margin-top:100px">
-  <nav class="navbar navbar-expand-sm bg-light navbar-light" style="width: 60%; margin:0px auto;">
+<nav class="navbar navbar-expand-sm bg-light navbar-light" style="width: 60%; margin:0px auto;">
   	<div style="margin: 0px auto;">
 	  <ul class="navbar-nav">
 	  	<li class="nav-item">
@@ -28,6 +28,15 @@
 	    </li>
 	    <li class="nav-item">
 	      <a class="nav-link" href="${pageContext.request.contextPath}/room/reservation">예약 확인</a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link" href="${pageContext.request.contextPath}/room/sales">매출</a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link" href="${pageContext.request.contextPath}/room/todayCheckin">체크인</a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link" href="${pageContext.request.contextPath}/room/map">지도</a>
 	    </li>
 	  </ul>
 	  </div>
@@ -48,7 +57,7 @@
 					<h6>이용인원 : ${l.ro_count}명</h6>
 				</div>
 				<div class="roomlist_bottom">
-					<h4>${l.ro_price}원</h4>
+					<h4><fmt:formatNumber value="${l.ro_price}" pattern="#,###" />원</h4>
 				</div>
 			</td>
 	      </tr>

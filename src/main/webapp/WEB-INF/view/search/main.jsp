@@ -4,54 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css">
 </head>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script>
-function change_ro_count(){
-	const id = document.getElementById("select_ro_count");
-	const value = id.options[id.selectedIndex].value;
-	document.f.ro_count.value = value
-}
-function dateChk(){ // 날짜 유효성 체크
-	const today = new Date();   
-	const year = today.getFullYear(); // 년도
-	let month = today.getMonth() + 1;  // 월
-	if(month<10) month = '0'+month
-	let date = today.getDate();  // 날짜
-	if(date<10) date = '0'+date
-	const day=year+''+month+''+date
-	console.log(day)
-	
-	let checkin = document.f.checkin.value
-	console.log(checkin)
-	let checkout = document.f.checkout.value
-	
-	checkin = checkin.replace('-',	'')
-	checkin = checkin.replace('-',	'')
-	checkout = checkout.replace('-', '')
-	checkout = checkout.replace('-', '')
-	
-	console.log(checkin)
-	
-	if(checkin != '' && checkin < day){
-		alert('지난 날짜 선택')
-		document.f.checkin.value = null
-	}
-	if(checkout != '' && checkout < day){
-		alert('지난 날짜 선택')
-		document.f.checkout.value = null
-	}
-	if(checkin != '' && checkout != ''){
-		if(checkin >= checkout){
-			alert('최소 1박 2일의 일정을 선택해주세요')
-			document.f.checkout.value = null
-		}
-	}
-}
-</script>
 <body>
 	<div class=main_first_box>
 		<div>
@@ -81,10 +34,10 @@ function dateChk(){ // 날짜 유효성 체크
 						<div role=button>
 							<div class="main_checkinout_buttonbox">
 								<div>
-									<input type='date' id="checkin" min="today" class="main_checkin_1" name="checkin" onchange="dateChk()" required>
+									<input type='date' id="checkin" min="${today }" value="${today }" class="main_checkin_1" name="checkin" onchange="dateChk()"  required>
 								</div>
 								<div>
-									<input type='date' id="checkout" class="main_checkout_1" name="checkout" onchange="dateChk()" required>
+									<input type='date' id="checkout" min="${tomorrow }" value="${tomorrow }"class="main_checkout_1" name="checkout" onchange="dateChk()" required>
 								</div>
 							</div>
 						</div>

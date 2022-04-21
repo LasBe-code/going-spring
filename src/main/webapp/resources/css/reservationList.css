@@ -1,0 +1,43 @@
+@charset "UTF-8";
+
+.reservationList_table{
+	border : solid;
+	border-radius: 10px;
+	border-style: hidden;
+	box-shadow: 0 0 0 1px gray;	
+}
+
+#memberinfo_left_nav a{
+font-size: 1.4em; 
+color: black; 
+text-decoration-line: none
+}
+
+#memberinfo_left_nav a:hover{
+font-size: 1.4em; 
+color:#ffc107; 
+text-decoration-line: none; 
+}
+
+#memberinfo_left_nav{
+	margin-top: 55px;
+}
+
+.reservationList_large_text{
+	font-size: 28px;
+	margin-top: 50px; 
+	color:black;
+}
+
+.reservationList_medium_text{
+	font-size: 20px;
+    margin-top: 45px; 
+    color:black;
+}
+.reservationList_image{
+	 width:400px; 
+	 height:180px;
+}
+
+
+	

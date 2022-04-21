@@ -21,4 +21,19 @@ public interface BookingMapperAnno {
 	
 	@Select("select p.* from picture p, room r where p.pic_num = r.pic_num and r.ro_num = #{ro_num}")
 	List<Picture> bookingPictureList(int ro_num);
+	
+	@Select("	SELECT "
+			+ "    	b.*, p.location , rev.rev_num as revNum "
+			+ "	FROM "
+			+ "    	booking b "
+			+ "    	LEFT OUTER JOIN "
+			+ "        	(select bo_num, rev_num from review) rev "
+			+ "    	ON b.bo_num = rev.bo_num, "
+			+ "    	room r "
+			+ "    	LEFT OUTER JOIN "
+			+ "        	(select DISTINCT pic_num, FIRST_VALUE(location) OVER(partition by pic_num) as location from picture) p "
+			+ "    	ON r.pic_num = p.pic_num "
+			+ "	WHERE "
+			+ "    	b.email = #{email} and b.ro_num = r.ro_num")
+	List<Booking> selectBookingPicRevList(String email);
 }

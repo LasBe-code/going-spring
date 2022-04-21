@@ -1,0 +1,644 @@
+.default_width {
+	width: 1024px !important;
+	margin: 0 auto !important;
+}
+
+.default_padding {
+	padding: 24px 24px 24px 24px;
+}
+
+.right_text {
+	text-align: right;
+}
+
+.large_text {
+	font-size: 28px;
+	color: black;
+}
+
+.medium_text {
+	font-size: 20px;
+	color: black;
+}
+
+.small_text {
+	font-size: 16px;
+	color: black;
+}
+
+.gray_subtext {
+	font-size: 14px;
+	color: #c8c8c8;
+	font-weight: normal;
+}
+
+.gray_text {
+	color: rgba(19, 19, 19, 0.56);
+}
+
+.gray_line {
+	background-color: rgba(19, 19, 19, 0.56);
+}
+
+.grey_line {
+	margin: 0 12px 0 12px;
+	color: rgba(0, 0, 0, 0.08);
+}
+
+.default_btn {
+	background-color: #ffc107;
+	border: none;
+	color: white;
+	font-weight: bold;
+	height: 56px;
+	width: 100%;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+	color: #495057;
+	background-color: #fff;
+	border-color: rgba(0, 0, 0, 0.08) rgba(0, 0, 0, 0.08) #fff !important;
+}
+
+.default_btn:disabled {
+	background-color: gray;
+}
+
+;
+.navbar {
+	content: none !important;
+}
+
+.container-fluid:before, .container-fluid:after, .container-fluid {
+	content: none !important;
+}
+
+/* 장성우 */
+.non_deco {
+	text-decoration: none !important;
+}
+
+.login_form_width {
+	width: 336px;
+	margin: 0 auto;
+	padding-top: 100px;
+}
+
+.signup_form_width {
+	width: 600px;
+	margin: 0 auto;
+	padding-top: 50px;
+}
+
+.reserve_detail {
+	width: 1024px;
+	margin: 30px auto 0 auto;
+}
+
+.reserve_top-img {
+	width: 490px;
+}
+
+.address, .user_profile, .comment, .reserve_name {
+	color: rgba(19, 19, 19, 0.56);
+}
+
+.event-bg {
+	background: linear-gradient(to right, #d84f00c4 0%, #ff004ccb 100%);
+}
+
+.reserve_room {
+	width: 1024px;
+	height: 275px;
+	overflow: hidden;
+	position: relative;
+	margin: 12px 0 12px 0;
+	padding: 23px 24px 24px 424px;
+	border: 1px solid rgba(0, 0, 0, 0.08);
+	border-radius: 4px;
+}
+
+.active {
+	color: #ffc107 !important;
+	font-weight: bold;
+}
+
+.reserve_pic_view {
+	display: inline-block;
+	position: absolute;
+	top: 23px;
+	left: 23px;
+	width: 376px;
+	height: 226px;
+}
+
+.reserve_room_title {
+	display: block;
+	height: 64px;
+	padding: 0;
+	font-size: 30px;
+	font-weight: bold;
+	line-height: 1;
+}
+
+.reserve_room_btn {
+	width: 100%;
+	height: 48px;
+	margin-top: 20px;
+}
+
+.reserve_room_price {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+	padding-bottom: 10px;
+}
+
+.form-check-input:checked {
+	background-color: #ffc107;
+}
+
+.reserve {
+	background: rgba(235, 235, 235, 0.507);
+	margin-top: 39px;
+	font-size: 16px;
+	color: rgba(0, 0, 0, 0.87);
+}
+
+.reserve_body {
+	margin: 39px 24px 0 24px;
+	padding: 0 0 31px 0;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.reserve_left {
+	width: 564px !important;
+	margin: 40px 88px 0 0;
+}
+
+.reserve_name {
+	font-size: 20px;
+}
+
+.reserve_info {
+	font-size: 18px;
+	padding-bottom: 10px;
+}
+
+.form-check-input:checked {
+	background-color: #ffc107 !important;
+	border-color: #ffc107 !important;
+}
+
+.detail_checkin_1 {
+	border: 0;
+	background-color: #ffffff;
+	margin-top: 6px;
+	padding-left: 12px;
+	padding-right: 12px;
+	height: 48px;
+	width: 100%;
+	font-size: 20px;
+	text-align: center;
+	color: black;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	flex-wrap: wrap;
+}
+
+.reserveMember_room {
+	height: 275px;
+	overflow: hidden;
+	position: relative;
+	margin: 12px 0 12px 0;
+	padding: 23px 24px 24px 424px;
+	border: 1px solid rgba(0, 0, 0, 0.08);
+	border-radius: 4px;
+}
+
+.reserveMember_pic_view {
+	display: inline-block;
+	position: absolute;
+	top: 23px;
+	left: 23px;
+	width: 376px;
+	height: 226px;
+}
+
+.reserveMember_pic {
+	width: 376px;
+	height: 226px;
+	object-fit: cover;
+}
+
+.reserveMember_room_title {
+	color:black;
+	display: block;
+	padding: 0;
+	font-size: 24px;
+	font-weight: bold;
+	text-align: center;
+	line-height: 1;
+}
+
+.reserveMember_room_name {
+	color:black;
+	display: block;
+	padding: 0;
+	font-size: 22px;
+	margin-top: 10px; 
+	font-weight : normal;
+	text-align: center;
+	line-height: 1;
+	font-weight: normal;
+}
+.reserveMember_room_date {
+	color:black;
+	display: block;
+	padding: 0;
+	font-size: 16px;
+	margin-top: 5px; 
+	font-weight : normal;
+	text-align: center;
+	line-height: 1;
+	font-weight: normal;
+}
+.center_box{
+	text-align:center;
+	margin:0 auto;
+}
+.reserveMember_room_btn {
+	width: 160px;
+	height: 40px;
+	color:white;
+	font-size:16px;
+	font-weight:bold;
+	margin-top: 26px;
+}
+
+.reserveMember_room_price {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+	padding-bottom: 10px;
+}
+
+.bu_review_box{
+	margin-left: 6px;
+}
+.bu_review_star{
+	font-size: 1.3em; /* 이모지 크기 */
+	color: transparent; /* 기존 이모지 컬러 제거 */
+	text-shadow: 0 0 0 #ffc107; /* 새 이모지 색상 부여 */
+}
+.bu_review_avg{
+	font-size:23px;
+	font-weight:bold;
+	color: black;
+}
+.bu_review_avg_sub{
+	font-size:16px;
+	color: rgba(19, 19, 19, 0.56);
+	margin-right: 30px;
+}
+.bu_review_count{
+	font-size:16px;
+	color: rgba(19, 19, 19, 0.56);
+}
+.review_star{
+	font-size: 1em; /* 이모지 크기 */
+	color: transparent; /* 기존 이모지 컬러 제거 */
+	text-shadow: 0 0 0 #ffc107; /* 새 이모지 색상 부여 */
+}
+
+.review_email {
+	letter-spacing:1px;
+	font-size:13px;
+	font-weight:400;
+	color: #919191;
+}
+.review_content{
+	font-size:15px;
+	font-weight:600;
+	color: #616161;
+}
+
+/* 장성우 끝 */
+
+/* 조성필 inquiry css */
+.inquiry_table_writer {
+	width: 15%;
+}
+
+.inquiry_table_subject {
+	width: 65%;
+}
+
+.inquiry_table_date {
+	width: 20%;
+}
+
+#inquiry_table {
+	text-align: center;
+}
+
+/* roominfo css */
+.roominfo_div_box {
+	width: 500px;
+	margin: 10px auto;
+}
+
+/* inquiry css */
+.inquiry_table_writer {
+	width: 15%;
+}
+
+.inquiry_table_subject {
+	width: 65%;
+}
+
+.inquiry_table_date {
+	width: 20%;
+}
+
+.inquiry_table {
+	text-align: center;
+}
+
+/* room update / insert   css */
+#room_Update_multi_picture {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+}
+
+.room_Update_image {
+	display: block;
+	width: 200px;
+	height: 200px;
+}
+
+.room_Update_image_label {
+	position: relative;
+	bottom: 22px;
+	left: 5px;
+	color: white;
+	text-shadow: 2px 2px 2px black;
+}
+
+/* roomlist css */
+.roomlist_box {
+	position: relative;
+}
+
+.roomlist_bottom {
+	position: absolute;
+	bottom: 50px;
+	left: 60%;
+}
+
+.roomlist_main-img {
+	width: 80%;
+	height: 250px;
+}
+
+/* 조성필 끝 */
+
+/* 박상용 */
+.outer_border {
+	border: 3px solid;
+	border-color: #ffc107;
+}
+
+.main_first_box {
+	height: 500px;
+	background: #fff url(http://nstayidb.cafe24.com/arribada/main/mv01.jpg)
+		50% 100% no-repeat;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.main_twice_box {
+	border-radius: 8px;
+	padding: 10px 10px 10px 10px;
+	margin-bottom: 50px;
+	background-color: #ffffff;
+	box-shadow: 10px 10px 50px black;
+}
+
+.main_search_title {
+	font-size: 28px;
+	line-height: 32px;
+	margin: 0;
+}
+
+.main_search_all {
+	display: flex;
+}
+
+.main_checkinout {
+	position: relative;
+	display: inline-block;
+}
+
+.main_checkin_1 {
+	border: 0;
+	background-color: #ffffff;
+	padding-left: 12px;
+	padding-right: 12px;
+	height: 48px;
+	display: flex;
+	width: atuo;
+	font-size: 16px;
+	color: black;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+}
+
+.main_checkout_1 {
+	border-top: 0;
+	border-right: 0;
+	border-bottom: 0;
+	border-left: 1px solid #c8c8c8;
+	border-left-width: 1px;
+	background-color: #ffffff;
+	padding-left: 12px;
+	padding-right: 12px;
+	height: 48px;
+	display: flex;
+	width: auto;
+	font-size: 16px;
+	color: black;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+}
+
+.main_checkinout_span {
+	font-size: 12px;
+	font-weight: 700;
+	line-height: 14px;
+	display: block;
+}
+
+.main_checkinout_buttonbox {
+	display: flex;
+}
+
+.main_count_box {
+	position: relative;
+	margin-left: 8px;
+}
+
+.main_search_button_box {
+	display: flex;
+	margin-left: 8px;
+	width: auto;
+}
+
+.main_search_button {
+	background-color: #ffc107;
+	color: white;
+	font-size: 14px;
+	font-weight: bold;
+	border-radius: 0.25vh;
+	width: 100%;
+	border: none;
+	min-width: 112px;
+	cursor: pointer;
+}
+
+.main_search_text {
+	margin-left: 8px;
+	background-color: #ffffff;
+	border: none;
+	color: black;
+	width: 96%;
+	height: 100%;
+	padding-left: 20px;
+}
+
+.main_categorybox {
+	padding-top: 50px;
+	padding-bottom: 50px;
+	margin-top: 100px;
+	margin-bottom: 100px;
+	margin: auto;
+	width: 800px;
+}
+
+.main_categoryone {
+	border: 1px solid #c8c8c8;
+	margin: 0px 15px 0px 15px;
+	width: 370px;
+	height: 250px;
+	border-radius: 8px;
+	overflow: hidden;
+}
+
+.main_floor {
+	display: grid;
+	grid-template-columns: auto auto;
+	text-align: center;
+	margin-bottom: 50px;
+}
+
+.main_image_size {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.main_event_box {
+	display: flex;
+	justify-content: center;
+	margin-top: 100px;
+	margin-bottom: 200px;
+}
+
+.search_first_box {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.search_bottom_line {
+	margin-top: 100px;
+	margin-bottom: 200px;
+}
+
+.search_twice_box {
+	background: #ffffff;
+	border-radius: 8px;
+	padding: 16px;
+	margin-bottom: 10px;
+}
+
+.search_bottom_box {
+	display: flex;
+}
+
+.search_button_box {
+	display: flex;
+	justify-content: flex-start;
+}
+
+.search_filter_box {
+	width: 296px;
+	height: 100%;
+	margin-right: 25px;
+	border: solid;
+	padding: 20px;
+	border-width: 1px;
+	border-color: rgba(0, 0, 0, 0.08);
+	/* 따라오는 사이드바 (sticky) */
+	position: sticky;
+	top: 0;
+}
+
+.search_commit_button_size {
+	background-color: #ffc107;
+	border-top: none;
+	border-right: none;
+	border-bottom: none;
+	border-left-width: 1px;
+	border-left-color: gray;
+	color: white;
+	height: 40px;
+	width: 100%;
+	cursor: pointer;
+	font-weight: bold;
+	font-size: large;
+	padding-top: 5px;
+}
+
+.search_detail_ul {
+	list-style: none;
+	padding-left: 0px;
+	margin-top: 5px;
+}
+
+.search_select_box {
+	margin-top: 20px;
+}
+
+.search_label_font {
+	color: rgba(0, 0, 0, 0.56);
+	font-size: 16px;
+}
+
+.search_text {
+	margin-top: 8px;
+	border: none;
+	color: black;
+	height: 30px;
+	padding-left: 13px;
+}
+
+.search_room_title {
+	display: block;
+	height: 106px;
+	padding: 0;
+	font-size: 30px;
+	font-weight: bold;
+	line-height: 1;
+}
+/* 박상용 끝 */

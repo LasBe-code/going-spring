@@ -2,36 +2,59 @@ package controller;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
-import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import model.Business;
 import model.Member;
 import model.Picture;
+//import util.Naver_Sens_V2;
 import service.MemberDao;
-import util.Naver_Sens_V2;
 
-public class MemberController extends MskimRequestMapping {
+
+@Controller
+@RequestMapping("/member/")
+public class MemberController{
+	
+	HttpServletRequest request;
+	Model model;
+	HttpSession session;
+	
+	@Autowired
+	MemberDao md;
+	
+	@ModelAttribute
+	void init(HttpServletRequest request, Model model) {
+		this.request = request;
+		this.model = model;
+		this.session = request.getSession();
+	}
+	
+	
 	@RequestMapping("logout")
-	public String logout(HttpServletRequest request, HttpServletResponse response) {
-		HttpSession session = request.getSession();
-		session.invalidate(); // 세션과 관련된 모든 데이터 날리는 메소드
-		request.setAttribute("msg", "로그아웃 하였습니다.");
-		request.setAttribute("url", request.getContextPath() + "/search/main");
+	public String logout() {
 
-		return "/view/alert.jsp";
+		session.invalidate(); // 세션과 관련된 모든 데이터 날리는 메소드
+		model.addAttribute("msg", "로그아웃 하였습니다.");
+		model.addAttribute("url", request.getContextPath() + "/search/main");
+		return "/view/alert";
 	}
 
 	@RequestMapping("loginForm")
-	public String loginForm(HttpServletRequest request, HttpServletResponse response) {
-		return "/view/member/loginForm.jsp";
+	public String loginForm() {
+		return "/view/member/loginForm";
 	}
 
 	@RequestMapping("loginPro")
-	public String loginPro(HttpServletRequest request, HttpServletResponse response) {
+	public String loginPro() {
 		try {
 			request.setCharacterEncoding("utf-8");
 		} catch (UnsupportedEncodingException e) {
@@ -40,7 +63,6 @@ public class MemberController extends MskimRequestMapping {
 		}
 		String email = request.getParameter("email");
 		String pass = request.getParameter("password");
-		MemberDao md = new MemberDao();
 
 		Member m = md.selectMemberOne(email);
 
@@ -56,25 +78,24 @@ public class MemberController extends MskimRequestMapping {
 				msg = "비밀번호를 확인하세요.";
 			}
 		}
-		request.setAttribute("msg", msg);
-		request.setAttribute("url", url);
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
 
-		return "/view/alert.jsp";
+		return "/view/alert";
 	}
 
 	@RequestMapping("signupForm")
-	public String signupForm(HttpServletRequest request, HttpServletResponse response) {
-		return "/view/member/signupForm.jsp";
+	public String signupForm() {
+		return "/view/member/signupForm";
 	}
 
 	@RequestMapping("signupPro")
-	public String signupPro(HttpServletRequest request, HttpServletResponse response) {
+	public String signupPro() {
 		try {
 			request.setCharacterEncoding("utf-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		MemberDao md = new MemberDao();
 		String name = request.getParameter("name");
 		int num = md.insertMember(request);
 
@@ -82,26 +103,26 @@ public class MemberController extends MskimRequestMapping {
 		String url = "";
 		if (num > 0) {
 			msg = name + "님의 가입이 완료되었습니다.";
-			url = request.getContextPath() + "/view/member/loginForm.jsp";
+			url = request.getContextPath() + "/view/member/loginForm";
 		} else {
 			msg = "회원가입에 실패하였습니다.";
-			url = request.getContextPath() + "/view/member/loginForm.jsp";
+			url = request.getContextPath() + "/view/member/loginForm";
 		}
 
-		request.setAttribute("msg", msg);
-		request.setAttribute("url", url);
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
 		request.getSession().invalidate();
-		return "/view/alert.jsp";
+		return "/view/alert";
 	}
 
 	@RequestMapping("buLoginForm")
-	public String buLoginForm(HttpServletRequest request, HttpServletResponse response) {
+	public String buLoginForm() {
 
-		return "/view/member/buLoginForm.jsp";
+		return "/view/member/buLoginForm";
 	}
 
 	@RequestMapping("buLoginPro")
-	public String buLoginPro(HttpServletRequest request, HttpServletResponse response) {
+	public String buLoginPro() {
 		try {
 			request.setCharacterEncoding("utf-8");
 		} catch (UnsupportedEncodingException e) {
@@ -110,7 +131,6 @@ public class MemberController extends MskimRequestMapping {
 		}
 		String email = request.getParameter("bu_email");
 		String pass = request.getParameter("bu_password");
-		MemberDao md = new MemberDao();
 
 		Business bu = md.selectBusinessOne(email);
 
@@ -126,26 +146,25 @@ public class MemberController extends MskimRequestMapping {
 				msg = "비밀번호를 확인하세요.";
 			}
 		}
-		request.setAttribute("msg", msg);
-		request.setAttribute("url", url);
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
 
-		return "/view/alert.jsp";
+		return "/view/alert";
 	}
 
 	@RequestMapping("buSignupForm")
-	public String buSignupForm(HttpServletRequest request, HttpServletResponse response) {
+	public String buSignupForm() {
 
-		return "/view/member/buSignupForm.jsp";
+		return "/view/member/buSignupForm";
 	}
 
 	@RequestMapping("buSignupPro")
-	public String buSignupPro(HttpServletRequest request, HttpServletResponse response) {
+	public String buSignupPro() {
 		try {
 			request.setCharacterEncoding("utf-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		MemberDao md = new MemberDao();
 		String name = request.getParameter("bu_name");
 		int num = md.insertBusiness(request);
 
@@ -153,48 +172,47 @@ public class MemberController extends MskimRequestMapping {
 		String url = "";
 		if (num > 0) {
 			msg = name + "님의 가입이 완료되었습니다.";
-			url = request.getContextPath() + "/view/member/buLoginForm.jsp";
+			url = request.getContextPath() + "/view/member/buLoginForm";
 		} else {
 			msg = "회원가입에 실패하였습니다.";
-			url = request.getContextPath() + "/view/member/buLoginForm.jsp";
+			url = request.getContextPath() + "/view/member/buLoginForm";
 		}
 
-		request.setAttribute("msg", msg);
-		request.setAttribute("url", url);
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
 
-		return "/view/alert.jsp";
+		return "/view/alert";
 	}
 
-	@RequestMapping("phoneAuth")
-	public String phoneAuth(HttpServletRequest request, HttpServletResponse response) {
-		HttpSession session = request.getSession();
-
-		try {
-			request.setCharacterEncoding("utf-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-
-		Naver_Sens_V2 ns = new Naver_Sens_V2();
-		String tel = request.getParameter("tel");
-		Random rand = new Random();
-		String numStr = "";
-		for (int i = 0; i < 6; i++) {
-			String ran = Integer.toString(rand.nextInt(10));
-			numStr += ran;
-		}
-		System.out.println("회원가입 문자 인증 => " + numStr);
-
-		ns.send_msg(tel, numStr);
-		request.setAttribute("result", numStr);
-		session.setAttribute("rand", numStr);
-
-		return "/common/phoneAuth.jsp";
-	}
+//	@RequestMapping("phoneAuth")
+//	public String phoneAuth() {
+//		HttpSession session = request.getSession();
+//
+//		try {
+//			request.setCharacterEncoding("utf-8");
+//		} catch (UnsupportedEncodingException e) {
+//			e.printStackTrace();
+//		}
+//
+//		Naver_Sens_V2 ns = new Naver_Sens_V2();
+//		String tel = request.getParameter("tel");
+//		Random rand = new Random();
+//		String numStr = "";
+//		for (int i = 0; i < 6; i++) {
+//			String ran = Integer.toString(rand.nextInt(10));
+//			numStr += ran;
+//		}
+//		System.out.println("회원가입 문자 인증 => " + numStr);
+//
+//		ns.send_msg(tel, numStr);
+//		model.addAttribute("result", numStr);
+//		session.setAttribute("rand", numStr);
+//
+//		return "/common/phoneAuth";
+//	}
 
 	@RequestMapping("phoneAuthOk")
-	public String phoneAuthOk(HttpServletRequest request, HttpServletResponse response) {
-		HttpSession session = request.getSession();
+	public String phoneAuthOk() {
 		try {
 			request.setCharacterEncoding("utf-8");
 		} catch (UnsupportedEncodingException e) {
@@ -207,17 +225,16 @@ public class MemberController extends MskimRequestMapping {
 		System.out.println(rand + " : " + code);
 
 		if (rand.equals(code)) {
-			request.setAttribute("result", false);
+			model.addAttribute("result", false);
 		} else {
-			request.setAttribute("result", true);
+			model.addAttribute("result", true);
 		}
 
-		return "/common/phoneAuth.jsp";
+		return "/common/phoneAuth";
 	}
 
 	@RequestMapping("memberInfo")
-	public String memberInfo(HttpServletRequest request, HttpServletResponse response) {
-		HttpSession session = request.getSession();
+	public String memberInfo() {
 		try {
 			request.setCharacterEncoding("utf-8");
 		} catch (UnsupportedEncodingException e) {
@@ -228,22 +245,20 @@ public class MemberController extends MskimRequestMapping {
 
 		if (email != null) {
 
-			MemberDao md = new MemberDao();
 
 			Member m = md.selectMemberOne(email);
 
-			request.setAttribute("mem", m);
+			model.addAttribute("mem", m);
 
 		} else {
 			return "/member/loginForm";
 		}
 
-		return "/view/member/memberInfo.jsp";
+		return "/view/member/memberInfo";
 	}
 
 	@RequestMapping("kakaoLogin")
-	public String kakaoLogin(HttpServletRequest request, HttpServletResponse response) {
-		HttpSession session = request.getSession();
+	public String kakaoLogin() {
 		try {
 			request.setCharacterEncoding("utf-8");
 		} catch (UnsupportedEncodingException e) {
@@ -251,7 +266,6 @@ public class MemberController extends MskimRequestMapping {
 			e.printStackTrace();
 		}
 		String id = request.getParameter("id");
-		MemberDao md = new MemberDao();
 
 		Member m = md.selectMemberOne(id);
 
@@ -269,44 +283,42 @@ public class MemberController extends MskimRequestMapping {
 			session.setAttribute("id", id);
 			session.setAttribute("name", name);
 		}
-		request.setAttribute("msg", msg);
-		request.setAttribute("url", url);
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
 
-		return "/view/alert.jsp";
+		return "/view/alert";
 	}
 
 	@RequestMapping("kakaoSignup")
-	public String kakaoSignup(HttpServletRequest request, HttpServletResponse response) {
-		return "/view/member/kakaoSignup.jsp";
+	public String kakaoSignup() {
+		return "/view/member/kakaoSignup";
 	}
 
 	@RequestMapping("readId")
-	public String readId(HttpServletRequest request, HttpServletResponse response) {
+	public String readId() {
 		String email = request.getParameter("email");
 		String bu_email = request.getParameter("bu_email");
 		String chk = "true";
-		MemberDao md = new MemberDao();
 
 		System.out.println(bu_email);
 
 		if (email != null) {
 			Member m = md.selectMemberOne(email);
 			chk = m == null ? "false" : "true";
-			request.setAttribute("result", chk);
+			model.addAttribute("result", chk);
 		}
 		if (bu_email != null) {
 			Business b = md.selectBusinessOne(bu_email);
 			chk = b == null ? "false" : "true";
-			request.setAttribute("result", chk);
+			model.addAttribute("result", chk);
 		}
 
-		return "/common/phoneAuth.jsp";
+		return "/common/phoneAuth";
 	}
 
 	@RequestMapping("buInfo")
-	public String buInfo(HttpServletRequest request, HttpServletResponse response) {
+	public String buInfo() {
 
-		HttpSession session = request.getSession();
 		try {
 			request.setCharacterEncoding("utf-8");
 		} catch (UnsupportedEncodingException e) {
@@ -316,27 +328,23 @@ public class MemberController extends MskimRequestMapping {
 		String bu_email = (String) session.getAttribute("bu_email");
 		if (bu_email != null) {
 
-			MemberDao md = new MemberDao();
 
 			Business b = md.selectBusinessOne(bu_email);
 
-			request.setAttribute("mem", b);
+			model.addAttribute("mem", b);
 
 		} else {
 			return "/member/buLoginForm";
 		}
-		return "/view/member/buInfo.jsp";
+		return "/view/member/buInfo";
 	}
 
 	@RequestMapping("buUpdateForm")
-	public String buUpdateForm(HttpServletRequest request, HttpServletResponse response) {
-
-		HttpSession session = request.getSession();
+	public String buUpdateForm() {
 
 		String bu_email = (String) session.getAttribute("bu_email");
 		if (bu_email != null) {
 
-			MemberDao md = new MemberDao();
 
 			Business b = md.selectBusinessOne(bu_email);
 			int pic_num = b.getPic_num();
@@ -346,28 +354,26 @@ public class MemberController extends MskimRequestMapping {
 			for(Picture p : pist) {
 				location += p.getLocation()+"\n";
 			}
-			request.setAttribute("pic_num", pic_num);
-			request.setAttribute("location", location);
-			request.setAttribute("mem", b);
+			model.addAttribute("pic_num", pic_num);
+			model.addAttribute("location", location);
+			model.addAttribute("mem", b);
 
 		} else {
 			return "/member/buLoginForm";
 		}
 
-		return "/view/member/buUpdateForm.jsp";
+		return "/view/member/buUpdateForm";
 	}
 
 	@RequestMapping("buUpdatePro")
-	public String buUpdatePro(HttpServletRequest request, HttpServletResponse response) {
+	public String buUpdatePro() {
 
-		HttpSession session = request.getSession();
 		try {
 			request.setCharacterEncoding("utf-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 		int pic_num = Integer.parseInt(request.getParameter("pic_num"));
-		MemberDao md = new MemberDao();
 		String name = request.getParameter("bu_name");
 		
 		int num = md.updateBusiness(request);
@@ -387,12 +393,23 @@ public class MemberController extends MskimRequestMapping {
 			url = request.getContextPath() + "/member/buLoginForm";
 		}
 
-		request.setAttribute("msg", msg);
-		request.setAttribute("url", url);
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
 
 		
-		return "/view/alert.jsp";
+		return "/view/alert";
 
 	}
-
+	
+	@RequestMapping("review")
+	public String review() {
+		
+		return "/common/review";
+	}
+	
+	@RequestMapping("reviewPro")
+	public String reviewPro() {
+		
+		return "/view/alert";
+	}
 }

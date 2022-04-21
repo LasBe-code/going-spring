@@ -120,7 +120,7 @@ button:disabled {
 	
 	    <div class="reserve_body">
 	      <strong class="reserve_name" style="color: black;">총 결제 금액</strong> <br>
-	      <strong class="reserve_name" style="color: #ffc107; font-size: 30px;">${booking.price}</strong><strong class="reserve_name" style="color: black; font-size: 30px;"> 원</strong> <br>
+	      <strong class="reserve_name" style="color: #ffc107; font-size: 30px;"><fmt:formatNumber value="${booking.price}" pattern="#,###" /></strong><strong class="reserve_name" style="color: black; font-size: 30px;"> 원</strong> <br>
 	    </div>
 	    <button class="btn" type="button" onclick="requestPay()" id="btn" disabled
 	    	style="width: 100%; height: 56px; background: #ffc107; color: white; border: none;">결제하기</button>

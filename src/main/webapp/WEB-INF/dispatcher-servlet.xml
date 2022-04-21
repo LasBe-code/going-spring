@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:mvc="http://www.springframework.org/schema/mvc"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context.xsd
+			http://www.springframework.org/schema/mvc
+			http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+			
+	<mvc:annotation-driven/>
+	<context:component-scan base-package="controller, service"/>
+	<context:annotation-config/>
+	<mvc:view-controller path="/index" view-name="index"/>
+	<mvc:resources location="/resources/" mapping="/resources/**" />
+	
+	<bean id="viewResolver"
+		  class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+	
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="utf-8"/>
+	</bean>
+	
+	<!-- 
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+	destroy-method="close">
+	
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver"/>
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+		<property name="username" value="kic"/>
+		<property name="password" value="1111"/>
+	</bean>
+	
+	<bean class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSession"></constructor-arg>
+	</bean>
+	
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configlocation" value="classpath:myBatis/mybatis-config.xml"></property>
+		<property name="dataSource" ref=""></property>
+	</bean>
+	 -->
+	<!-- 
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>message.error</value>
+			</list>
+		</property>
+		<property name="defaultEncoding" value="UTF-8"/>
+	</bean>
+	
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/acl/**"/>
+			<bean class="service.AdminInterceptor" />
+		</mvc:interceptor>
+		<bean class="service.MeasuringInterceptor"/>
+		<mvc:interceptor>
+			<mvc:mapping path="/members/m2"/>
+			<mvc:mapping path="/files/**"/>
+			<ref bean="login"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+	<bean id="login" class="service.LoginInterceptor"/> -->
+	
+	
+</beans>

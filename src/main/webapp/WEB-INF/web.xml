@@ -3,55 +3,35 @@
 	xmlns="http://java.sun.com/xml/ns/javaee"
 	xsi:schemaLocation="http://Java.sun.com/xml/ns/javaee 
 		http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-	id="com.going" version="3.0">
-
-	<display-name>Going</display-name>
-
-	<jsp-config>
-		<jsp-property-group>
-			<url-pattern>/view/*</url-pattern>
-			<include-prelude>/common/head.jsp</include-prelude>
-		</jsp-property-group>
-	</jsp-config>
-
+	id="springMVC" version="3.0">
+	
+	<display-name>Archetype Created Web Application</display-name>
+	
+ 									<!-- xml일때 서블릿방식 -->
 	<servlet>
-		<servlet-name>memberController</servlet-name>
-		<servlet-class>controller.MemberController</servlet-class>
+		<servlet-name>dispatcher</servlet-name>	<!-- dispatcher1-servlet.xml -->
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+	
 	<servlet-mapping>
-		<servlet-name>memberController</servlet-name>
-		<url-pattern>/member/*</url-pattern>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	
 
-	<servlet>
-		<servlet-name>roomController</servlet-name>
-		<servlet-class>controller.RoomController</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>roomController</servlet-name>
-		<url-pattern>/room/*</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>searchController</servlet-name>
-		<servlet-class>controller.SearchController</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>searchController</servlet-name>
-		<url-pattern>/search/*</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>reservationController</servlet-name>
-		<servlet-class>controller.ReservationController</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>reservationController</servlet-name>
-		<url-pattern>/reservation/*</url-pattern>
-	</servlet-mapping>
-
+		<!--한글 필터 적용  -->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
 </web-app>

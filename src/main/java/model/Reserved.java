@@ -1,5 +1,7 @@
 package model;
 
+import org.springframework.stereotype.Component;
+
 public class Reserved {
 	private int ro_num;
 	private String re_date;

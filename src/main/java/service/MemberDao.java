@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Component;
 
 import model.Business;
 import model.Member;
@@ -14,7 +15,8 @@ import model.Picture;
 import mybatis.MemberMapperAnno;
 import util.MybatisConnection;
 
-public class MemberDao {
+@Component
+public class MemberDao{
 	private Map<String, Object> map = new HashMap<>();
 	
 	public int insertMember(HttpServletRequest request) {
