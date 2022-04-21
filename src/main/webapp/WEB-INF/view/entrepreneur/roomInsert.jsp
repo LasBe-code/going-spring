@@ -20,25 +20,25 @@
   <form action="${pageContext.request.contextPath}/room/roomInsertPro" enctype="multipart/form-data" method="post">
     <div class="mb-3 mt-3">
       <label>객실이름</label>
-      <input type="text" class="form-control" id="subject" name="roName">
+      <input type="text" class="form-control" id="subject" name="ro_name">
     </div>
     <div class="mb-3">
       <label>가격</label>
-      <input type="text" class="form-control" id="cal" name="roPrice">
+      <input type="text" class="form-control" id="cal" name="ro_price">
     </div>
 	    <div style="width: 200px; float: left;">
 	    	<label>체크인 시간</label>
-	    	<input type="time" class="form-control" id="checkIn" name="checkIn">
+	    	<input type="time" class="form-control" id="checkIn" name="checkin">
 	    </div>
 	    <div style="width: 200px; float:left; margin-bottom: 20px; margin-left: 20px;">
 	    	<label>체크아웃 시간</label>
-	    	<input type="time" class="form-control" id="checkOut" name="checkOut">
+	    	<input type="time" class="form-control" id="checkOut" name="checkout">
     	</div>
     <div style="clear:both;"></div>
     
     <div class="mb-3" style="margin-top: 20px;">
     <label>객실이용인원</label>
-    <select id="people" name="roCount">
+    <select id="people" name="ro_count">
     	<option>1</option>
     	<option>2</option>
     	<option>3</option>
@@ -48,14 +48,13 @@
 	<div class="mb-3" >
     	<label style=" margin-bottom: 10px;">객실기본정보&nbsp;&nbsp;&nbsp;</label>
     	<span id="byteInfo" style="display: inline;">0</span> /3900bytes
-   		<textarea rows="10" cols="100" name="roomInfo" onKeyUp="javascript:fnChkByte(this,'3900')"></textarea>
+   		<textarea rows="10" cols="100" name="ro_info" onKeyUp="javascript:fnChkByte(this,'3900')"></textarea>
     </div>
 
     <label style=" margin-bottom: 10px;">객실사진등록&nbsp;&nbsp;&nbsp;</label>
-    <textarea rows="10" cols="100" name="picLocation"></textarea>
+    <textarea rows="10" cols="100" name="location"></textarea>
     <button type="submit" class="default_btn rounded mt-1" style="width:100px;margin:auto; display:block;">등록</button>
   </form>
-
 </div>
 <script type="text/javascript">
 

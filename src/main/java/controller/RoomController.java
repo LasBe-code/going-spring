@@ -68,8 +68,8 @@ public class RoomController{
 			picList = rd.selectPic(room.getPic_num());
 			map.put(room.getRo_num(), picList.get(0).getLocation().trim());
 		}
-		request.setAttribute("picMap", map);
-		request.setAttribute("list", list);
+		model.addAttribute("picMap", map);
+		model.addAttribute("list", list);
 			
 		return "/view/entrepreneur/roomlist";
 	}
@@ -92,35 +92,9 @@ public class RoomController{
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		
-		
-		
 		  
 		String bu_email =(String)session.getAttribute("bu_email");
 		 
-		
-		String path = request.getServletContext().getRealPath("/") + "/roomimgupload/";
-		
-		MultipartFile multipartFile = room.getF();
-		
-		if(!multipartFile.isEmpty()) {
-			File file = new File(path, multipartFile.getOriginalFilename());
-			
-			try {
-				multipartFile.transferTo(file);
-				room.setLocation(multipartFile.getOriginalFilename());
-			} catch (IllegalStateException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		else {
-			room.setLocation("");
-		}
-		
 		Picture p = new Picture();
 		
 		int roomNum = rd.nextRoNum();
@@ -137,8 +111,6 @@ public class RoomController{
 			rd.insertPicture(p);
 		}
 		
-		
-		
 		// room객체에 저장된 값을 room table에 저장
 		int rnum = rd.insertRoom(room);
 		
@@ -152,9 +124,8 @@ public class RoomController{
 			msg = "객실 등록이 완료되었습니다.";
 			url = request.getContextPath() + "/room/roomlist?bu_email="+bu_email;
 		}
-		request.setAttribute("msg", msg);
-		request.setAttribute("url", url);
-
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
 		return "/view/alert";
 		
 	}
@@ -177,11 +148,11 @@ public class RoomController{
 		
 		String info = room.getRo_info().replace("\r\n", "<br/>");
 		
-		request.setAttribute("p_list", p_list);
-		request.setAttribute("room", room);
-		request.setAttribute("ro_num", ro_num);
-		request.setAttribute("pic_num", room.getPic_num());
-		request.setAttribute("info", info);
+		model.addAttribute("p_list", p_list);
+		model.addAttribute("room", room);
+		model.addAttribute("ro_num", ro_num);
+		model.addAttribute("pic_num", room.getPic_num());
+		model.addAttribute("info", info);
 		
 		return "/view/entrepreneur/roominfo";
 	}
@@ -202,10 +173,10 @@ public class RoomController{
 			pic += p.getLocation()+"\n";
 		}
 		
-		request.setAttribute("pic_num", pic_num);
-		request.setAttribute("room", room);
-		request.setAttribute("ro_num", ro_num);
-		request.setAttribute("pic", pic);
+		model.addAttribute("pic_num", pic_num);
+		model.addAttribute("room", room);
+		model.addAttribute("ro_num", ro_num);
+		model.addAttribute("pic", pic);
 		
 		return "/view/entrepreneur/roomUpdate";
 	}
@@ -274,8 +245,8 @@ public class RoomController{
 			msg = "객실 수정이 완료되었습니다.";
 			url = request.getContextPath() + "/room/roomlist?bu_email="+bu_email;
 		}
-		request.setAttribute("msg", msg);
-		request.setAttribute("url", url);
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
 		
 		
 		return "/view/alert";
@@ -283,28 +254,26 @@ public class RoomController{
 	
 	
 	@RequestMapping("roomDelete")
-	public String roomDelete() {
+	public String roomDelete(Room room) {
 		
-		String ro_num = request.getParameter("ro_num");
-		
-		request.setAttribute("ro_num", ro_num);
+		int ro_num = room.getRo_num();
+		model.addAttribute("ro_num", ro_num);
 		
 		return "/view/entrepreneur/roomDelete";
 	}
 	
 	
 	@RequestMapping("roomDeletePro")
-	public String roomDeletePro() {
+	public String roomDeletePro(Room r, Business bu) {
 		
 		
 		
 		  
 		String bu_email =(String)session.getAttribute("bu_email");
-		 
+		System.out.println("bu_email : "+bu_email);
 		
 		String pwd = request.getParameter("pwd");
 		String ro_num = request.getParameter("ro_num");
-		
 		
 		// 사업자 비밀번호 찾기
 		Business business = rd.selectBu(bu_email);
@@ -313,7 +282,7 @@ public class RoomController{
 		String msg = "객실 삭제시 오류가 발생했습니다.";
 		String url = request.getContextPath() + "/room/roomDelete?ro_num="+ro_num;
 		
-		if(pwd == null || pwd.equals("") || !pwd.equals(business.getBu_password())) {
+		if(pwd == null || "".equals(pwd) || !pwd.equals(business.getBu_password())) {
 			msg = "비밀번호가 틀렸습니다.";
 		}else {
 			// 비밀번호가 일치하면 객실 삭제
@@ -324,8 +293,8 @@ public class RoomController{
 			msg = "객실 삭제가 완료되었습니다.";
 			url = request.getContextPath() + "/room/roomlist?bu_email="+bu_email;
 		}
-		request.setAttribute("msg", msg);
-		request.setAttribute("url", url);
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
 		
 		
 		return "/view/alert";
@@ -406,8 +375,8 @@ public class RoomController{
 			else {
 				String msg = "예약완료, 결제취소, 이용완료 , 입실완료중 하나를 입력하세요.";
 				String url = request.getContextPath()+"/room/reservation";
-				request.setAttribute("msg", msg);
-				request.setAttribute("url", url);
+				model.addAttribute("msg", msg);
+				model.addAttribute("url", url);
 				return "/view/alert";
 			}
 			bk = rd.searchStatus(map);
@@ -434,15 +403,15 @@ public class RoomController{
 			endNum = maxNum;
 		}
 		
-		request.setAttribute("search", search);
-		request.setAttribute("searchName", searchName);
-		request.setAttribute("bk", bk);
-		request.setAttribute("boardNum", boardNum);
-		request.setAttribute("bottomLine", bottomLine);
-		request.setAttribute("startNum", startNum);
-		request.setAttribute("endNum", endNum);
-		request.setAttribute("maxNum", maxNum);
-		request.setAttribute("pageInt", pageInt);
+		model.addAttribute("search", search);
+		model.addAttribute("searchName", searchName);
+		model.addAttribute("bk", bk);
+		model.addAttribute("boardNum", boardNum);
+		model.addAttribute("bottomLine", bottomLine);
+		model.addAttribute("startNum", startNum);
+		model.addAttribute("endNum", endNum);
+		model.addAttribute("maxNum", maxNum);
+		model.addAttribute("pageInt", pageInt);
 		
 		return "/view/entrepreneur/reservation";
 	}
@@ -475,7 +444,7 @@ public class RoomController{
 			}
 		}
 		
-		request.setAttribute("result", result);
+		model.addAttribute("result", result);
 
 		return "/view/entrepreneur/sales";
 	}
@@ -510,8 +479,8 @@ public class RoomController{
 			}
 		}
 		
-		request.setAttribute("month", month);
-		request.setAttribute("result", result);
+		model.addAttribute("month", month);
+		model.addAttribute("result", result);
 		
 		return "/view/entrepreneur/areaSales";
 	}
@@ -565,15 +534,15 @@ public class RoomController{
 		bu_email += "]";
 		
 		
-		request.setAttribute("resultAddress", resultAddress);
-		request.setAttribute("roomTitle", roomTitle);
-		request.setAttribute("roomPic", roomPic);
-		request.setAttribute("bu_email", bu_email);
-		request.setAttribute("bu_id", bu_id);
-		request.setAttribute("ro_count", ro_count);
-		request.setAttribute("checkin", checkin);
-		request.setAttribute("checkout", checkout);
-		request.setAttribute("bu_address", bu_address);
+		model.addAttribute("resultAddress", resultAddress);
+		model.addAttribute("roomTitle", roomTitle);
+		model.addAttribute("roomPic", roomPic);
+		model.addAttribute("bu_email", bu_email);
+		model.addAttribute("bu_id", bu_id);
+		model.addAttribute("ro_count", ro_count);
+		model.addAttribute("checkin", checkin);
+		model.addAttribute("checkout", checkout);
+		model.addAttribute("bu_address", bu_address);
 		return "/view/entrepreneur/map";
 	}
 	
@@ -596,8 +565,8 @@ public class RoomController{
 		
 		
 		
-		request.setAttribute("notCheckin", notCheckin);
-		request.setAttribute("checkinOk", checkinOk);
+		model.addAttribute("notCheckin", notCheckin);
+		model.addAttribute("checkinOk", checkinOk);
 		
 		return "/view/entrepreneur/todayCheckin";
 	}
@@ -646,8 +615,8 @@ public class RoomController{
 		System.out.println("notCheckOut = "+notCheckOut);
 		System.out.println("checkOutOk = "+checkOutOk);
 		
-		request.setAttribute("notCheckOut", notCheckOut);
-		request.setAttribute("checkOutOk", checkOutOk);
+		model.addAttribute("notCheckOut", notCheckOut);
+		model.addAttribute("checkOutOk", checkOutOk);
 		
 		return "/view/entrepreneur/todayCheckOut";
 	}

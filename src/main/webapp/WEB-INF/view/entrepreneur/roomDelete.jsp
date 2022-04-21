@@ -14,7 +14,7 @@
 <form action="${pageContext.request.contextPath}/room/roomDeletePro" method="post">
 	<div class="mb-3 mt-3">
 	      <label>비밀번호</label>
-	      <input type="text" class="form-control"  name="pwd">
+	      <input type="text" class="form-control"  name="pass">
 	      <input type="hidden" name = "ro_num" value="${ro_num}">
 	</div>
 	<input type="submit" class="default_btn rounded mt-1" value="객실삭제" onclick="location.href='${pageContext.request.contextPath}/room/roomDeletePro?ro_num=${ro_num}'">

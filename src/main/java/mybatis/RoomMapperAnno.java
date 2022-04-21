@@ -65,7 +65,7 @@ public interface RoomMapperAnno {
 	int deleteRoom(Map<String, Object> map);
 
 //	객실 삭제시 사업자 비밀번호 확인용
-	@Select("select b.bu_password from business b where b.bu_email = #{bu_email} ")
+	@Select("select bu_password from business where bu_email = #{bu_email} ")
 	Business selectBu(String bu_email);
 
 //	검색 안했을때 예약 리스트 테이블의 예약정보

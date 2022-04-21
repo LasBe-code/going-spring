@@ -16,7 +16,6 @@ public class Room {
 	private String overlap;
 	private MultipartFile f;
 	
-	
 	public MultipartFile getF() {
 		return f;
 	}
