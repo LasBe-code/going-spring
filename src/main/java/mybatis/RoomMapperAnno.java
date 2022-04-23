@@ -11,7 +11,6 @@ import org.apache.ibatis.annotations.Update;
 import model.Booking;
 import model.Business;
 import model.Picture;
-import model.Reserved;
 import model.Room;
 
 public interface RoomMapperAnno {
@@ -169,19 +168,27 @@ public interface RoomMapperAnno {
 			+ "	where r.bu_email = #{bu_email} and r.ro_name = b.ro_name and m.email = b.email and b.status = 4) where checkout >= #{checkout} order by checkout")
 	List<Booking> selectNotCheckOut(Map<String, Object> map);
 
-//	오늘 체크아웃 목록중 퇴실 완료한 방
-	@Select("select * from (select b.bo_num, m.name, m.tel, b.ro_name, b.checkin, b.checkout,  r.ro_count, b.status from member m, room r, booking b "
-			+ "	where r.bu_email = #{bu_email} and r.ro_name = b.ro_name and m.email = b.email and b.status = 3) where checkout = #{checkout} order by checkout")
-	List<Booking> selectcheckOutOk(Map<String, Object> map);
 
 //	오늘 체크아웃하는 방 예약상태 이용완료로바꾸기
 	@Update("update (select * from booking bo, business bu where bo.bu_title = bu.bu_title and "
 			+ " bu.bu_email = #{bu_email} and status = 4 and checkout >= #{checkout} and bo_num = #{bo_num}) set status = 3")
 	int updateTodayCheckOut(Map<String, Object> map);
 
-//	체크아웃을 원래 예약보다 일찍한 고객의 reserved테이블의 예약내역가져오기
-	@Select("")
-	List<Reserved> reservedList(Map<String, Object> map);
+//	오늘 체크아웃 목록중 퇴실 완료한 방
+	@Select("select * from (select b.bo_num, m.name, m.tel, b.ro_name, b.checkin, b.checkout,  r.ro_count, b.status from member m, room r, booking b "
+			+ "	where r.bu_email = #{bu_email} and r.ro_name = b.ro_name and m.email = b.email and b.status = 3) where checkout >= #{checkout} order by checkout")
+	List<Booking> selectcheckOutOk(Map<String, Object> map);
+	
+
+//	Reserved테이블에 체크아웃을 일찍해서 환불하는 방 찾기
+	@Select("select count(*) from reserved r,  booking bo where bo.ro_num = r.ro_num and "
+			+ " status = 4 and bo.bo_num = #{bo_num} and re_date >= #{checkout} ")
+	int countReserved(Map<String, Object> map);
+
+//	오늘 예약checkout보다 일찍 나간 고객의 reserved테이블의 re_date 오늘이후 날짜 지우기	
+	@Delete("delete from (select * from reserved r,  booking bo "
+			+ " where bo.ro_num = r.ro_num  and status = 4 and bo.bo_num = #{bo_num} and re_date >= #{checkout})")
+	void deleteReserved(Map<String, Object> map);
 
 
 }

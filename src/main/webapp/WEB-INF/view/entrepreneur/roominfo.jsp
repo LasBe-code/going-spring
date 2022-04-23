@@ -7,16 +7,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/common/style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Insert title here</title>
+</head>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+
+<body>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-<title>Insert title here</title>
-</head>
 
-<body>
 <div id="demo" class="carousel roominfo_div_box mt-3" data-bs-ride="carousel" style="">
   	<!-- Indicators/dots -->
   	<div class="carousel-indicators">

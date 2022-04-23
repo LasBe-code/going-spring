@@ -1,6 +1,7 @@
 package service;
 
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -568,11 +569,14 @@ public class RoomDao {
 
 	public int updateAndDeleteTodayCheckOut(Map<String, Object> map) {
 
-
 		SqlSession sqlSession = MybatisConnection.getConnection();
-		
 		try {
-//			List<Reserved> list = sqlSession.getMapper(RoomMapperAnno.class).reservedList(map);
+			int countReserved = sqlSession.getMapper(RoomMapperAnno.class).countReserved(map);
+			
+			if(countReserved > 0) {
+				sqlSession.getMapper(RoomMapperAnno.class).deleteReserved(map);
+			}
+			
 			int updateTodayCheckOut = sqlSession.getMapper(RoomMapperAnno.class).updateTodayCheckOut(map);
 			return updateTodayCheckOut;
 			

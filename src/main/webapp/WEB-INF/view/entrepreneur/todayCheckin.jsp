@@ -8,9 +8,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+
 </head>
 <body>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
 <div style="margin:100px auto; width: 80%;">
   <nav class="navbar navbar-expand-sm bg-light navbar-light" style="width: 60%; margin:0px auto;">
   	<div style="margin: 0px auto;">
@@ -26,6 +27,9 @@
 	    </li>
 	    <li class="nav-item">
 	      <a class="nav-link" href="${pageContext.request.contextPath}/room/sales">매출</a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link" href="${pageContext.request.contextPath}/room/areaSales">지역별 월매출</a>
 	    </li>
 	    <li class="nav-item">
 	      <a class="nav-link" href="${pageContext.request.contextPath}/room/todayCheckin">체크인</a>

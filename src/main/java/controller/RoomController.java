@@ -1,8 +1,6 @@
 package controller;
 
 
-import java.io.File;
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -19,7 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartFile;
 
 
 import model.Booking;
@@ -57,13 +54,10 @@ public class RoomController{
 	public String List() {
 		  
 		String bu_email =(String)session.getAttribute("bu_email");
-		
 		Map<Integer, Object> map = new HashMap<>();
-		
 		// business 메일을 사용하는 사업자의 객실 리스트 저장
 		List<Room> list = rd.roomList(bu_email);
 		List<Picture> picList = new ArrayList<Picture>();
-		
 		for(Room room : list) {
 			picList = rd.selectPic(room.getPic_num());
 			map.put(room.getRo_num(), picList.get(0).getLocation().trim());
@@ -143,7 +137,6 @@ public class RoomController{
 			p_list.add(picList.get(i).getLocation());
 		}
 		
-		
 		// 선택한 객실의 정보를 가져와서 저장
 		
 		String info = room.getRo_info().replace("\r\n", "<br/>");
@@ -191,45 +184,22 @@ public class RoomController{
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		
-		
-		
 		  
 		String bu_email =(String)session.getAttribute("bu_email");
 		 
 		
-		int ro_num = Integer.parseInt(request.getParameter("ro_num"));
-		int pic_num = Integer.parseInt(request.getParameter("pic_num"));
-		
-		String path = request.getServletContext().getRealPath("/") + "/roomimgupload/";
-
-		MultipartFile multipartFile = room.getF();
-		
-		if(!multipartFile.isEmpty()) {
-			File file = new File(path, multipartFile.getOriginalFilename());
-			
-			try {
-				multipartFile.transferTo(file);
-				room.setLocation(multipartFile.getOriginalFilename());
-			} catch (IllegalStateException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+		int ro_num = room.getRo_num();
+		int pic_num = room.getPic_num();
 		
 		int p = rd.deleteLocation(pic_num);
 		
 		room.setBu_email(bu_email);
 		
-		String[] picList = room.getLocation().split("\\n");
+		String[] picList = room.getLocation().split("\n");
 		Picture picLocation = null;
-		int pic = 0;
+		int pic = 0;	
 		for(String lo : picList) {
 			picLocation = new Picture(pic_num,lo);
-
 			pic = rd.insertPicture(picLocation);
 		}
 		
@@ -267,18 +237,17 @@ public class RoomController{
 	public String roomDeletePro(Room r, Business bu) {
 		
 		
-		
-		  
 		String bu_email =(String)session.getAttribute("bu_email");
-		System.out.println("bu_email : "+bu_email);
 		
-		String pwd = request.getParameter("pwd");
-		String ro_num = request.getParameter("ro_num");
+		String pwd = bu.getBu_password();
+		int ro_num = r.getRo_num();
+		map.clear();
+		map.put("bu_email", bu_email);
+		map.put("ro_num", ro_num);
 		
 		// 사업자 비밀번호 찾기
 		Business business = rd.selectBu(bu_email);
 		int room = 0;
-		
 		String msg = "객실 삭제시 오류가 발생했습니다.";
 		String url = request.getContextPath() + "/room/roomDelete?ro_num="+ro_num;
 		
@@ -563,7 +532,10 @@ public class RoomController{
 		List<Booking> notCheckin = rd.selectNotCheckin(map);
 		List<Booking> checkinOk = rd.selectcheckinOk(map);
 		
-		
+		System.out.println("bu_email = " + bu_email);
+		System.out.println("checkin = "+ checkin);
+		System.out.println("notCheckin = "+ notCheckin);
+		System.out.println("checkinOk = " + checkinOk);
 		
 		model.addAttribute("notCheckin", notCheckin);
 		model.addAttribute("checkinOk", checkinOk);
@@ -580,7 +552,6 @@ public class RoomController{
 		String checkin = dp.getTodayPlus(0);
 		String bu_email =(String)session.getAttribute("bu_email");
 		String bo_num = request.getParameter("bo_num");
-		System.out.println("bo_num"+bo_num);
 		
 		map.clear();
 		map.put("bu_email", bu_email);
@@ -607,6 +578,7 @@ public class RoomController{
 		map.put("checkout", checkout);
 		
 		List<Booking> notCheckOut = rd.selectNotCheckOut(map);
+		
 		List<Booking> checkOutOk = rd.selectcheckOutOk(map);
 		
 		
@@ -637,10 +609,9 @@ public class RoomController{
 		map.put("bo_num", bo_num);
 		map.put("checkout", checkout);
 		
-//		int rowCnt = rd.updateAndDeleteTodayCheckOut(map);
-		
-		
+		int rowCnt = rd.updateAndDeleteTodayCheckOut(map);
 		
 		return "redirect:/room/todayCheckOut";
 	}
 }
+

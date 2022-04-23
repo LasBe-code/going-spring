@@ -44,6 +44,15 @@
 	      <a class="nav-link" href="${pageContext.request.contextPath}/room/sales">매출</a>
 	    </li>
 	    <li class="nav-item">
+	      <a class="nav-link" href="${pageContext.request.contextPath}/room/areaSales">지역별 월매출</a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link" href="${pageContext.request.contextPath}/room/todayCheckin">체크인</a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link" href="${pageContext.request.contextPath}/room/todayCheckOut">체크아웃</a>
+	    </li>
+	    <li class="nav-item">
 	      <a class="nav-link" href="${pageContext.request.contextPath}/room/map">지도</a>
 	    </li>
 	  </ul>
