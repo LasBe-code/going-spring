@@ -1,14 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/common/style.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/common/reservationList.css">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <style>
 tr {
 	width: 320px !important;
@@ -23,6 +21,11 @@ table {
 }
 </style>
 </head>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reservationList.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/memberInfo.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 	function deleteDetail() {
 
@@ -34,7 +37,6 @@ table {
 		}
 	}
 </script>
-
 <body style="width: 400px;">
 	<div style="margin: 0 auto; margin-left: 40px; margin-top: 30px; text-align: center;">
 		<c:choose>
@@ -65,13 +67,17 @@ table {
 					<td>
 						<strong>체크인</strong>
 					</td>
-					<td>${bookingDetail.checkin}</td>
+					<td>${fn:substring(bookingDetail.checkin,0,4)}. 
+						${fn:substring(bookingDetail.checkin,4,6)}. 
+						${fn:substring(bookingDetail.checkin,6,8)}</td>
 				</tr>
 				<tr>
 					<td>
 						<strong>체크아웃</strong>
 					</td>
-					<td>${bookingDetail.checkout}</td>
+					<td>${fn:substring(bookingDetail.checkout,0,4)}. 
+						${fn:substring(bookingDetail.checkout,4,6)}. 
+						${fn:substring(bookingDetail.checkout,6,8)}</td>
 				</tr>
 				<tr>
 					<td>
@@ -121,7 +127,7 @@ table {
 							<td>
 								<strong>결제 금액</strong>
 							</td>
-							<td>${bookingDetail.price}원</td>
+							<td><fmt:formatNumber value="${bookingDetail.price}" pattern="#,###"/>원</td>
 						</tr>
 					</c:otherwise>
 				</c:choose>

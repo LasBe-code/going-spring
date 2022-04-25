@@ -3,14 +3,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/common/style.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/common/style.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/common/reservationList.css">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <title>Insert title here</title>
 
+</head>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <style type="text/css">
 #myform fieldset {
 	display: inline-block; /* 하위 별점 이미지들이 있는 영역만 자리를 차지함.*/
@@ -49,7 +48,6 @@
 	text-shadow: 0 0 0 #ffc107; /* 마우스 클릭 체크 */
 }
 </style>
-</head>
 <body>
 <div class="mt-3" style="margin:0 auto; text-align: center; width:400px; height:440px;">
 	<form name="myform" id="myform" method="post" action="${pageContext.request.contextPath}/reservation/reviewPro">

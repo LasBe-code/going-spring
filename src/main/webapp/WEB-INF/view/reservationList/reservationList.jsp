@@ -7,12 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/common/reservationList.css">
 </head>
 <body>
-
-<script type="text/javascript" src="<%=request.getContextPath()%>/js/ajax.js"></script>
-
 <script>
 	function cancel(bo_num) {
 		var flag = confirm('예약을 취소하시겠습니까?');
@@ -25,7 +21,7 @@
 	}
 	
 	function bookingDetail(bo_num) {
-		const url = '${pageContext.request.contextPath}/reservation/reservationDetail?flag=true&bo_num='
+		const url = '${pageContext.request.contextPath}/reservation/reservationDetail?bo_num='
 				+ bo_num
 		const op = 'width=450, height=730, location=no, toolbar=no'
 
@@ -89,7 +85,14 @@
 									<span class="reserveMember_room_name">${booking.ro_name}</span>
 
 									<div class="mt-2">
-										<span class="reserveMember_room_date"> ${fn:substring(booking.checkin,0,4)}. ${fn:substring(booking.checkin,4,6)}. ${fn:substring(booking.checkin,6,8)} ~ ${fn:substring(booking.checkout,0,4)}. ${fn:substring(booking.checkout,4,6)}. ${fn:substring(booking.checkout,6,8)} </span>
+										<span class="reserveMember_room_date"> 
+										${fn:substring(booking.checkin,0,4)}. 
+										${fn:substring(booking.checkin,4,6)}. 
+										${fn:substring(booking.checkin,6,8)} ~ 
+										${fn:substring(booking.checkout,0,4)}. 
+										${fn:substring(booking.checkout,4,6)}. 
+										${fn:substring(booking.checkout,6,8)} 
+										</span>
 									</div>
 
 									<hr class="gray_line">
@@ -103,7 +106,7 @@
 
 									<div class="row">
 										<div class="col-sm-6 center_box">
-											<button type="button" class="reserveMember_room_btn default_btn medium_text rounded" onclick="bookingDetail(${booking.bo_num})">예약 정보</button>
+											<button type="button" class="reserveMember_room_btn default_btn medium_text rounded" onclick="bookingDetail('${booking.bo_num}')">예약 정보</button>
 										</div>
 										<div class="col-sm-6 center_box">
 											<button type="button" onclick="cancel('${booking.bo_num}')" class="reserveMember_room_btn default_btn medium_text rounded" style="background-color: red;">예약 취소</button>
@@ -140,7 +143,7 @@
 									</div>
 
 									<div class="center_box">
-										<button type="button" class="reserveMember_room_btn default_btn medium_text rounded" onclick="bookingDetail(${booking.bo_num})">예약 정보</button>
+										<button type="button" class="reserveMember_room_btn default_btn medium_text rounded" onclick="bookingDetail('${booking.bo_num}')">예약 정보</button>
 									</div>
 								</div>
 							</c:if>

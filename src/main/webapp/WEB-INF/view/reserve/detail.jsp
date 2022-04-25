@@ -102,6 +102,7 @@
 					<form action="${pageContext.request.contextPath}/reservation/detail" method="get">
 						<div class="row" style="text-align: center; margin:0 auto; margin-bottom: -12px;">
 							<input type="hidden" name="ro_count" value="${ro_count}">
+							<input type="hidden" name="bu_email" value="${bu.bu_email}">
 							<div class="col-sm-5" style="border-left: 1px solid rgba(0,0,0,0.08);">
 								<input type='date' id="checkin" min="${today }" value="${checkin }" class="detail_checkin_1" name="checkin" onchange="dateChk()" required>
 							</div>

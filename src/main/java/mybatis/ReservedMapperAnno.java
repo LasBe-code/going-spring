@@ -75,7 +75,7 @@ public interface ReservedMapperAnno {
 			+ "            	review.bo_num = bo.bo_num and  "
 			+ "            	bo.ro_num = ro.ro_num and  "
 			+ "            	ro.bu_email = bu.bu_email and  "
-			+ "            	bu.bu_email = 'iop@naver.com' "
+			+ "            	bu.bu_email = #{bu_email} "
 			+ "        	GROUP BY ro.bu_email) score "
 			+ "    	ON b.bu_email = score.bu_email "
 			+ "	WHERE b.bu_email=#{bu_email}")

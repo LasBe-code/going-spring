@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import model.Business;
@@ -20,7 +21,6 @@ public class MemberDao{
 	private Map<String, Object> map = new HashMap<>();
 	
 	public int insertMember(HttpServletRequest request) {
-		
 		SqlSession sqlSession = MybatisConnection.getConnection();
 		Member m = new Member(
 				(String)request.getParameter("email"),
@@ -28,7 +28,6 @@ public class MemberDao{
 				request.getParameter("tel"),
 				request.getParameter("name")
 				);
-		System.out.println(m);		
 		try {
 			return sqlSession.getMapper(MemberMapperAnno.class).insertMember(m);
 		} catch (Exception e) {
@@ -40,7 +39,6 @@ public class MemberDao{
 	}
 	
 	public int insertBusiness(HttpServletRequest request) {
-		
 		SqlSession sqlSession = MybatisConnection.getConnection();
 		RoomDao rd = new RoomDao();
 		Picture p = new Picture();
@@ -125,8 +123,6 @@ public class MemberDao{
 		}
 		int insertPicture = 0;
 		
-		
-		
 		try {
 			int insertBusiness = sqlSession.getMapper(MemberMapperAnno.class).updateBusiness(sb);
 			for(String pic : picList) {
@@ -146,7 +142,6 @@ public class MemberDao{
 	}
 
 	public List<Picture> selectPic(int pic_num) {
-		
 		SqlSession sqlSession = MybatisConnection.getConnection();
 		try {
 			return sqlSession.getMapper(MemberMapperAnno.class).selectPic(pic_num);
@@ -156,5 +151,29 @@ public class MemberDao{
 			MybatisConnection.close(sqlSession);
 		}
 		return null;
+	}
+	
+	public int memberTelCount(String tel) {
+		SqlSession sqlSession = MybatisConnection.getConnection();
+		try {
+			return sqlSession.getMapper(MemberMapperAnno.class).memberTelCount(tel);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			MybatisConnection.close(sqlSession);
+		}
+		return -1;
+	}
+	
+	public int businessTelCount(String bu_tel) {
+		SqlSession sqlSession = MybatisConnection.getConnection();
+		try {
+			return sqlSession.getMapper(MemberMapperAnno.class).businessTelCount(bu_tel);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			MybatisConnection.close(sqlSession);
+		}
+		return -1;
 	}
 }

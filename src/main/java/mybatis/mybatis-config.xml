@@ -21,6 +21,7 @@
 		<mapper class="mybatis.RoomMapperAnno"/>
 		<mapper class="mybatis.ReservedMapperAnno"/>
 		<mapper class="mybatis.BookingMapperAnno"/>
+		<mapper class="mybatis.ReviewMapperAnno"/>
 	</mappers>
 	
 </configuration>

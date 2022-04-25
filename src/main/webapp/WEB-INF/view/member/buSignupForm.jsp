@@ -16,101 +16,96 @@
 	let passCheck = true;
 	let emailCheck = true;
 	
-	function auth(){
-		const tel = document.f.bu_tel.value;
-		const param = "tel="+tel;
-		
-		ajax("<%=request.getContextPath()%>/member/phoneAuth", param, callback, 'GET')
-	}
-	function callback(){
-		if(this.readyState == 4 && this.status == 200){
-			
-			/* let rand = this.responseText.trim();
-			document.f.rand.value=rand;  핸드폰 인증번호 확인용 */
-			
-			alert('인증 번호를 전송했습니다.')
-			
-			const code_btn = document.getElementById("code_btn")
-			code_btn.disabled = false
-		}
-	}
-	
-	function authCheck(){
-		/* const rand = document.f.rand.value; */
-		const code = document.f.code.value;
-		const param = "code="+code;
-		
-		ajax("<%=request.getContextPath()%>/member/phoneAuthOk", param, callbackCheck, 'GET')
-		
-	}
-	function callbackCheck(){
-		if(this.readyState == 4 && this.status == 200){
-			let result = this.responseText.trim();
-			
-			if(result == 'false'){
-				alert('인증되었습니다')
-				const input_tel = document.getElementById("input_tel")
-				input_tel.readOnly = true
-				
-				const input_code = document.getElementById("input_code")
-				input_code.readOnly = true
-				
-				const tel_btn = document.getElementById("tel_btn")
-				tel_btn.disabled = true
-				
-				const code_btn = document.getElementById("code_btn")
-				code_btn.disabled = true
-				
-				phoneAuth=false
-				inputCheck()
-			} else {
-				alert('인증 번호가 다릅니다.')
-				phoneAuth=true
-				inputCheck()
+	function auth() {
+		const telNum = document.f.bu_tel.value;
+		$.ajax({
+			type:'POST',
+			url:'${pageContext.request.contextPath}/member/buPhoneAuth',
+			header:{"Content-Type":"application/json"},
+			dateType:'json',
+			data:{tel:telNum},
+			success : function(result){
+				if(result == true){
+					alert('이미 가입된 전화번호 입니다.')
+				} else {
+					alert('인증 번호를 전송했습니다.')
+					
+					const code_btn = document.getElementById("code_btn")
+					code_btn.disabled = false
+				}
 			}
-		}
-	} 
-	
-	function change_bu_id(){
-		const id = document.getElementById("select_bu_id");
-		const value = id.options[id.selectedIndex].value;
-		document.f.bu_id.value = value
+		})
 	}
-	
+
+	function authCheck(){
+		const code = document.f.code.value;
+		$.ajax({
+			type:'POST',
+			url:'${pageContext.request.contextPath}/member/phoneAuthOk',
+			header:{"Content-Type":"application/json"},
+			dateType:'json',
+			data:{code:code},
+			success : function(result){
+				if(result == true){
+					alert('인증 번호가 다릅니다.')
+					phoneAuth=true
+					inputCheck()
+				} else {
+					alert('인증되었습니다')
+					const input_tel = document.getElementById("input_tel")
+					input_tel.readOnly = true
+					
+					const input_code = document.getElementById("input_code")
+					input_code.readOnly = true
+					
+					const tel_btn = document.getElementById("tel_btn")
+					tel_btn.disabled = true
+					
+					const code_btn = document.getElementById("code_btn")
+					code_btn.disabled = true
+					
+					phoneAuth=false
+					inputCheck()
+				}
+			}
+		})
+	}
+
 	function emailChk(){
-		const email = document.f.bu_email.value
-		console.log(email)
-		const param = "bu_email="+email
-		let result = document.querySelector("#result")
-		
-		console.log(email.indexOf('@')+" "+email.indexOf('.'))
+		const email = document.f.email.value
+		let resultText = document.querySelector("#result")
 		
 		if(email.indexOf('@') != -1 && email.indexOf('.com') != -1){
-			ajax("<%=request.getContextPath()%>/member/readId", param, callbackEmail, 'GET')
+			$.ajax({
+				type:'POST',
+				url:'${pageContext.request.contextPath}/member/readId',
+				header:{"Content-Type":"application/json"},
+				dateType:'json',
+				data:{email:email},
+				success : function(result){
+					if(result == true){
+						resultText.style.color = 'red'
+						resultText.innerHTML = '중복되는 이메일'
+						emailCheck = true
+						inputCheck()
+					} else {
+						resultText.style.color = 'blue'
+						resultText.innerHTML = '사용가능한 이메일'
+						emailCheck = false
+						inputCheck()
+					}
+				}
+			})
 		} else {
 			result.style.color = 'red'
 			result.innerHTML = '일치하지 않는 형식'
 		} 
 	}
-	function callbackEmail(){
-		if(this.readyState == 4 && this.status == 200){
-			let result = document.querySelector("#result")
-			let chk = this.responseText.trim()
-			console.log(chk)
-			if(chk=='false'){
-				result.style.color = 'blue'
-				result.innerHTML = '사용가능한 이메일'
-				
-				emailCheck = false
-				inputCheck()
-			} else {
-				result.style.color = 'red'
-				result.innerHTML = '중복되는 이메일'
-				
-				emailCheck = true
-				inputCheck()
-			}
-		}
+	
+	function change_bu_id(){
+		const id = document.getElementById("select_bu_id");
+		const value = id.options[id.selectedIndex].value;
+		document.f.bu_id.value = value
 	}
 	
 	function passChk() {

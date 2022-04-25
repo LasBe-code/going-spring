@@ -33,5 +33,10 @@ public interface MemberMapperAnno {
 
 	@Select("select * from picture where pic_num = #{pic_num}")
 	List<Picture> selectPic(int pic_num);
-
+	
+	@Select("select count(*) from member where tel=#{tel}")
+	int memberTelCount(String tel);
+	
+	@Select("select count(*) from business where bu_tel=#{bu_tel}")
+	int businessTelCount(String bu_tel);
 }

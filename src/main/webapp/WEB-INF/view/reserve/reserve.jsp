@@ -30,7 +30,8 @@ function requestPay() {
     pay_method: "card",
     merchant_uid : 'merchant_'+new Date().getTime(),
     name : 'Going 결제',
-    amount : ${booking.price},
+    /* amount : ${booking.price}, */
+    amount : 100,
     buyer_email : '${email}',
     buyer_name : '${member.name}',
     buyer_tel : '${member.tel}',
