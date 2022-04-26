@@ -12,7 +12,7 @@
 
 </head>
 <body>
-
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=35d71e137b481a1c8d8befd339cf5e29&libraries=services"></script>
 <script>
 	function roomDetail(ro_num, bu_email) {
 		const url = '${pageContext.request.contextPath}/reservation/roomDetail?ro_num='
@@ -80,6 +80,7 @@
 						<li>대표 전화번호 : ${bu.bu_tel}</li>
 					</ul>
 				</div>
+				<div id="map" style="margin-top: 15px; height: 140px;"></div>
 			</div>
 			<!-- 숙소 소개 끝 -->
 
@@ -202,5 +203,44 @@
 			<!-- 리뷰 끝 -->
 		</div>
 	</div>
+<script type="text/javascript">
+//지도 스크립트
+//상세조건의 값을 가져옵니다
+//지도를 생성합니다    
+const mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+ mapOption = {
+     center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+     level: 4 // 지도의 확대 레벨
+ };  
+
+//지도를 생성합니다    
+const map = new kakao.maps.Map(mapContainer, mapOption); 
+const address = '${bu.bu_address}';
+//주소-좌표 변환 객체를 생성합니다
+const geocoder = new kakao.maps.services.Geocoder();
+//주소로 좌표를 검색합니다
+geocoder.addressSearch(address, function(result, status) {
+
+ // 정상적으로 검색이 완료됐으면 
+  if (status === kakao.maps.services.Status.OK) {
+
+	  const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+     // 결과값으로 받은 위치를 마커로 표시합니다
+     const marker = new kakao.maps.Marker({
+         map: map,
+         position: coords
+     });
+
+     // 인포윈도우로 장소에 대한 설명을 표시합니다
+     const infowindow = new kakao.maps.InfoWindow({
+         content: '<div style="width:150px;text-align:center;padding:6px 0;">${bu.bu_title}</div>'
+     });
+     // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+     map.setCenter(coords);
+     infowindow.open(map, marker);
+ } 
+});
+</script>
 </body>
 </html>

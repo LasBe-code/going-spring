@@ -38,7 +38,7 @@
 	      <a class="nav-link" href="${pageContext.request.contextPath}/room/todayCheckOut">체크아웃</a>
 	    </li>
 	    <li class="nav-item">
-	      <a class="nav-link" href="${pageContext.request.contextPath}/room/map">지도</a>
+	      <a class="nav-link" href="${pageContext.request.contextPath}/room/roomReview">리뷰</a>
 	    </li>
 	  </ul>
 	  </div>

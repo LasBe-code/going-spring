@@ -22,7 +22,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import model.Booking;
 import model.Business;
 import model.Picture;
+import model.Review;
 import model.Room;
+import service.ReserveDao;
 import service.RoomDao;
 import util.DateParse;
 
@@ -40,6 +42,9 @@ public class RoomController{
 	@Autowired
 	RoomDao rd;
 	
+	@Autowired
+	ReserveDao reserveDao;
+	
 	@ModelAttribute
 	void init(HttpServletRequest request, Model model) {
 		this.request = request;
@@ -52,7 +57,7 @@ public class RoomController{
 	
 	@RequestMapping("roomlist")
 	public String List() {
-		  
+		
 		String bu_email =(String)session.getAttribute("bu_email");
 		Map<Integer, Object> map = new HashMap<>();
 		// business 메일을 사용하는 사업자의 객실 리스트 저장
@@ -64,7 +69,7 @@ public class RoomController{
 		}
 		model.addAttribute("picMap", map);
 		model.addAttribute("list", list);
-			
+		
 		return "/view/entrepreneur/roomlist";
 	}
 	
@@ -81,11 +86,7 @@ public class RoomController{
 	@RequestMapping("roomInsertPro")
 	public String roomInsertPro(Room room) {
 
-		try {
-			request.setCharacterEncoding("utf-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
+		characterEncoding();
 		  
 		String bu_email =(String)session.getAttribute("bu_email");
 		 
@@ -178,12 +179,7 @@ public class RoomController{
 	@RequestMapping("roomUpdatePro")
 	public String roomUpdatPro(Room room) {
 		
-		
-		try {
-			request.setCharacterEncoding("utf-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
+		characterEncoding();
 		  
 		String bu_email =(String)session.getAttribute("bu_email");
 		 
@@ -455,65 +451,7 @@ public class RoomController{
 	}
 	
 	
-	@RequestMapping("map")
-	public String map() {
-		
-		DateParse dp = new DateParse();
-		
-		List<Business> addressList = new ArrayList<Business>();
-		String bu_id = request.getParameter("bu_id");
-		String ro_count = request.getParameter("ro_count");
-		String checkin = request.getParameter("checkin");
-		String checkout = request.getParameter("checkout");
-		String bu_address = request.getParameter("bu_address");
-		
-				
-		map.clear();
-		if(bu_address == null  || bu_id == null || checkin == null ||  checkout == null) {
-			bu_address = "서울";
-			bu_id = "1";
-			checkin = dp.strToDate(dp.getTodayPlus(0));
-			checkout = dp.strToDate(dp.getTodayPlus(1));
-		}
-		map.put("bu_address", bu_address);
-		map.put("bu_id", bu_id);
-		
-		String resultAddress = "[";
-		String roomTitle = "[";
-		String roomPic = "[";
-		String bu_email = "[";
-		addressList = rd.addressList(map);
-		for(int i = 0 ; i < addressList.size(); i++) {
-			if(i == addressList.size()-1) {
-				resultAddress += "'"+addressList.get(i).getBu_address().trim()+"'";
-				roomTitle += "'"+addressList.get(i).getBu_title().trim()+"'";
-				roomPic += "'"+addressList.get(i).getLocation().trim()+"'";
-				bu_email += "'"+addressList.get(i).getBu_email().trim()+"'";
-			}
-			else {
-				resultAddress += "'"+addressList.get(i).getBu_address().trim()+"', ";
-				roomTitle += "'"+addressList.get(i).getBu_title().trim()+"', ";
-				roomPic += "'"+addressList.get(i).getLocation().trim()+"', ";
-				bu_email += "'"+addressList.get(i).getBu_email().trim()+"', ";
-			}
-		}
-		resultAddress += "]";
-		roomTitle += "]";
-		roomPic += "]";
-		bu_email += "]";
-		
-		
-		model.addAttribute("resultAddress", resultAddress);
-		model.addAttribute("roomTitle", roomTitle);
-		model.addAttribute("roomPic", roomPic);
-		model.addAttribute("bu_email", bu_email);
-		model.addAttribute("bu_id", bu_id);
-		model.addAttribute("ro_count", ro_count);
-		model.addAttribute("checkin", checkin);
-		model.addAttribute("checkout", checkout);
-		model.addAttribute("bu_address", bu_address);
-		return "/view/entrepreneur/map";
-	}
+	
 	
 	
 	@RequestMapping("todayCheckin")
@@ -612,6 +550,26 @@ public class RoomController{
 		int rowCnt = rd.updateAndDeleteTodayCheckOut(map);
 		
 		return "redirect:/room/todayCheckOut";
+	}
+	
+	@RequestMapping("roomReview")
+	public String roomReview() {
+		
+		String bu_email = (String)session.getAttribute("bu_email");
+		List<Review> reviewList = reserveDao.businessReviewList(bu_email);
+		model.addAttribute("reviewList", reviewList);
+		return "/view/entrepreneur/roomReview";
+	}
+	
+	
+	
+	
+	private void characterEncoding() {
+		try {
+			request.setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 	}
 }
 

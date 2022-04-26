@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import model.Business;
+import service.RoomDao;
 import service.SearchDao;
 import util.DateParse;
 
@@ -29,6 +32,8 @@ public class SearchController{
 	@Autowired
 	SearchDao searchDao;
 	
+	@Autowired
+	RoomDao rd;
 	
 	@ModelAttribute
 	void init(HttpServletRequest request, Model model) {
@@ -86,5 +91,68 @@ public class SearchController{
 		model.addAttribute("today", today);
 		model.addAttribute("tomorrow", tomorrow);
 		return "/view/search/search";
+	}
+	
+	
+	@RequestMapping("map")
+	public String map() {
+		
+		DateParse dp = new DateParse();
+		
+		List<Business> addressList = new ArrayList<Business>();
+		String bu_id = request.getParameter("bu_id");
+		String ro_count = request.getParameter("ro_count");
+		String checkin = request.getParameter("checkin");
+		String checkout = request.getParameter("checkout");
+		String bu_address = request.getParameter("bu_address");
+		
+				
+		if(bu_address == null  || bu_id == null || checkin == null ||  checkout == null) {
+			bu_address = "서울";
+			bu_id = "1";
+			checkin = dp.strToDate(dp.getTodayPlus(0));
+			checkout = dp.strToDate(dp.getTodayPlus(1));
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bu_address", bu_address);
+		map.put("bu_id", bu_id);
+		
+		String resultAddress = "[";
+		String roomTitle = "[";
+		String roomPic = "[";
+		String bu_email = "[";
+		addressList = rd.addressList(map);
+		
+		for(int i = 0 ; i < addressList.size(); i++) {
+			if(i == addressList.size()-1) {
+				resultAddress += "'"+addressList.get(i).getBu_address().trim()+"'";
+				roomTitle += "'"+addressList.get(i).getBu_title().trim()+"'";
+				roomPic += "'"+addressList.get(i).getLocation().trim()+"'";
+				bu_email += "'"+addressList.get(i).getBu_email().trim()+"'";
+			}
+			else {
+				resultAddress += "'"+addressList.get(i).getBu_address().trim()+"', ";
+				roomTitle += "'"+addressList.get(i).getBu_title().trim()+"', ";
+				roomPic += "'"+addressList.get(i).getLocation().trim()+"', ";
+				bu_email += "'"+addressList.get(i).getBu_email().trim()+"', ";
+			}
+		}
+		resultAddress += "]";
+		roomTitle += "]";
+		roomPic += "]";
+		bu_email += "]";
+		
+		
+		model.addAttribute("resultAddress", resultAddress);
+		model.addAttribute("roomTitle", roomTitle);
+		model.addAttribute("roomPic", roomPic);
+		model.addAttribute("bu_email", bu_email);
+		model.addAttribute("bu_id", bu_id);
+		model.addAttribute("ro_count", ro_count);
+		model.addAttribute("checkin", checkin);
+		model.addAttribute("checkout", checkout);
+		model.addAttribute("bu_address", bu_address);
+		
+		return "/view/search/map";
 	}
 }

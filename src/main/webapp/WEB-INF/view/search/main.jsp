@@ -30,6 +30,10 @@
 				    <a class="nav-link" data-bs-toggle="tab" style="color:black; cursor:pointer"
 				    	onclick="document.getElementById('bu_id').value='4'">리조트</a>
 				  </li>
+				  <li class="nav-item">
+				    <a class="nav-link" style="color:black; cursor:pointer"
+				    	href ="<%=request.getContextPath()%>/search/map">지도검색</a>
+				  </li>
 				</ul>
 				<input type="hidden" name="bu_id" id="bu_id" value="1">
 				<div class="main_search_all" style="padding-top:10px;">
