@@ -28,42 +28,12 @@
 </style>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
 <div class="container" style="margin-top:100px">
-  <nav class="navbar navbar-expand-sm bg-light navbar-light" style="width: 60%; margin:0px auto;">
-  	<div style="margin: 0px auto;">
-	  <ul class="navbar-nav">
-	  	<li class="nav-item">
-	      <a class="nav-link" href="${pageContext.request.contextPath}/room/roomInsert">객실 등록</a>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link" href="${pageContext.request.contextPath}/room/roomlist">객실 정보</a>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link" href="${pageContext.request.contextPath}/room/reservation">예약 확인</a>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link" href="${pageContext.request.contextPath}/room/sales">매출</a>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link" href="${pageContext.request.contextPath}/room/areaSales">지역별 월매출</a>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link" href="${pageContext.request.contextPath}/room/todayCheckin">체크인</a>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link" href="${pageContext.request.contextPath}/room/todayCheckOut">체크아웃</a>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link" href="${pageContext.request.contextPath}/room/map">지도</a>
-	    </li>
-	  </ul>
-	  </div>
-</nav>
 <div class="default_width">
 	<div class="search_bottom_box mt-3" style="float: left; width: 15%;">
 	
 		<div class="search_filter_box">
 		<h3>상세조건</h3>
-		<form action="${pageContext.request.contextPath}/room/map" method="get" name="f">
+		<form action="${pageContext.request.contextPath}/search/map" method="get" name="f">
 		<input type="hidden" id="ro_count" name="ro_count" value="${ro_count}">
 		<div>
 			<input type='date' id="checkin" class="main_checkin_1" name="checkin" value="${checkin}" onchange="dateChk()" required>
@@ -71,7 +41,7 @@
 		<div>
 			<input type='date' id="checkout" class="main_checkout_1" name="checkout" value="${checkout}" onchange="dateChk()" style="border:none;" required>
 		</div>
-		<select id="selectRo_count" class="form-select form-select-lg" style="border: none;">
+		<select id="selectRo_count" class="form-select form-select-lg" style="border: none;" >
 			<option value="none">인원수 선택</option>
 			<option value="1" ${ro_count == '1' ? 'selected' : '' }>1</option>
 			<option value="2" ${ro_count == '2' ? 'selected' : '' }>2</option>
@@ -121,12 +91,11 @@
 <script type="text/javascript">
 
 
-
 // select box에서 변경시 input태그로 값을 넘긴다
 $(document).ready(function(){
-	var inputTag = document.querySelector('#ro_count');  // id가 inputRo_count인 태그를 선택
+	const inputTag = document.querySelector('#ro_count');  // id가 inputRo_count인 태그를 선택
     $('#selectRo_count').change(function(){
-        var selectRo_count = $('#selectRo_count').val(); //id가 searchName인 select box의 값 추출하여 저장
+    	const selectRo_count = $('#selectRo_count').val(); //id가 searchName인 select box의 값 추출하여 저장
         
         inputTag.value = selectRo_count
         
@@ -141,7 +110,7 @@ $(document).ready(function(){
 		 ro_count = '';
 	}
 	else{
-		checkin = document.querySelector('#checkin').val;
+		 checkin  = document.querySelector('#checkin').val;
 		 checkout = document.querySelector('#checkout').val;
 		 ro_count = document.querySelector('#ro_count').val;
 	}
@@ -170,9 +139,6 @@ function dateChk(){ // 날짜 유효성 체크
 	checkin = checkin.replace('-',	'')
 	checkout = checkout.replace('-', '')
 	checkout = checkout.replace('-', '')
-	
-	console.log(checkin)
-	console.log(checkout)
 	
 	if(checkin != '' && checkin < day){
 		alert('지난 날짜 선택')
@@ -217,6 +183,11 @@ const roomTitle = ${roomTitle}
 const roomPic = ${roomPic}
 const bu_email = ${bu_email}
 
+
+//지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
+var bounds = new kakao.maps.LatLngBounds();
+
+
 for (let i = 0; i < resultAddress.length; i++) {
 	// 주소-좌표 변환 객체를 생성합니다
 	const geocoder = new kakao.maps.services.Geocoder();
@@ -225,7 +196,10 @@ for (let i = 0; i < resultAddress.length; i++) {
 		// 정상적으로 검색이 완료됐으면 
 		 if (status === kakao.maps.services.Status.OK) {
 			 const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-			
+			 
+			// LatLngBounds 객체에 좌표를 추가합니다
+		        bounds.extend(coords);
+			 
 			// 결과값으로 받은 위치를 마커로 표시합니다
 			const marker = new kakao.maps.Marker({
 				map: map,
@@ -266,14 +240,16 @@ for (let i = 0; i < resultAddress.length; i++) {
 			    if(overlay.getMap() == null)
 			    	overlay.setMap(map);
 			    else
-			    	overlay.setMap(null); 
+			    	overlay.setMap(null);
 			    
+			    map.setCenter(coords);
 			    
 			});
-	      
+			map.setBounds(bounds);
 		} 
 	});   
 }
+
 </script>
 </body>
 </html>
