@@ -59,15 +59,15 @@ public class MemberController{
 	}
 
 	@RequestMapping("loginPro")
-	public String loginPro(String email, String pass) {
+	public String loginPro(String email, String password) {
 		String msg = "아이디를 확인하세요";
 		String url = request.getContextPath() + "/member/loginForm";
 
 		Member m = md.selectMemberOne(email);
 
 		if (m != null) {
-			if (pass.equals(m.getPassword())) { // 로그인 성공
-				session.invalidate();
+			if (password.equals(m.getPassword())) { // 로그인 성공
+				session.removeAttribute("bu_email");
 				session.setAttribute("email", email);
 				msg = m.getName() + "님이 로그인 하셨습니다.";
 				url = request.getContextPath() + "/search/main";
@@ -114,15 +114,15 @@ public class MemberController{
 	}
 
 	@RequestMapping("buLoginPro")
-	public String buLoginPro(String email, String pass) {
-		Business bu = md.selectBusinessOne(email);
+	public String buLoginPro(String bu_email, String bu_password) {
+		Business bu = md.selectBusinessOne(bu_email);
 
 		String msg = "아이디를 확인하세요";
-		String url = request.getContextPath() + "/member/buLoginForm";
+		String url = request.getContextPath() + "/member/loginForm";
 
 		if (bu != null) {
-			if (pass.equals(bu.getBu_password())) { // 로그인 성공
-				request.getSession().setAttribute("bu_email", email);
+			if (bu_password.equals(bu.getBu_password())) { // 로그인 성공
+				request.getSession().setAttribute("bu_email", bu_email);
 				msg = bu.getBu_name() + "님이 로그인 하셨습니다.";
 				url = request.getContextPath() + "/room/roomlist";
 			} else { // 아이디 o / 패스워드 x
