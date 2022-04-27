@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import model.Business;
-import service.RoomDao;
-import service.SearchDao;
+import repository.RoomDao;
+import repository.SearchDao;
 import util.DateParse;
 
 @Controller

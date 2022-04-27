@@ -11,7 +11,7 @@
 			http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 			
 	<mvc:annotation-driven/>
-	<context:component-scan base-package="controller, service"/>
+	<context:component-scan base-package="controller, service, repository"/>
 	<context:annotation-config/>
 	<mvc:view-controller path="/index" view-name="index"/>
 	<mvc:resources location="/resources/" mapping="/resources/**" />
@@ -27,25 +27,21 @@
 		<property name="defaultEncoding" value="utf-8"/>
 	</bean>
 	
-	<!-- 
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
-	destroy-method="close">
-	
-		<property name="driverClassName" value="oracle.jdbc.OracleDriver"/>
-		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
-		<property name="username" value="kic"/>
-		<property name="password" value="1111"/>
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
+		<property name="dataSource" ref="dataSource"/>
 	</bean>
 	
-	<bean class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg ref="sqlSession"></constructor-arg>
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory"/>
 	</bean>
 	
-	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="configlocation" value="classpath:myBatis/mybatis-config.xml"></property>
-		<property name="dataSource" ref=""></property>
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<property name="url" value="jdbc:oracle:thin:@going_medium?TNS_ADMIN=/Users/lasbe/Wallet_going"/>
+		<property name="username" value="ADMIN"/>
+		<property name="password" value="Going1234567"/>
 	</bean>
-	 -->
 	<!-- 
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">

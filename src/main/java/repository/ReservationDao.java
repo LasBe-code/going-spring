@@ -1,9 +1,10 @@
-package service;
+package repository;
 
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import model.Booking;
 import model.Picture;
@@ -12,7 +13,7 @@ import mybatis.BookingMapperAnno;
 import mybatis.ReviewMapperAnno;
 import util.MybatisConnection;
 
-@Component
+@Repository
 public class ReservationDao {
 
 	public List<Booking> getBookingSelectList(String email) {

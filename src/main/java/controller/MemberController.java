@@ -21,8 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import model.Business;
 import model.Member;
 import model.Picture;
-//import util.Naver_Sens_V2;
-import service.MemberDao;
+import repository.MemberDao;
 import util.Naver_Sens_V2;
 
 
@@ -34,8 +33,12 @@ public class MemberController{
 	Model model;
 	HttpSession session;
 	
+	private final MemberDao md;
+	
 	@Autowired
-	MemberDao md;
+	public MemberController(MemberDao md) {
+		this.md=md;
+	}
 	
 	@ModelAttribute
 	void init(HttpServletRequest request, Model model) {
@@ -142,13 +145,13 @@ public class MemberController{
 	}
 
 	@RequestMapping("buSignupPro")
-	public String buSignupPro(String name) {
+	public String buSignupPro(String bu_name) {
 		int num = md.insertBusiness(request);
 
 		String msg = "";
 		String url = "";
 		if (num > 0) {
-			msg = name + "님의 가입이 완료되었습니다.";
+			msg = bu_name + "님의 가입이 완료되었습니다.";
 			url = request.getContextPath() + "/view/member/buLoginForm";
 		} else {
 			msg = "회원가입에 실패하였습니다.";
@@ -271,9 +274,7 @@ public class MemberController{
 
 	@PostMapping("readId")
 	@ResponseBody
-	public Boolean readId() {
-		String email = request.getParameter("email");
-		String bu_email = request.getParameter("bu_email");
+	public Boolean readId(String email, String bu_email) {
 		boolean chk = true;
 
 		if (email != null) {
@@ -364,17 +365,5 @@ public class MemberController{
 		
 		return "/view/alert";
 
-	}
-	
-	@RequestMapping("review")
-	public String review() {
-		
-		return "/common/review";
-	}
-	
-	@RequestMapping("reviewPro")
-	public String reviewPro() {
-		
-		return "/view/alert";
 	}
 }

@@ -24,8 +24,8 @@ import model.Business;
 import model.Picture;
 import model.Review;
 import model.Room;
-import service.ReserveDao;
-import service.RoomDao;
+import repository.ReserveDao;
+import repository.RoomDao;
 import util.DateParse;
 
 @Controller

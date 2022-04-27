@@ -1,4 +1,4 @@
-package service;
+package repository;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -10,8 +10,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MySqlSessionFactory {
-
-	
 	public SqlSessionFactory sqlmap;
 	
 	MySqlSessionFactory(){

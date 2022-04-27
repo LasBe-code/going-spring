@@ -33,5 +33,4 @@ public class MybatisConnection {
 		SqlSession sqlsession = getConnection();
 		System.out.println(sqlsession);
 	}
-
 }

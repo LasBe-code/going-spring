@@ -23,11 +23,11 @@ import model.Picture;
 import model.Reserved;
 import model.Review;
 import model.Room;
-import service.MemberDao;
-import service.ReservationDao;
-import service.ReserveDao;
-import service.RoomDao;
-import service.SearchDao;
+import repository.MemberDao;
+import repository.ReservationDao;
+import repository.ReserveDao;
+import repository.RoomDao;
+import repository.SearchDao;
 import util.DateParse;
 
 @Controller
@@ -60,7 +60,6 @@ public class ReservationController{
 	
 	@RequestMapping("reservationList")
 	public String reservationList() {
-		HttpSession session = request.getSession(); //session을 불러옴. 
 		String email = (String)session.getAttribute("email");
 		
 		// Booking(*) + Picture(location) + Review(rev_num)

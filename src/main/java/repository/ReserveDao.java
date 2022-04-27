@@ -1,4 +1,4 @@
-package service;
+package repository;
 
 import java.util.List;
 import java.util.Map;
