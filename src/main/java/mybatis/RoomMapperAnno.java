@@ -19,11 +19,6 @@ public interface RoomMapperAnno {
 	@Select("select * from room where bu_email = #{bu_email} order by lpad(ro_price, 10, '0')")
 	List<Room> roomList(String bu_email);
 	
-	//roominfo 슬라이드에 나올 첫번째 사진
-	@Select("select substr(location ,0,INSTRB(location,',')-1) location "
-			+ "from room r, picture p where r.bu_email = #{bu_email} and r.pic_num = p.pic_num and r.ro_num = #{ro_num}")
-	String picMain(Map<String, Object> map);
-	
 //	사진 등록시 시퀀스 +1
 	@Select("select picseq.nextval from dual")
 	int nextPicNum();
@@ -61,7 +56,7 @@ public interface RoomMapperAnno {
 
 //	bu_email , ro_num 과 일치하는 객실 삭제
 	@Delete("delete from room where bu_email = #{bu_email} and ro_num = #{ro_num}")
-	int deleteRoom(Map<String, Object> map);
+	int deleteRoom(Map<Object, Object> map);
 
 //	객실 삭제시 사업자 비밀번호 확인용
 	@Select("select bu_password from business where bu_email = #{bu_email} ")

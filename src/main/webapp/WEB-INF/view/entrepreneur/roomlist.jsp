@@ -7,7 +7,6 @@
 <html lang="en">
 <head>
   <title>Bootstrap 4 Website Example</title>
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/common/style.css">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
