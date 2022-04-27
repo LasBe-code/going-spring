@@ -24,7 +24,7 @@ import model.Reserved;
 import model.Review;
 import model.Room;
 import repository.MemberDao;
-import repository.ReservationDao;
+import repository.BookingDao;
 import repository.ReserveDao;
 import repository.RoomDao;
 import repository.SearchDao;
@@ -41,7 +41,7 @@ public class ReservationController{
 	
 	
 	@Autowired
-	ReservationDao reservationDao;
+	BookingDao bookingDao;
 	@Autowired
 	ReserveDao reserveDao;
 	@Autowired
@@ -63,7 +63,7 @@ public class ReservationController{
 		String email = (String)session.getAttribute("email");
 		
 		// Booking(*) + Picture(location) + Review(rev_num)
-		List<Booking> bookingList = reservationDao.selectBookingPicRevList(email);
+		List<Booking> bookingList = bookingDao.selectBookingPicRevList(email);
 		model.addAttribute("bookingList", bookingList);
 		return "/view/reservationList/reservationList";
 	}
@@ -73,7 +73,7 @@ public class ReservationController{
         String bo_num = request.getParameter("bo_num");
         String email = (String) request.getSession().getAttribute("email");
 
-        Booking bookingDetail = reservationDao.getBookingSelectDetail(bo_num);
+        Booking bookingDetail = bookingDao.getBookingSelectDetail(bo_num);
         Member m = md.selectMemberOne(email);
         
         model.addAttribute("member", m);
@@ -208,7 +208,7 @@ public class ReservationController{
 	public String cancel(String bo_num) throws IOException{
 		String email = (String) request.getSession().getAttribute("email");
 		
-		ReservationDao rd = new ReservationDao();
+		BookingDao rd = new BookingDao();
 		Booking b = rd.getBookingSelectDetail(bo_num);	
 		
 		// 본인이 예약한 예약내역만 취소 가능
@@ -246,7 +246,7 @@ public class ReservationController{
 			return "/view/alert";
 		}
 		
-		Booking booking = reservationDao.getBookingSelectDetail(bo_num);
+		Booking booking = bookingDao.getBookingSelectDetail(bo_num);
 		model.addAttribute("booking", booking);
 		return "/common/review";
 	}
@@ -260,7 +260,7 @@ public class ReservationController{
 		}
 		
 		Review review = new Review(
-				reservationDao.nextRevNum(),
+				bookingDao.nextRevNum(),
 				Integer.parseInt(request.getParameter("score")),
 				request.getParameter("bo_num"),
 				(String) request.getSession().getAttribute("email"),
@@ -268,7 +268,7 @@ public class ReservationController{
 				dateParse.getTodayPlus(0)
 				);
 		
-		int result= reservationDao.insertReview(review);
+		int result= bookingDao.insertReview(review);
 		String msg = "리뷰 등록을 실패했습니다.";
 		
 		if(result != 0) {

@@ -14,7 +14,7 @@ import mybatis.ReviewMapperAnno;
 import util.MybatisConnection;
 
 @Repository
-public class ReservationDao {
+public class BookingDao {
 
 	public List<Booking> getBookingSelectList(String email) {
 		SqlSession sqlSession = MybatisConnection.getConnection();
