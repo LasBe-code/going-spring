@@ -8,17 +8,19 @@ import java.util.Date;
 
 
 public class DateParse {
-	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	SimpleDateFormat strFormat = new SimpleDateFormat("yyyyMMdd");
-	DateTimeFormatter localDateFormat = DateTimeFormatter.ofPattern("yyyyMMdd");
+	private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	private static SimpleDateFormat strFormat = new SimpleDateFormat("yyyyMMdd");
+	private static DateTimeFormatter localDateFormat = DateTimeFormatter.ofPattern("yyyyMMdd");
+	
+	private DateParse() {}
 	
 	// yyyy-MM-dd -> yyyyMMdd	=>	DB에 넣기 위해 사용
-	public String dateToStr(String date) {
+	public static String dateToStr(String date) {
 		return date.replaceAll("-", "");
 	}
 	
 	// yyyyMMdd -> yyyy-MM-dd	=>	input date value로 넣기 위해 사용
-	public String strToDate(String str) {
+	public static String strToDate(String str) {
 		Date date;
 		try {
 			date = strFormat.parse(str);
@@ -31,25 +33,25 @@ public class DateParse {
 	}
 	
 	// getTodayPlus(int) 파라미터로 	0 넣으면 오늘, 1 넣으면 내일
-	public String getTodayPlus(int plus) {
+	public static String getTodayPlus(int plus) {
 		LocalDate now = LocalDate.now(); 	// 현재시간
 		now = now.plusDays(plus);			// 현재시간 + "plus"일
 		return now.format(localDateFormat);	// yyyyMMdd 포매팅
 	}
 	
 	// 날짜 더하기
-	public String datePlus(String date, int plus) {
-		if(date.contains("-")) date = this.dateToStr(date);
+	public static String datePlus(String date, int plus) {
+		if(date.contains("-")) date = DateParse.dateToStr(date);
 		LocalDate localDate = LocalDate.parse(date, DateTimeFormatter.BASIC_ISO_DATE);
 		return localDate.plusDays(plus).format(DateTimeFormatter.BASIC_ISO_DATE);
 		// return yyyyMMdd
 	}
 	
 	// 날짜 차이 계산 end - start
-	public int dateDif(String start, String end) {
+	public static int dateDif(String start, String end) {
 		if(start.contains("-") || end.contains("-")) {
-			start = this.dateToStr(start);
-			end = this.dateToStr(end);
+			start = DateParse.dateToStr(start);
+			end = DateParse.dateToStr(end);
 		}
 		
 		try {
