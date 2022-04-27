@@ -53,7 +53,6 @@
 		</div> 
 		
 		<input type="text" name="bu_address" class="form-control form-control-lg mt-3" placeholder="업체 주소" value="${mem.bu_address}"  required>
-		<input type="hidden" value="${pic_num}" name="pic_num">
 		<label style=" margin-bottom: 10px;">객실사진등록&nbsp;&nbsp;&nbsp;</label>
     	<textarea class="form-control form-control-lg" rows="10" cols="100" name="picLocation">${location}</textarea>
 		<input type="submit" id="submit" class="default_btn rounded mt-3" value="정보수정">

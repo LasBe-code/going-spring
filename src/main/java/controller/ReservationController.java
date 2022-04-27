@@ -74,7 +74,13 @@ public class ReservationController{
         String email = (String) request.getSession().getAttribute("email");
 
         Booking bookingDetail = bookingDao.getBookingSelectDetail(bo_num);
-        Member m = md.selectMemberOne(email);
+        Member m=null;
+		try {
+			m = md.selectMemberOne(email);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
         model.addAttribute("member", m);
         model.addAttribute("bookingDetail", bookingDetail);
@@ -139,7 +145,13 @@ public class ReservationController{
 		bo.setReg_date(dateParse.getTodayPlus(0));
 		bo.setStatus(1);
 		
-		Member m = md.selectMemberOne(bo.getEmail());
+		Member m=null;
+		try {
+			m = md.selectMemberOne(bo.getEmail());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		request.getSession().setAttribute("booking", bo);
 		model.addAttribute("member", m);
