@@ -11,6 +11,7 @@ import model.Picture;
 import model.Reserved;
 import model.Review;
 import model.Room;
+import model.SearchDTO;
 
 public interface ReservedMapperAnno {
 	
@@ -28,7 +29,7 @@ public interface ReservedMapperAnno {
 			+"	ON b.pic_num = p.pic_num "
 			+"	ORDER BY 2"
 			)
-	List<Business> searchBusinessList(Map map);
+	List<Business> searchBusinessList(SearchDTO searchDTO);
 	
 	
 	// Room(*) + Reserved(예약일자 중복정보) + Picture(방의 첫번째 사진)
@@ -81,8 +82,12 @@ public interface ReservedMapperAnno {
 			+ "	WHERE b.bu_email=#{bu_email}")
 	Business reviewAvgCountBusinessOne(String bu_email);
 	
-	
-	
+//	사업자의 주소를 가져와 지도로 출력
+	@Select("SELECT * FROM (select location, bu_address, bu_title, bu_email, "
+			+ "	ROW_NUMBER() OVER (PARTITION BY pic_num order by pic_num) AS NUM "
+			+ "	FROM (select bu.bu_address, bu.bu_id, bu.bu_title, p.location, p.pic_num,bu.bu_email from  business bu , "
+			+ "	picture p where  bu.pic_num = p.pic_num and bu.bu_id = #{bu_id} and bu.bu_address like #{bu_address}||'%')) where num = 1")
+	List<Business> addressList(SearchDTO searchDTO);
 	
 	@Select("select * from room where bu_email = #{bu_email} and ro_count >= #{ro_count}")
 	List<Room> roomList(Map map);
@@ -100,19 +105,9 @@ public interface ReservedMapperAnno {
 	@Insert("insert into reserved values(#{ro_num}, #{re_date})")
 	int insertReserved(Reserved r);
 	
-	@Select("select * from business where bu_id = #{bu_id} and ( bu_address like '%${bu_address}%' or bu_title like '%${bu_address}%')")
-	List<Business> businessList(Map map);
-	
 	@Select("select * from picture where pic_num = #{pic_num}")
 	List<Picture> sbPicList(int pic_num);
 	
-	
-	@Select("select min(to_number(ro_price)) from room where bu_email = #{bu_email} group by #{bu_email}")
-	String roomMinPrice(String bu_email);
-	
 	@Delete("delete from reserved where ro_num=#{ro_num} and re_date between #{checkin} and #{checkout}")
 	int cancelReserveList(Booking b);
-	
-	@Select("select * from business where bu_id = #{bu_id}")
-	List<Business> buidList(Map map);
 }

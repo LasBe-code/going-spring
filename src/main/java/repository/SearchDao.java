@@ -1,84 +1,38 @@
 package repository;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import model.Business;
 import model.Picture;
-import model.Room;
+import model.SearchDTO;
 import mybatis.ReservedMapperAnno;
-import util.MybatisConnection;
 
-@Component
+@Repository
 public class SearchDao {
-	
-	public List<Business> searchBusinessList(Map map){
-		SqlSession sqlSession = MybatisConnection.getConnection();
-		try {
-			List<Business> list = sqlSession.getMapper(ReservedMapperAnno.class).searchBusinessList(map);
-			return list;
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			MybatisConnection.close(sqlSession);
-		}
-		return null;
-	}
-	
-	public List<Business> businessList(Map map) {
 
-		SqlSession sqlSession = MybatisConnection.getConnection();
-		try {
-			List<Business> list = sqlSession.getMapper(ReservedMapperAnno.class).businessList(map);
-			return list;
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			MybatisConnection.close(sqlSession);
-		}
-		return null;
+	private final SqlSession sqlSession;
+
+	@Autowired
+	public SearchDao(SqlSession sqlSession) {
+		this.sqlSession = sqlSession;
+		System.out.println("SearchDao SqlSession On -> " + this.sqlSession);
 	}
 
-	public List<Picture> sbPicList(int pic_num) {
-
-		SqlSession sqlSession = MybatisConnection.getConnection();
-		try {
-			List<Picture> list = sqlSession.getMapper(ReservedMapperAnno.class).sbPicList(pic_num);
-			return list;
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			MybatisConnection.close(sqlSession);
-		}
-		return null;
+	// business(인원 수, 숙소 이름, 숙소 주소) + room(최저가, 인원 수 제한) + picture(숙소 사진 첫번째)
+	public List<Business> searchBusinessList(SearchDTO searchDTO) throws Exception {
+		return sqlSession.getMapper(ReservedMapperAnno.class).searchBusinessList(searchDTO);
 	}
 
-	public String roomMinPrice(String bu_email) {
-		SqlSession sqlSession = MybatisConnection.getConnection();
-		try {
-			return sqlSession.getMapper(ReservedMapperAnno.class).roomMinPrice(bu_email);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			MybatisConnection.close(sqlSession);
-		}
-		return null;
+	public List<Picture> sbPicList(int pic_num) throws Exception {
+		return sqlSession.getMapper(ReservedMapperAnno.class).sbPicList(pic_num);
 	}
 
-	public List<Business> buidList(Map map) {
-		SqlSession sqlSession = MybatisConnection.getConnection();
-		try {
-			List<Business> list = sqlSession.getMapper(ReservedMapperAnno.class).buidList(map);
-			return list;
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			MybatisConnection.close(sqlSession);
-		}
-		return null;
+	//	사업자의 주소를 가져와 지도로 출력
+	List<Business> addressList(SearchDTO searchDTO) throws Exception {
+		return sqlSession.getMapper(ReservedMapperAnno.class).addressList(searchDTO);
 	}
 }

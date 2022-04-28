@@ -1,34 +1,23 @@
 package repository;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
-
 import model.Business;
 import model.Member;
 import model.Picture;
 import mybatis.MemberMapperAnno;
-import util.MybatisConnection;
 
 @Repository
 public class MemberDao{
-	private Map<String, Object> map = new HashMap<>();
 	
 	private final SqlSession sqlSession;
-	private final RoomDao roomDao;
 	
 	@Autowired
-	public MemberDao(SqlSession sqlSession, RoomDao roomDao) {
+	public MemberDao(SqlSession sqlSession) {
 		this.sqlSession=sqlSession;
-		this.roomDao=roomDao;
-		System.out.println(sqlSession);
+		System.out.println("MemberDao SqlSession On -> "+this.sqlSession);
 	}
 	
 	public int insertMember(Member member) throws Exception{

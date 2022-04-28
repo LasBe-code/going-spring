@@ -78,15 +78,6 @@ function chk(){
 	        <input type="text" class="form-control form-control-lg mt-3" value="${member.tel}" readonly>
 	      </div>
 	
-	      <!-- <div class="mt-5">
-	        <strong class="user_profile">결제방식</strong> <br>
-	        <select class="form-select form-select-lg mt-3" style="width: 200px;">
-	          <option>카카오페이</option>
-	          <option>네이버페이</option>
-	          <option>신용카드</option>
-	        </select>
-	      </div> -->
-	
 	      <div class="mt-5" onclick="chk()">
 	        <div class="form-check">
 	          <input type="checkbox" class="form-check-input" id="check1" name="option1" value="something" required>

@@ -16,8 +16,9 @@ public interface BookingMapperAnno {
 	@Select ("select * from booking where bo_num = #{bo_num}")
 	Booking getBookingSelectDetail(String bo_num);
 	
+	// 예약 취소로 변경
 	@Update("update booking set status = 2 where bo_num = #{bo_num}")
-	void updateBookingStatus(String bo_num);
+	int updateBookingStatus(String bo_num);
 	
 	@Select("select p.* from picture p, room r where p.pic_num = r.pic_num and r.ro_num = #{ro_num}")
 	List<Picture> bookingPictureList(int ro_num);

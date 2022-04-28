@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>going.com</groupId>
-	<artifactId>goingTest</artifactId>
+	<artifactId>goingSpring</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>goingTest Maven Webapp</name>
@@ -216,6 +216,14 @@
 			<version>${spring.version2}</version>
 		</dependency>
 		
+		
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.8.0</version>
+		</dependency>
+
+		
 		<dependency>
 			<groupId>org.sitemesh</groupId>
 			<artifactId>sitemesh</artifactId>
@@ -225,7 +233,7 @@
 
 
 	<build>
-		<finalName>springMVC202204</finalName>
+		<finalName>goingSpring</finalName>
 
 
 		<plugins>

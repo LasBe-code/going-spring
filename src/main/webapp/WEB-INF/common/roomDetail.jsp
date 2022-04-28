@@ -20,16 +20,16 @@
 <div id="demo" class="carousel roominfo_div_box mt-3" data-bs-ride="carousel" style="">
   	<!-- Indicators/dots -->
   	<div class="carousel-indicators">
-	<c:forEach var="pic" items="${p_list}" varStatus="i">
+	<c:forEach var="pic" items="${picList}" varStatus="i">
 		<button type="button" data-bs-target="#demo" data-bs-slide-to="${i.index}" <c:if test="${i.index == 0}"> class="active"</c:if> ></button>
 	</c:forEach>
 </div>
     
     <!-- The slideshow/carousel -->
 <div class="carousel-inner ">
-    		<c:forEach var="pic" items="${p_list}" varStatus="i">
+    		<c:forEach var="pic" items="${picList}" varStatus="i">
 		<div class="carousel-item  <c:if test="${i.index == 0}">active</c:if>">
-        	<img class="top-img  rounded" src="${pic}" class="d-block" style="width:500px; object-fit: cover;">
+        	<img class="top-img  rounded" src="${pic.location}" class="d-block" style="width:500px; object-fit: cover;">
         </div>
 	</c:forEach>
 </div>

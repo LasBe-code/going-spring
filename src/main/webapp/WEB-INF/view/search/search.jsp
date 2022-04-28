@@ -30,25 +30,25 @@
 				<form action="${pageContext.request.contextPath}/search/search" method="get" name="f">
 					<input type="hidden" name="bu_email" value="${bu.bu_email}">
 					<div>
-						<input type='date' id="checkin" min="${today}" value="${checkin }" class="main_checkin_1" name="checkin" onchange="dateChk()" style="padding-left:0px; width:100%;" required>
+						<input type='date' id="checkin" min="${today}" value="${searchDTO.checkin }" class="main_checkin_1" name="checkin" onchange="dateChk()" style="padding-left:0px; width:100%;" required>
 					</div>
 					<div>
-						<input type='date' id="checkout" min="${tomorrow }" value="${checkout }" class="main_checkout_1" name="checkout" onchange="dateChk()" style="padding-left:0px;border: none;width:100%;" required>
+						<input type='date' id="checkout" min="${tomorrow }" value="${searchDTO.checkout }" class="main_checkout_1" name="checkout" onchange="dateChk()" style="padding-left:0px;border: none;width:100%;" required>
 					</div>
 					
 					<hr class="gray_line">
 					<strong class="search_strong_font">인원 수</strong>
-					<input type="hidden" name="ro_count" value="${ro_count}">
+					<input type="hidden" name="ro_count" value="${searchDTO.ro_count}">
 					<select id="select_ro_count" class="form-select form-select-lg" onchange="change_ro_count()" style="border: none; padding-left:0px;">
-						<option value="1" <c:if test="${ro_count == 1}">selected</c:if>>1</option>
-						<option value="2" <c:if test="${ro_count == 2}">selected</c:if>>2</option>
-						<option value="3" <c:if test="${ro_count == 3}">selected</c:if>>3</option>
-						<option value="4" <c:if test="${ro_count == 4}">selected</c:if>>4</option>
+						<option value="1" <c:if test="${searchDTO.ro_count == 1}">selected</c:if>>1</option>
+						<option value="2" <c:if test="${searchDTO.ro_count == 2}">selected</c:if>>2</option>
+						<option value="3" <c:if test="${searchDTO.ro_count == 3}">selected</c:if>>3</option>
+						<option value="4" <c:if test="${searchDTO.ro_count == 4}">selected</c:if>>4</option>
 					</select>
 					
 					<hr class="gray_line">
 					<strong class="search_strong_font">검색</strong> <br>
-					<input type=search class=search_text placeholder=지역,숙소명 name="bu_address" value="${search}" style="padding-left:0px;" required>
+					<input type=search class=search_text placeholder=지역,숙소명 name="bu_address" value="${searchDTO.bu_address}" style="padding-left:0px;" required>
 					
 					<hr class="gray_line">
 					<div class=search_button_box>
@@ -59,19 +59,19 @@
 							<strong class="search_strong_font">숙소 유형</strong>
 							<ul class="search_detail_ul">
 								<li><input type="checkbox" name="bu_id" value="1" onclick="NoMultiChk(this)" 
-									style="accent-color: #ffc107" <c:if test="${bu_id == 1}">checked</c:if>> 
+									style="accent-color: #ffc107" <c:if test="${searchDTO.bu_id == 1}">checked</c:if>> 
 									<label class="search_label_font">호텔</label>
 								</li>
 								<li><input type="checkbox" name="bu_id" value="2" onclick="NoMultiChk(this)" 
-									style="accent-color: #ffc107" <c:if test="${bu_id == 2}">checked</c:if>> 
+									style="accent-color: #ffc107" <c:if test="${searchDTO.bu_id == 2}">checked</c:if>> 
 									<label class="search_label_font">모텔</label>
 								</li>
 								<li><input type="checkbox" name="bu_id" value="3" onclick="NoMultiChk(this)" 
-									style="accent-color: #ffc107" <c:if test="${bu_id == 3}">checked</c:if>> 
+									style="accent-color: #ffc107" <c:if test="${searchDTO.bu_id == 3}">checked</c:if>> 
 									<label class="search_label_font">펜션</label>
 								</li>
 								<li><input type="checkbox" name="bu_id" value="4" onclick="NoMultiChk(this)" 
-									style="accent-color: #ffc107" <c:if test="${bu_id == 4}">checked</c:if>> 
+									style="accent-color: #ffc107" <c:if test="${searchDTO.bu_id == 4}">checked</c:if>> 
 									<label class="search_label_font">리조트</label>
 								</li>
 							</ul>
@@ -88,9 +88,9 @@
 					<div class="search_list_box">
 						<form action="${pageContext.request.contextPath}/reservation/detail" class="search_list_abox" method="get">
 							<input type="hidden" name="bu_email" value="${bu.bu_email }">
-							<input type="hidden" name="checkin" value="${checkin }">
-							<input type="hidden" name="checkout" value="${checkout }">
-							<input type="hidden" name="ro_count" value="${ro_count }">
+							<input type="hidden" name="checkin" value="${searchDTO.checkin }">
+							<input type="hidden" name="checkout" value="${searchDTO.checkout }">
+							<input type="hidden" name="ro_count" value="${searchDTO.ro_count }">
 							<div class="reserve_room" style="width: 690px; margin-top: 0px; padding-left: 385px;">
 								<p class="reserve_pic_view" style="width: 330px;">
 									<img src="${bu.picLocation}" class="rounded" style="width: 330px; height: 226px; object-fit: cover;">
