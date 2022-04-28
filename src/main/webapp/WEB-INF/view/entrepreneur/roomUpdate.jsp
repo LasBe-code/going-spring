@@ -38,10 +38,10 @@
     <div class="mb-3" style="margin-top: 20px;">
     <label>객실이용인원</label>
     <select id="people" name="ro_count">
-    	<option>1</option>
-    	<option>2</option>
-    	<option>3</option>
-    	<option>4</option>
+    	<option ${room.ro_count == '1' ? 'selected' : '' }>1</option>
+    	<option ${room.ro_count == '2' ? 'selected' : '' }>2</option>
+    	<option ${room.ro_count == '3' ? 'selected' : '' }>3</option>
+    	<option ${room.ro_count == '4' ? 'selected' : '' }>4</option>
     </select>
     </div>
     	<div class="mb-3" >

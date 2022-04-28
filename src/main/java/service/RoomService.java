@@ -1,10 +1,16 @@
 package service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,16 +19,17 @@ import model.Business;
 import model.Picture;
 import model.Room;
 import repository.RoomDao;
+import util.DateParse;
 
 @Service
 public class RoomService {
 	private Map<Object, Object> mainMap = new HashMap<Object, Object>();
-	
-	private final RoomDao rd;
+	private Map<String, Object> map = new HashMap<String, Object>();
+	private final RoomDao roomDao;
 	
 	@Autowired
-	public RoomService(RoomDao rd) {
-		this.rd = rd;
+	public RoomService(RoomDao roomDao) {
+		this.roomDao = roomDao;
 	}
 
 	
@@ -32,11 +39,11 @@ public class RoomService {
 		List<Picture> picList = new ArrayList<Picture>();
 		
 //		business 메일을 사용하는 사업자의 객실 리스트 저장
-		list = rd.roomList(bu_email);
+		list = roomDao.roomList(bu_email);
 		
 //		각 객실번호에 해당하는 사진가져오기
 		for(Room room : list) {
-			picList = rd.selectPic(room.getPic_num());
+			picList = roomDao.selectPic(room.getPic_num());
 			map.put(room.getRo_num(), picList.get(0).getLocation().trim());
 		}
 		mainMap.clear();
@@ -51,8 +58,8 @@ public class RoomService {
 		Picture p = new Picture();
 		int rowCnt = 0;
 		
-		int roomNum = rd.nextRoNum();
-		int picNum = rd.nextPicNum();
+		int roomNum = roomDao.nextRoNum();
+		int picNum = roomDao.nextPicNum();
 		
 		room.setRo_num(roomNum);
 		room.setBu_email(bu_email);
@@ -63,11 +70,11 @@ public class RoomService {
 		for (String pic : picList) {
 //			사진 링크를 picture table에 저장
 			p = new Picture(picNum, pic.trim());
-			rowCnt = rd.insertPicture(p);
+			rowCnt = roomDao.insertPicture(p);
 		}
 		
 //		room객체에 저장된 값을 room table에 저장
-		int rnum = rd.insertRoom(room);
+		int rnum = roomDao.insertRoom(room);
 		mainMap.clear();
 		mainMap.put("rnum", rnum);
 		mainMap.put("rowCnt", rowCnt);
@@ -80,8 +87,8 @@ public class RoomService {
 
 		List<String> p_list = new ArrayList<String>();
 		
-		Room room = rd.selectRoom(ro_num);
-		List<Picture> picList = rd.selectPic(room.getPic_num());
+		Room room = roomDao.selectRoom(ro_num);
+		List<Picture> picList = roomDao.selectPic(room.getPic_num());
 		for(int i=0; i<picList.size();i++) {
 			p_list.add(picList.get(i).getLocation());
 		}
@@ -101,8 +108,8 @@ public class RoomService {
 
 		String pic = "";
 		
-		Room room = rd.selectRoom(ro_num);
-		List<Picture> piclist = rd.selectPic(pic_num);
+		Room room = roomDao.selectRoom(ro_num);
+		List<Picture> piclist = roomDao.selectPic(pic_num);
 		
 		for(Picture p : piclist) {
 			pic += p.getLocation()+"\n";
@@ -117,17 +124,17 @@ public class RoomService {
 	public Map<Object, Object> roomUpdatePro(Room room) throws Exception {
 		Picture picLocation = null;
 		
-		int p = rd.deleteLocation(room.getPic_num());
+		int p = roomDao.deleteLocation(room.getPic_num());
 		
 		String[] picList = room.getLocation().split("\n");
 		int pic = 0;	
 		for(String lo : picList) {
 			picLocation = new Picture(room.getPic_num(),lo);
-			pic = rd.insertPicture(picLocation);
+			pic = roomDao.insertPicture(picLocation);
 		}
 		
 		// room객체에 저장된 값을 room table에 저장
-		int rnum = rd.updateRoom(room);
+		int rnum = roomDao.updateRoom(room);
 		
 		mainMap.clear();
 		mainMap.put("rnum", rnum);
@@ -141,141 +148,196 @@ public class RoomService {
 		int ro_num = r.getRo_num();
 		int room = 0;
 		// 사업자 비밀번호 찾기
-		Business business = rd.selectBu(bu_email);
+		Business business = roomDao.selectBu(bu_email);
 		
 		mainMap.clear();
 		if(pwd == null || "".equals(pwd) || !pwd.equals(business.getBu_password())) {
 			mainMap.put("msg", "비밀번호가 틀렸습니다.");
 		}else {
 			// 비밀번호가 일치하면 객실 삭제
-			room = rd.deleteRoom(bu_email, ro_num);
+			room = roomDao.deleteRoom(bu_email, ro_num);
 		}
 		
 		return room;
 	}
 	
-	public List<Room> getList(String bu_email) throws Exception {
-		return rd.roomList(bu_email);
+	public Map<Object, Object> reservation(String search, String searchName, HttpServletRequest request, 
+			String bu_email, int startPage, int endPage)throws Exception {
+		
+		mainMap.clear();
+		map.put("bu_email", bu_email);
+		map.put("startPage", startPage);
+		map.put("endPage", endPage);
+		// =========== 현재 시간 ==============
+		LocalDate now = LocalDate.now();
+		// 포맷 정의
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+		// 포맷 적용
+		String nowDay = now.format(formatter);
+		
+//		예약 내역 찾기
+		List<Booking> bk = new ArrayList<Booking>();
+//		검색할 컬럼이름
+		map.put("searchName", searchName);
+//		검색할 컬럼 값
+		map.put("search", search);
+		int count = 0;
+		
+		if("".equals(searchName) || searchName == null || search == null || "".equals(search)) {
+			bk = roomDao.selectBkList(map);
+			count = roomDao.countBoard(map);
+		}
+		else if("status".equals(searchName)) {
+			if("예약완료".equals(search)) {
+				map.put("status", "1");
+			}
+			else if("결제취소".equals(search)) {
+				map.put("status", "2");
+			}
+			else if("이용완료".equals(search)) {
+				map.put("status", "3");
+			}
+			else if("입실완료".equals(search)) {
+				map.put("status", "4");
+			}
+			else {
+				String msg = "예약완료, 결제취소, 이용완료 , 입실완료중 하나를 입력하세요.";
+				String url = request.getContextPath()+"/room/reservation";
+				mainMap.put("msg", msg);
+				mainMap.put("url", url);
+				
+				return mainMap;
+			}
+			bk = roomDao.searchStatus(map);
+			count = roomDao.countBoardStatus(map);
+		}
+		else {
+			bk = roomDao.searchName(map);
+			count = roomDao.countBoardSearchName(map);
+		}
+		mainMap.put("bk", bk);
+		mainMap.put("count", count);
+		
+		return mainMap;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public Map<Object, Object> sales(String bu_email) throws Exception {
+		
+		String[] month = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
+		map.clear();
+		map.put("bu_email", bu_email);
+		String result = "";
+		for(String mon : month) {
+			map.put("mon", mon);
+			Booking bo = roomDao.selectSales(map);
+			if(result!="") { 
+				result += ","; 
+			}
 
+			if(bo == null) {
+				result += "['"+mon+"월', "+"0"+"]";
 
-	public List<Picture> selectPic(int pic_num) throws Exception {
-		return rd.selectPic(pic_num);
+			}
+			else {
+				result += "['"+mon+"월', "+bo.getPrice()+"]";
+			}
+		}
+		mainMap.clear();
+		mainMap.put("result", result);
+		return mainMap;
 	}
-
-
-	public int nextRoNum() throws Exception{
-		return rd.nextRoNum();
+	
+	
+	public Map<Object, Object> areaSales(String month) throws Exception {
+		String[] areas = {"서울", "경기", "강원", "부산"};
+		
+		if(month == null) {
+			LocalDate now = LocalDate.now();
+			int month1 = now.getMonthValue();
+			month = "0"+month1;
+		}
+		String result = "";
+		map.put("month", month);
+		for(String area : areas) {
+			map.put("area", area);
+//			지역별 월매출
+			Booking bo = roomDao.selectAreaSales(map);
+			if(result!="") { 
+				result += ","; 
+			}
+			if(bo == null) {
+				result += "['"+area+"', "+"0"+"]";
+			}
+			else {
+				result += "['"+area+"', "+bo.getPrice()+"]";
+			}
+		}
+		mainMap.clear();
+		mainMap.put("result", result);
+		mainMap.put("month", month);
+		return mainMap;
 	}
-
-
-	public int nextPicNum() throws Exception{
-		return rd.nextPicNum();
+	
+	
+	public Map<Object, Object> todayCheckin(String bu_email) throws Exception {
+		
+		String checkin = DateParse.getTodayPlus(0);
+		
+		map.clear();
+		map.put("bu_email", bu_email);
+		map.put("checkin", checkin);
+//		아직 체크인 안한 객실내역
+		List<Booking> notCheckin = roomDao.selectNotCheckin(map);
+//		체크인 완료한 객실내역
+		List<Booking> checkinOk = roomDao.selectcheckinOk(map);
+		
+		mainMap.clear();
+		mainMap.put("notCheckin", notCheckin);
+		mainMap.put("checkinOk", checkinOk);
+		return mainMap;
 	}
-
-
-	public int insertPicture(Picture p) throws Exception  {
-		return rd.insertPicture(p);
+	
+	
+	public void updateTodayCheckin(String bo_num, String bu_email) throws Exception {
+		String checkin = DateParse.getTodayPlus(0);
+		
+		map.clear();
+		map.put("bu_email", bu_email);
+		map.put("bo_num", bo_num);
+		map.put("checkin", checkin);
+		
+		int rowCnt = roomDao.updateTodayCheckin(map);
 	}
-
-
-	public int insertRoom(Room room)  throws Exception {
-		return rd.insertRoom(room);
+	
+	public Map<Object, Object> todayCheckOut(String bu_email) throws Exception {
+		
+		String checkout = DateParse.getTodayPlus(0);
+		
+		map.clear();
+		map.put("bu_email", bu_email);
+		map.put("checkout", checkout);
+//		아직 체크아웃 안한 객실 내역
+		List<Booking> notCheckOut = roomDao.selectNotCheckOut(map);
+//		체크아웃하고 나간 객실 내역
+		List<Booking> checkOutOk = roomDao.selectcheckOutOk(map);
+		
+		mainMap.clear();
+		mainMap.put("notCheckOut", notCheckOut);
+		mainMap.put("checkOutOk", checkOutOk);
+		return mainMap;
 	}
-
-
-	public Room selectRoom(Integer ro_num) throws Exception  {
-		return rd.selectRoom(ro_num);
-	}
-
-
-	public int deleteLocation(int pic_num) throws Exception  {
-		return rd.deleteLocation(pic_num);
-	}
-
-
-	public int updateRoom(Room room)  throws Exception {
-		return rd.updateRoom(room);
-	}
-
-
-	public Business selectBu(String bu_email) throws Exception  {
-		return rd.selectBu(bu_email);
-	}
-
-
-	public int deleteRoom(String bu_email, int ro_num) throws Exception  {
-		return rd.deleteRoom(bu_email, ro_num);
-	}
-
-
-	public List<Booking> selectBkList(Map<String, Object> map) throws Exception  {
-		return rd.selectBkList(map);
-	}
-
-
-	public int countBoard(Map<String, Object> map) throws Exception  {
-		return rd.countBoard(map);
-	}
-
-
-	public List<Booking> searchStatus(Map<String, Object> map) throws Exception  {
-		return rd.searchStatus(map);
-	}
-
-
-	public int countBoardStatus(Map<String, Object> map) throws Exception  {
-		return rd.countBoardStatus(map);
-	}
-
-
-	public List<Booking> searchName(Map<String, Object> map) throws Exception  {
-		return rd.searchName(map);
-	}
-
-
-	public int countBoardSearchName(Map<String, Object> map)  throws Exception {
-		return rd.countBoardSearchName(map);
-	}
-
-
-	public Booking selectSales(Map<String, Object> map) throws Exception  {
-		return rd.selectSales(map);
-	}
-
-
-	public Booking selectAreaSales(Map<String, Object> map)  throws Exception {
-		return rd.selectAreaSales(map);
-	}
-
-
-	public List<Booking> selectNotCheckin(Map<String, Object> map) throws Exception  {
-		return rd.selectNotCheckin(map);
-	}
-
-
-	public List<Booking> selectcheckinOk(Map<String, Object> map)  throws Exception {
-		return rd.selectcheckinOk(map);
-	}
-
-
-	public int updateTodayCheckin(Map<String, Object> map)  throws Exception {
-		return rd.updateTodayCheckin(map);
-	}
-
-
-	public List<Booking> selectNotCheckOut(Map<String, Object> map)  throws Exception {
-		return rd.selectNotCheckOut(map);
-	}
-
-
-	public List<Booking> selectcheckOutOk(Map<String, Object> map) throws Exception  {
-		return rd.selectcheckOutOk(map);
-	}
-
-
-	public int updateAndDeleteTodayCheckOut(Map<String, Object> map) throws Exception  {
-		return rd.updateAndDeleteTodayCheckOut(map);
+	
+	public void updateTodayCheckOut(String bu_email, String bo_num) throws Exception {
+		
+		String checkout = DateParse.getTodayPlus(0);
+		
+		map.clear();
+		map.put("bu_email", bu_email);
+		map.put("bo_num", bo_num);
+		map.put("checkout", checkout);
+		
+		int rowCnt = roomDao.updateAndDeleteTodayCheckOut(map);
 	}
 
 }
