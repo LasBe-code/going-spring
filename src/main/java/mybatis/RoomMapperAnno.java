@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -184,6 +185,10 @@ public interface RoomMapperAnno {
 	@Delete("delete from (select * from reserved r,  booking bo "
 			+ " where bo.ro_num = r.ro_num  and status = 4 and bo.bo_num = #{bo_num} and re_date >= #{checkout})")
 	void deleteReserved(Map<String, Object> map);
+
+//	사업자 객실등록시 같은이름의 객실이 있는지 확인
+	@Select("select ro_name from room where ro_name = #{ro_name} and bu_email = #{bu_email}")
+	Room getRo_name(Map<String, Object> map);
 
 
 }

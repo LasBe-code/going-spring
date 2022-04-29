@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +27,6 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
 </head>
 <body>
-
 <div class="container" style="margin-top:100px">
 <div class="default_width">
 	<div class="search_bottom_box mt-3" style="float: left; width: 15%;">
@@ -32,21 +34,21 @@
 		<div class="search_filter_box">
 		<h3>상세조건</h3>
 		<form action="${pageContext.request.contextPath}/search/map" method="get" name="f">
-		<input type="hidden" id="ro_count" name="ro_count" value="${ro_count}">
+		<input type="hidden" id="ro_count" name="ro_count" value="${searchDTO.ro_count}">
 		<div>
-			<input type='date' id="checkin" class="main_checkin_1" name="checkin" value="${checkin}" onchange="dateChk()" required>
+			<input type='date' id="checkin" class="main_checkin_1" name="checkin" value="${searchDTO.checkin}" onchange="dateChk()" required>
 		</div>
 		<div>
-			<input type='date' id="checkout" class="main_checkout_1" name="checkout" value="${checkout}" onchange="dateChk()" style="border:none;" required>
+			<input type='date' id="checkout" class="main_checkout_1" name="checkout" value="${searchDTO.checkout}" onchange="dateChk()" style="border:none;" required>
 		</div>
 		<select id="selectRo_count" class="form-select form-select-lg" style="border: none;" >
 			<option value="none">인원수 선택</option>
-			<option value="1" ${ro_count == '1' ? 'selected' : '' }>1</option>
-			<option value="2" ${ro_count == '2' ? 'selected' : '' }>2</option>
-			<option value="3" ${ro_count == '3' ? 'selected' : '' }>3</option>
-			<option value="4" ${ro_count == '4' ? 'selected' : '' }>4</option>
+			<option value="1" ${searchDTO.ro_count == '1' ? 'selected' : '' }>1</option>
+			<option value="2" ${searchDTO.ro_count == '2' ? 'selected' : '' }>2</option>
+			<option value="3" ${searchDTO.ro_count == '3' ? 'selected' : '' }>3</option>
+			<option value="4" ${searchDTO.ro_count == '4' ? 'selected' : '' }>4</option>
 		</select>
-		<input type=search class=search_text placeholder=지역,숙소명 name="bu_address" id="bu_address" value="${bu_address}" required>
+		<input type=search class=search_text placeholder=지역,숙소명 name="bu_address" id="bu_address" value="${searchDTO.bu_address}" required>
 			<div class=search_button_box>
 				<div>
 				</div>
@@ -57,22 +59,22 @@
 				<ul class="search_detail_ul">
 					<li>
 						<input type="checkbox" id="bu_id" name="bu_id" value="1" onclick="NoMultiChk(this)" 
-						style=accent-color:#ffc107 ${bu_id == '1' ? 'checked' : '' }>
+						style=accent-color:#ffc107 ${searchDTO.bu_id == '1' ? 'checked' : '' }>
 						<label class="search_label_font">호텔</label>
 					</li>
 					<li>
 						<input type="checkbox" id="bu_id" name="bu_id" value="2" onclick="NoMultiChk(this)" 
-						style=accent-color:#ffc107 ${bu_id == '2' ? 'checked' : '' }>
+						style=accent-color:#ffc107 ${searchDTO.bu_id == '2' ? 'checked' : '' }>
 						<label class="search_label_font">모텔</label>
 					</li >
 					<li>
 						<input type="checkbox" id="bu_id" name="bu_id" value="3" onclick="NoMultiChk(this)" 
-						style=accent-color:#ffc107 ${bu_id == '3' ? 'checked' : '' }>
+						style=accent-color:#ffc107 ${searchDTO.bu_id == '3' ? 'checked' : '' }>
 						<label class="search_label_font">펜션</label>
 					</li>
 					<li>
 						<input type="checkbox" id="bu_id" name="bu_id" value="4" onclick="NoMultiChk(this)" 
-						style=accent-color:#ffc107 ${bu_id == '4' ? 'checked' : '' }>
+						style=accent-color:#ffc107 ${searchDTO.bu_id == '4' ? 'checked' : '' }>
 						<label class="search_label_font">리조트</label>
 					</li>
 				</ul>
@@ -108,9 +110,9 @@ $(document).ready(function(){
 		 ro_count = '';
 	}
 	else{
-		 checkin  = document.querySelector('#checkin').val;
+		 /* checkin  = document.querySelector('#checkin').val;
 		 checkout = document.querySelector('#checkout').val;
-		 ro_count = document.querySelector('#ro_count').val;
+		 ro_count = document.querySelector('#ro_count').val; */
 	}
     
     
@@ -181,12 +183,11 @@ const roomTitle = ${roomTitle}
 const roomPic = ${roomPic}
 const bu_email = ${bu_email}
 
-
 //지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
 var bounds = new kakao.maps.LatLngBounds();
 
 
-for (let i = 0; i < resultAddress.length; i++) {
+for (let i = 0; i <= resultAddress.length; i++) {
 	// 주소-좌표 변환 객체를 생성합니다
 	const geocoder = new kakao.maps.services.Geocoder();
 	// 주소로 좌표를 검색합니다
@@ -219,7 +220,7 @@ for (let i = 0; i < resultAddress.length; i++) {
 				'<div class="wrap">' + 
 		        '    <div class="info">' + 
 		        '        <div class="title">' + 
-		        				roomTitle[i]+ 
+		     				   roomTitle[i]+ 
 		        '        </div>' + 
 		        '        <div class="body">' + 
 		        '            <div class="img">' +
@@ -227,7 +228,7 @@ for (let i = 0; i < resultAddress.length; i++) {
 		        '           </div>' + 
 		        '            <div class="desc">' + 
 		        '                <div class="ellipsis">'+resultAddress[i]+'</div>' + 
-		        '                <div><a href="${pageContext.request.contextPath}/reservation/detail?bu_email='+bu_email[i]+'&checkin=${checkin}&checkout=${checkout}&ro_count=${ro_count}" target="_self" class="link">객실 보러가기</a></div>' + 
+		        '                <div><a href="${pageContext.request.contextPath}/reservation/detail?bu_email='+bu_email[i]+'&checkin=${searchDTO.checkin}&checkout=${searchDTO.checkout}&ro_count=${searchDTO.ro_count}" target="_self" class="link">객실 보러가기</a></div>' + 
 		        '            </div>' + 
 		        '        </div>' + 
 		        '    </div>' +    
