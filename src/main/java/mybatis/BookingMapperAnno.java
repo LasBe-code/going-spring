@@ -23,6 +23,8 @@ public interface BookingMapperAnno {
 	@Select("select p.* from picture p, room r where p.pic_num = r.pic_num and r.ro_num = #{ro_num}")
 	List<Picture> bookingPictureList(int ro_num);
 	
+	
+	// 고객 예약 내역 + 예약 객실의 첫번째 사진 + 예약에 대한 리뷰 여부
 	@Select("	SELECT "
 			+ "    	b.*, p.location , rev.rev_num as revNum "
 			+ "	FROM "
@@ -35,6 +37,7 @@ public interface BookingMapperAnno {
 			+ "        	(select DISTINCT pic_num, FIRST_VALUE(location) OVER(partition by pic_num) as location from picture) p "
 			+ "    	ON r.pic_num = p.pic_num "
 			+ "	WHERE "
-			+ "    	b.email = #{email} and b.ro_num = r.ro_num")
+			+ "    	b.email = #{email} and b.ro_num = r.ro_num"
+			+ "	ORDER BY reg_date desc ")
 	List<Booking> selectBookingPicRevList(String email);
 }

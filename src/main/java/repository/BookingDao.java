@@ -27,8 +27,9 @@ public class BookingDao {
 		return sqlSession.getMapper(BookingMapperAnno.class).getBookingSelectList(email);
 	}
 	
-	public List<Booking> selectBookingPicRevList(String bo_num) throws Exception {
-		return sqlSession.getMapper(BookingMapperAnno.class).selectBookingPicRevList(bo_num);
+	// 고객 예약 내역 + 예약 객실의 첫번째 사진 + 예약에 대한 리뷰 여부
+	public List<Booking> selectBookingPicRevList(String email) throws Exception {
+		return sqlSession.getMapper(BookingMapperAnno.class).selectBookingPicRevList(email);
 	}
 
 	public Booking getBookingSelectDetail(String email) throws Exception {
