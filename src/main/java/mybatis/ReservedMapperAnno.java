@@ -63,7 +63,7 @@ public interface ReservedMapperAnno {
 	
 	// Business(*) + Review(별점 평균, 리뷰 개수)
 	@Select("	SELECT  "
-			+ "    	b.*, score.avgScore, score.revCount "
+			+ "    	b.*, nvl(score.avgScore, 0) as avgScore, nvl(score.revCount, 0) as revCount "
 			+ "	FROM  "
 			+ "    	business b "
 			+ "    	LEFT OUTER JOIN "
