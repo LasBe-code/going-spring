@@ -1,18 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
-</head>
-<body>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=35d71e137b481a1c8d8befd339cf5e29&libraries=services"></script>
+<script src="${pageContext.request.contextPath}/resources/js/dateCheck.js"></script>
 <script>
 	function roomDetail(ro_num, bu_email) {
 		const url = '${pageContext.request.contextPath}/reservation/roomDetail?ro_num='
@@ -23,6 +17,9 @@
 		open(url, '방 정보', op)
 	}
 </script>
+
+</head>
+<body>
 
 
 	<div class="default_width mt-5">
@@ -80,10 +77,12 @@
 						<li>대표 전화번호 : ${bu.bu_tel}</li>
 					</ul>
 				</div>
-				<div id="map" style="margin-top: 15px; height: 140px;"></div>
+				<!-- 지도 -->
+				<div class="rounded" id="map" style="margin-top: 15px; height: 140px;"></div>
 			</div>
 			<!-- 숙소 소개 끝 -->
 
+			<!-- 탭 -->
 			<div class="container mt-5">
 				<ul class="nav nav-tabs nav-justified">
 					<li class="nav-item">
@@ -94,13 +93,14 @@
 					</li>
 				</ul>
 			</div>
+			<!-- 탭  끝 -->
 
 			<div class="tab-content">
 
 				<!-- 방 목록 -->
 				<div class="tab-pane active" id="room-list">
 					<!-- 체크인 체크아웃 재설정 -->
-					<form action="${pageContext.request.contextPath}/reservation/detail" method="get">
+					<form action="${pageContext.request.contextPath}/reservation/detail" name="f" method="get">
 						<div class="row" style="text-align: center; margin:0 auto; margin-bottom: -12px;">
 							<input type="hidden" name="ro_count" value="${ro_count}">
 							<input type="hidden" name="bu_email" value="${bu.bu_email}">

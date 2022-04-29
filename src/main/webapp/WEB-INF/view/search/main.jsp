@@ -1,13 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/dateCheck.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function(){
 	var mySwiper = new Swiper('.swiper-container', {
@@ -101,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function(){
 	
 	<!-- 숙소 종류별 즉시 검색 기능 -->
 	<div class="main_box rounded mt-3">
-		<h4 class="main_head_text">🧳 바로 검색해보세요!</h4>
+		<h4 class="main_head_text">⚡️ 클릭해서 원하는 숙소를 찾아보세요!</h4>
 		<div class="row">
 			<div class="col-sm-3 main_category_box"
 			onclick="location.href='${pageContext.request.contextPath}/search/search?bu_id=1&ro_count=2'">
@@ -136,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function(){
 	
 	<!-- 최신 리뷰로 detail.jsp 이동하기 -->
 	<div class="main_box rounded mt-3">
-		<h4 class="main_head_text">📌 최신 리뷰가 작성된 숙소에요!</h4>
+		<h4 class="main_head_text">📌 최근 가장 많이 예약된 숙소에요!</h4>
 		
 		<div class="">
 			<div class="swiper-container">

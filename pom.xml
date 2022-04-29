@@ -71,13 +71,6 @@
 		</dependency>
 
 
-		<!-- https://mvnrepository.com/artifact/org.sitemesh/sitemesh -->
-		<dependency>
-			<groupId>org.sitemesh</groupId>
-			<artifactId>sitemesh</artifactId>
-			<version>3.0.1</version>
-		</dependency>
-
 		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
@@ -224,11 +217,6 @@
 		</dependency>
 
 		
-		<dependency>
-			<groupId>org.sitemesh</groupId>
-			<artifactId>sitemesh</artifactId>
-			<version>3.0.1</version>
-		</dependency>
 	</dependencies>
 
 

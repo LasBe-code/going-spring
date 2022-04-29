@@ -1,15 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-
-</head>
-
-<body>
+<script src="${pageContext.request.contextPath}/resources/js/dateCheck.js"></script>
 <script>
 	function NoMultiChk(chk) {
 		var obj = document.getElementsByName("bu_id");
@@ -20,6 +14,9 @@
 		}
 	}
 </script>
+</head>
+
+<body>
 	<div class=default_width>
 		<div class="search_bottom_box mt-3">
 			

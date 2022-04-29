@@ -10,4 +10,4 @@
 <% response.sendRedirect(request.getContextPath()+"/search/main"); %>
 
 </body>
-</html> 
+</html>  
