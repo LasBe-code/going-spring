@@ -152,8 +152,4 @@ public class RoomDao {
 	public int updateAndDeleteTodayCheckOut(Map<String, Object> map)  throws Exception {
 		return sqlSession.getMapper(RoomMapperAnno.class).countReserved(map);
 	}
-
-	public Room getRo_name(Map<String, Object> map) {
-		return sqlSession.getMapper(RoomMapperAnno.class).getRo_name(map);
-	}
 }

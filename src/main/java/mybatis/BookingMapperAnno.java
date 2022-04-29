@@ -1,9 +1,11 @@
 package mybatis;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.*;
 import model.Booking;
+import model.Business;
 import model.Member;
 import model.Picture;
 
@@ -40,4 +42,57 @@ public interface BookingMapperAnno {
 			+ "    	b.email = #{email} and b.ro_num = r.ro_num"
 			+ "	ORDER BY reg_date desc ")
 	List<Booking> selectBookingPicRevList(String email);
+	
+	//  최근 가장 많이 팔린 숙소 10개 Business(*) => (숙소 객실 중 최저가 + 별점 평균 + 숙소 첫번째 사진)
+	  //     숙소 별 총 예약 횟수는 임의로 revCount에 저장
+	  @Select("    SELECT "
+		  + "        nvl(minPrice, 0) as minPrice, nvl(avgScore, 0) as avgScore, "
+	      + "        bu.*, nvl(r.countBooking, 0) as revCount, p.location as picLocation "
+	      + "    FROM "
+	      + "        business bu "
+	      + ""
+	      + "        LEFT OUTER JOIN " // 판매 순위 10등 계산 
+	      + "        ( "
+	      + "            SELECT "
+	      + "                r.bu_email, count(b.bo_num) as countBooking "
+	      + "            FROM "
+	      + "                booking b, room r "
+	      + "            WHERE "
+	      + "                reg_date between #{beforeDay} and #{today} and b.ro_num = r.ro_num "
+	      + "            GROUP BY r.bu_email "
+	      + "            ORDER BY 2 desc "
+	      + "        ) r "
+	      + "        ON bu.bu_email = r.bu_email "
+	      + ""
+	      + "        LEFT OUTER JOIN  " // 숙소의 첫번째 사진
+	      + "        ( "
+	      + "            SELECT  "
+	      + "                DISTINCT pic_num, FIRST_VALUE(location) OVER(partition by pic_num) as location  "
+	      + "            FROM picture "
+	      + "        ) p "
+	      + "        ON bu.pic_num = p.pic_num "
+	      + ""
+	      + "        LEFT OUTER JOIN " // 숙소 별점 평균
+	      + "        ( "
+	      + "        SELECT ro.bu_email as bu_email, TRUNC(avg(review.score)) as avgScore "
+	      + "        FROM review review, booking bo, room ro, business bu "
+	      + "        WHERE  "
+	      + "            review.bo_num = bo.bo_num and  "
+	      + "            bo.ro_num = ro.ro_num and  "
+	      + "            ro.bu_email = bu.bu_email "
+	      + "        GROUP BY ro.bu_email "
+	      + "        ) score "
+	      + "    ON bu.bu_email = score.bu_email "
+	      + ""
+	      + "    LEFT OUTER JOIN " // 숙소의 객실 중 최저가
+	      + "    ( "
+	      + "        SELECT bu_email, min(to_number(ro_price)) as minPrice "
+	      + "        FROM room  "
+	      + "        WHERE ro_count >= 2 group by bu_email "
+	      + "    ) min "
+	      + "    ON bu.bu_email = min.bu_email "
+	      + ""
+	      + "    WHERE rownum < 11 "
+	      + "    ORDER BY revCount desc ")
+	  List<Business> hot10BusinessList(Map map);
 }

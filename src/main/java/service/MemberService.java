@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import model.Business;
-import model.BusinessMenubar;
 import model.Member;
 import model.Picture;
 import repository.MemberDao;
@@ -109,9 +108,5 @@ public class MemberService {
 		//사업자 업데이트
 			return memberDao.updateBusiness(business);
 		}
-	}
-
-	public List<BusinessMenubar> getMenubar() {
-		return memberDao.getMenubar();
 	}
 }

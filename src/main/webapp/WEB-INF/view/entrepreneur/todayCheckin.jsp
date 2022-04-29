@@ -13,6 +13,36 @@
 <body>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
 <div style="margin:100px auto; width: 80%;">
+  <nav class="navbar navbar-expand-sm bg-light navbar-light" style="width: 60%; margin:0px auto;">
+  	<div style="margin: 0px auto;">
+	  <ul class="navbar-nav">
+	  	<li class="nav-item">
+	      <a class="nav-link" href="${pageContext.request.contextPath}/room/roomInsert">객실 등록</a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link" href="${pageContext.request.contextPath}/room/roomlist">객실 정보</a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link" href="${pageContext.request.contextPath}/room/reservation">예약 확인</a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link" href="${pageContext.request.contextPath}/room/sales">매출</a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link" href="${pageContext.request.contextPath}/room/areaSales">지역별 월매출</a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link" href="${pageContext.request.contextPath}/room/todayCheckin">체크인</a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link" href="${pageContext.request.contextPath}/room/todayCheckOut">체크아웃</a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link" href="${pageContext.request.contextPath}/room/roomReview">리뷰</a>
+	    </li>
+	  </ul>
+	  </div>
+</nav>
 <h2 style="text-align: center; margin: 30px 0px;">오늘 체크인목록</h2>
 
 <div class="container col-sm-6" style="margin-top: 50px; float: left;">
@@ -40,7 +70,8 @@
         <td>${nc.checkout}</td>
      	<td>${nc.name}</td>
         <td>${nc.tel}</td>
-        <td><input type="button" class="update" value="체크인"></td> 
+        <td><input type="button" class="update" value="체크인"></td> <!-- id는 유니크 값이어야하는데 반복문에 의해 동일한 id가
+																생기면서 제일 먼저 발견된 1행째의 버튼에만 이벤트가 발생하는거 같습니다.-->
      </tr>
     </c:forEach>  
     </tbody>

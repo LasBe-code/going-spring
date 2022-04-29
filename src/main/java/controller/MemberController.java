@@ -1,6 +1,5 @@
 package controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import model.Business;
-import model.BusinessMenubar;
 import model.Member;
 import model.Picture;
 import service.MemberService;
@@ -94,17 +92,15 @@ public class MemberController{
 		String msg = "아이디를 확인하세요";
 		String url = request.getContextPath() + "/member/loginForm";
 		Business bu = null;
-		List<BusinessMenubar> menu = new ArrayList<BusinessMenubar>();
+		
 		try {
 			bu = memberService.getBusinessOne(bu_email);
-			menu = memberService.getMenubar();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		if (bu != null) {
 			if (bu_password.equals(bu.getBu_password())) { // 로그인 성공
-				session.setAttribute("menu", menu);
 				session.setAttribute("bu_email", bu_email);
 				msg = bu.getBu_name() + "님이 로그인 하셨습니다.";
 				url = request.getContextPath() + "/room/roomlist";

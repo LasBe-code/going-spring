@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import model.Booking;
 import model.Business;
@@ -86,7 +87,9 @@ public class ReservationController{
     }
 	
 	@RequestMapping("detail")
-	public String detail(String bu_email, String ro_count, String checkin, String checkout) {
+	public String detail(String bu_email, 
+			@RequestParam(defaultValue = "2") String ro_count, 
+			String checkin, String checkout) {
 		String today = DateParse.getTodayPlus(0);			
 		String tomorrow = DateParse.getTodayPlus(1);
 		

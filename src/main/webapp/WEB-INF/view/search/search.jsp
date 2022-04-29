@@ -101,10 +101,10 @@
 									</p>
 								</div>
 								<div class="reserve_room_price row" style="width: 300px;">
-									<div class="col-sm-6">
+									<div class="col-sm-3">
 										<strong class="medium_text">가격</strong>
 									</div>
-									<div class="col-sm-6 right_text">
+									<div class="col-sm-9 right_text">
 										<b class="large_text"><fmt:formatNumber value="${bu.minPrice}" pattern="#,###" />원</b>
 									</div>
 								</div>

@@ -23,5 +23,7 @@ public class SearchService {
 		return searchDao.searchBusinessList(searchDTO);
 	}
 	
-	
+	public List<Business> hot10BusinessList() throws Exception {
+		return searchDao.hot10BusinessList();
+	}
 }

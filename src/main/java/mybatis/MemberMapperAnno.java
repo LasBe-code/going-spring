@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.*;
 
 import model.Business;
-import model.BusinessMenubar;
 import model.Member;
 import model.Picture;
 
@@ -40,7 +39,4 @@ public interface MemberMapperAnno {
 	
 	@Select("select count(*) from business where bu_tel=#{bu_tel}")
 	int businessTelCount(String bu_tel);
-
-	@Select("select * from bumenu where menu_status = 1 order by menu_num")
-	List<BusinessMenubar> getMenubar();
 }

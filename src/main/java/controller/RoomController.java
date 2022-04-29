@@ -9,17 +9,14 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 
 import model.Business;
-import model.Member;
 import model.Review;
 import model.Room;
 import service.ReserveService;
@@ -398,25 +395,6 @@ public class RoomController{
 			e.printStackTrace();
 		}
 		return "/view/entrepreneur/roomReview";
-	}
-	
-	
-	@PostMapping("roomCheck")
-	@ResponseBody
-	public Boolean readId(String ro_name) {
-		String bu_email = (String)session.getAttribute("bu_email");
-		boolean chk = true;
-		if (ro_name != null) {
-			try {
-				Room room = roomService.getRo_name(ro_name,bu_email);
-				chk = room == null ? false : true;
-				return chk;
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-
-		return chk;
 	}
 }
 
