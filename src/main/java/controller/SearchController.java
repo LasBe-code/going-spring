@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,7 @@ import model.Business;
 import model.SearchDTO;
 import repository.RoomDao;
 import repository.SearchDao;
+import service.RoomService;
 import service.SearchService;
 import util.DateParse;
 
@@ -31,10 +33,12 @@ public class SearchController{
 	HttpSession session;
 	
 	private final SearchService searchService;
+	private final RoomService roomService;
 	
 	@Autowired
-	public SearchController(SearchService searchService) {
-		this.searchService=searchService;
+	public SearchController(SearchService searchService, RoomService roomService) {
+		this.searchService = searchService;
+		this.roomService = roomService;
 	}
 	
 	@ModelAttribute
@@ -44,16 +48,12 @@ public class SearchController{
 		this.session = request.getSession();
 	}
 	
+
+
 	@RequestMapping("main")
 	public String main() {
 	    model.addAttribute("today", DateParse.strToDate(DateParse.getTodayPlus(0)));
 	    model.addAttribute("tomorrow", DateParse.strToDate(DateParse.getTodayPlus(1)));
-	    try {
-	    	List<Business> businessList = searchService.hot10BusinessList();
-			model.addAttribute("hotBusinessList", businessList);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		return "/view/search/main";
 	}
 	
@@ -85,61 +85,27 @@ public class SearchController{
 	
 	@RequestMapping("map")
 	public String map(SearchDTO searchDTO) {
-		
-		
-		List<Business> addressList = new ArrayList<Business>();
-		String bu_id = request.getParameter("bu_id");
-		String ro_count = request.getParameter("ro_count");
-		String checkin = request.getParameter("checkin");
-		String checkout = request.getParameter("checkout");
-		String bu_address = request.getParameter("bu_address");
-		
-				
-		if(bu_address == null  || bu_id == null || checkin == null ||  checkout == null) {
-			bu_address = "서울";
-			bu_id = "1";
-			checkin = DateParse.strToDate(DateParse.getTodayPlus(0));
-			checkout = DateParse.strToDate(DateParse.getTodayPlus(1));
-		}
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("bu_address", bu_address);
-		map.put("bu_id", bu_id);
-		
-		String resultAddress = "[";
-		String roomTitle = "[";
-		String roomPic = "[";
-		String bu_email = "[";
-//		addressList = rd.addressList(map);
-		
-		for(int i = 0 ; i < addressList.size(); i++) {
-			if(i == addressList.size()-1) {
-				resultAddress += "'"+addressList.get(i).getBu_address().trim()+"'";
-				roomTitle += "'"+addressList.get(i).getBu_title().trim()+"'";
-				roomPic += "'"+addressList.get(i).getLocation().trim()+"'";
-				bu_email += "'"+addressList.get(i).getBu_email().trim()+"'";
-			}
-			else {
-				resultAddress += "'"+addressList.get(i).getBu_address().trim()+"', ";
-				roomTitle += "'"+addressList.get(i).getBu_title().trim()+"', ";
-				roomPic += "'"+addressList.get(i).getLocation().trim()+"', ";
-				bu_email += "'"+addressList.get(i).getBu_email().trim()+"', ";
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		try {
+			map = roomService.addressList(searchDTO);
+			
+			if(searchDTO.getBu_address() == null || searchDTO.getRo_count() == null || searchDTO.getCheckin() == null
+				||	searchDTO.getCheckout() == null || searchDTO.getBu_address() ==null) {
+				searchDTO.setBu_id((String) map.get("bu_id"));
+				searchDTO.setRo_count((String)map.get("ro_count"));
+				searchDTO.setCheckin((String)map.get("checkin"));
+				searchDTO.setCheckout((String)map.get("checkout"));
+				searchDTO.setBu_address((String)map.get("bu_address"));
 			}
 		}
-		resultAddress += "]";
-		roomTitle += "]";
-		roomPic += "]";
-		bu_email += "]";
-		
-		
-		model.addAttribute("resultAddress", resultAddress);
-		model.addAttribute("roomTitle", roomTitle);
-		model.addAttribute("roomPic", roomPic);
-		model.addAttribute("bu_email", bu_email);
-		model.addAttribute("bu_id", bu_id);
-		model.addAttribute("ro_count", ro_count);
-		model.addAttribute("checkin", checkin);
-		model.addAttribute("checkout", checkout);
-		model.addAttribute("bu_address", bu_address);
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("searchDTO", searchDTO);
+		model.addAttribute("bu_email", map.get("bu_email"));
+		model.addAttribute("roomPic", map.get("roomPic"));
+		model.addAttribute("roomTitle", map.get("roomTitle"));
+		model.addAttribute("resultAddress", map.get("resultAddress"));
 		
 		return "/view/search/map";
 	}

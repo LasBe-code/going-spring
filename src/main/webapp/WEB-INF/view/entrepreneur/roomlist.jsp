@@ -9,44 +9,14 @@
   <title>Bootstrap 4 Website Example</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<body>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
 
 <div class="container" style="margin-top:100px">
-<nav class="navbar navbar-expand-sm bg-light navbar-light" style="width: 60%; margin:0px auto;">
-  	<div style="margin: 0px auto;">
-	  <ul class="navbar-nav">
-	  	<li class="nav-item">
-	      <a class="nav-link" href="${pageContext.request.contextPath}/room/roomInsert">객실 등록</a>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link" href="${pageContext.request.contextPath}/room/roomlist">객실 정보</a>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link" href="${pageContext.request.contextPath}/room/reservation">예약 확인</a>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link" href="${pageContext.request.contextPath}/room/sales">매출</a>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link" href="${pageContext.request.contextPath}/room/areaSales">지역별 월매출</a>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link" href="${pageContext.request.contextPath}/room/todayCheckin">체크인</a>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link" href="${pageContext.request.contextPath}/room/todayCheckOut">체크아웃</a>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link" href="${pageContext.request.contextPath}/room/roomReview">리뷰</a>
-	    </li>
-	  </ul>
-	  </div>
-</nav>
 <table class="table" style="width: 75%; margin:10px auto; margin-top: 50px;">
     <tbody>
     <c:forEach var="l" items="${list}">

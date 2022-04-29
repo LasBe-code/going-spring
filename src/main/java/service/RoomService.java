@@ -18,12 +18,13 @@ import model.Booking;
 import model.Business;
 import model.Picture;
 import model.Room;
+import model.SearchDTO;
 import repository.RoomDao;
 import util.DateParse;
 
 @Service
 public class RoomService {
-	private Map<Object, Object> mainMap = new HashMap<Object, Object>();
+	private Map<Object, Object> serviceMap = new HashMap<Object, Object>();
 	private Map<String, Object> map = new HashMap<String, Object>();
 	private final RoomDao roomDao;
 	
@@ -46,11 +47,11 @@ public class RoomService {
 			picList = roomDao.selectPic(room.getPic_num());
 			map.put(room.getRo_num(), picList.get(0).getLocation().trim());
 		}
-		mainMap.clear();
-		mainMap.put("list", list);
-		mainMap.put("map", map);
+		serviceMap.clear();
+		serviceMap.put("list", list);
+		serviceMap.put("map", map);
 		
-		return mainMap;
+		return serviceMap;
 	}
 	
 	public Map<Object, Object> roomInsertPro(Room room, String bu_email) throws Exception {
@@ -75,11 +76,11 @@ public class RoomService {
 		
 //		room객체에 저장된 값을 room table에 저장
 		int rnum = roomDao.insertRoom(room);
-		mainMap.clear();
-		mainMap.put("rnum", rnum);
-		mainMap.put("rowCnt", rowCnt);
+		serviceMap.clear();
+		serviceMap.put("rnum", rnum);
+		serviceMap.put("rowCnt", rowCnt);
 		
-		return mainMap;
+		return serviceMap;
 	}
 	
 
@@ -94,14 +95,14 @@ public class RoomService {
 		}
 //		선택한 객실의 정보를 가져와서 저장
 		String info = room.getRo_info().replace("\r\n", "<br/>");
-		mainMap.clear();
-		mainMap.put("p_list", p_list);
-		mainMap.put("room", room);
-		mainMap.put("ro_num", ro_num);
-		mainMap.put("pic_num", room.getPic_num());
-		mainMap.put("info", info);
+		serviceMap.clear();
+		serviceMap.put("p_list", p_list);
+		serviceMap.put("room", room);
+		serviceMap.put("ro_num", ro_num);
+		serviceMap.put("pic_num", room.getPic_num());
+		serviceMap.put("info", info);
 		
-		return mainMap;
+		return serviceMap;
 	}
 	
 	public Map<Object, Object> roomUpdate(Integer ro_num, Integer pic_num) throws Exception {
@@ -114,10 +115,10 @@ public class RoomService {
 		for(Picture p : piclist) {
 			pic += p.getLocation()+"\n";
 		}
-		mainMap.clear();
-		mainMap.put("room", room);
-		mainMap.put("pic", pic);
-		return mainMap;
+		serviceMap.clear();
+		serviceMap.put("room", room);
+		serviceMap.put("pic", pic);
+		return serviceMap;
 	}
 	
 	
@@ -136,10 +137,10 @@ public class RoomService {
 		// room객체에 저장된 값을 room table에 저장
 		int rnum = roomDao.updateRoom(room);
 		
-		mainMap.clear();
-		mainMap.put("rnum", rnum);
-		mainMap.put("pic", pic);
-		return mainMap;
+		serviceMap.clear();
+		serviceMap.put("rnum", rnum);
+		serviceMap.put("pic", pic);
+		return serviceMap;
 	}
 	
 	public int roomDeltePro(Room r, Business bu, String bu_email) throws Exception{
@@ -150,9 +151,9 @@ public class RoomService {
 		// 사업자 비밀번호 찾기
 		Business business = roomDao.selectBu(bu_email);
 		
-		mainMap.clear();
+		serviceMap.clear();
 		if(pwd == null || "".equals(pwd) || !pwd.equals(business.getBu_password())) {
-			mainMap.put("msg", "비밀번호가 틀렸습니다.");
+			serviceMap.put("msg", "비밀번호가 틀렸습니다.");
 		}else {
 			// 비밀번호가 일치하면 객실 삭제
 			room = roomDao.deleteRoom(bu_email, ro_num);
@@ -164,7 +165,7 @@ public class RoomService {
 	public Map<Object, Object> reservation(String search, String searchName, HttpServletRequest request, 
 			String bu_email, int startPage, int endPage)throws Exception {
 		
-		mainMap.clear();
+		serviceMap.clear();
 		map.put("bu_email", bu_email);
 		map.put("startPage", startPage);
 		map.put("endPage", endPage);
@@ -203,10 +204,10 @@ public class RoomService {
 			else {
 				String msg = "예약완료, 결제취소, 이용완료 , 입실완료중 하나를 입력하세요.";
 				String url = request.getContextPath()+"/room/reservation";
-				mainMap.put("msg", msg);
-				mainMap.put("url", url);
+				serviceMap.put("msg", msg);
+				serviceMap.put("url", url);
 				
-				return mainMap;
+				return serviceMap;
 			}
 			bk = roomDao.searchStatus(map);
 			count = roomDao.countBoardStatus(map);
@@ -215,10 +216,10 @@ public class RoomService {
 			bk = roomDao.searchName(map);
 			count = roomDao.countBoardSearchName(map);
 		}
-		mainMap.put("bk", bk);
-		mainMap.put("count", count);
+		serviceMap.put("bk", bk);
+		serviceMap.put("count", count);
 		
-		return mainMap;
+		return serviceMap;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -227,6 +228,7 @@ public class RoomService {
 		String[] month = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
 		map.clear();
 		map.put("bu_email", bu_email);
+		
 		String result = "";
 		for(String mon : month) {
 			map.put("mon", mon);
@@ -243,9 +245,9 @@ public class RoomService {
 				result += "['"+mon+"월', "+bo.getPrice()+"]";
 			}
 		}
-		mainMap.clear();
-		mainMap.put("result", result);
-		return mainMap;
+		serviceMap.clear();
+		serviceMap.put("result", result);
+		return serviceMap;
 	}
 	
 	
@@ -273,10 +275,10 @@ public class RoomService {
 				result += "['"+area+"', "+bo.getPrice()+"]";
 			}
 		}
-		mainMap.clear();
-		mainMap.put("result", result);
-		mainMap.put("month", month);
-		return mainMap;
+		serviceMap.clear();
+		serviceMap.put("result", result);
+		serviceMap.put("month", month);
+		return serviceMap;
 	}
 	
 	
@@ -292,10 +294,10 @@ public class RoomService {
 //		체크인 완료한 객실내역
 		List<Booking> checkinOk = roomDao.selectcheckinOk(map);
 		
-		mainMap.clear();
-		mainMap.put("notCheckin", notCheckin);
-		mainMap.put("checkinOk", checkinOk);
-		return mainMap;
+		serviceMap.clear();
+		serviceMap.put("notCheckin", notCheckin);
+		serviceMap.put("checkinOk", checkinOk);
+		return serviceMap;
 	}
 	
 	
@@ -322,10 +324,10 @@ public class RoomService {
 //		체크아웃하고 나간 객실 내역
 		List<Booking> checkOutOk = roomDao.selectcheckOutOk(map);
 		
-		mainMap.clear();
-		mainMap.put("notCheckOut", notCheckOut);
-		mainMap.put("checkOutOk", checkOutOk);
-		return mainMap;
+		serviceMap.clear();
+		serviceMap.put("notCheckOut", notCheckOut);
+		serviceMap.put("checkOutOk", checkOutOk);
+		return serviceMap;
 	}
 	
 	public void updateTodayCheckOut(String bu_email, String bo_num) throws Exception {
@@ -338,6 +340,76 @@ public class RoomService {
 		map.put("checkout", checkout);
 		
 		int rowCnt = roomDao.updateAndDeleteTodayCheckOut(map);
+	}
+
+
+	@SuppressWarnings("unchecked")
+	public Map<Object, Object> addressList(SearchDTO searchDTO) throws Exception {
+		
+		String bu_id = searchDTO.getBu_id();
+		String ro_count = searchDTO.getRo_count();
+		String checkin = searchDTO.getCheckin();
+		String checkout = searchDTO.getCheckout();
+		String bu_address = searchDTO.getBu_address();
+		
+		if(bu_address == null  || bu_id == null || checkin == null ||  checkout == null) {
+			bu_address = "서울";
+			bu_id = "1";
+			checkin = DateParse.strToDate(DateParse.getTodayPlus(0));
+			checkout = DateParse.strToDate(DateParse.getTodayPlus(1));
+		}
+		System.out.println("in = "+checkin);
+		System.out.println("out = "+checkout);
+		
+		map.put("bu_address", bu_address);
+		map.put("bu_id", bu_id);
+		
+		List<Business> addressList = new ArrayList<Business>();
+		addressList = roomDao.addressList(map);
+		
+		String resultAddress = "[";
+		String roomTitle = "[";
+		String roomPic = "[";
+		String bu_email = "[";
+		
+			for(int i = 0 ; i < addressList.size(); i++) {
+			if(i == addressList.size()-1) {
+				resultAddress += "'"+addressList.get(i).getBu_address().trim()+"'";
+				roomTitle += "'"+addressList.get(i).getBu_title().trim()+"'";
+				roomPic += "'"+addressList.get(i).getLocation().trim()+"'";
+				bu_email += "'"+addressList.get(i).getBu_email().trim()+"'";
+			}
+			else {
+				resultAddress += "'"+addressList.get(i).getBu_address().trim()+"', ";
+				roomTitle += "'"+addressList.get(i).getBu_title().trim()+"', ";
+				roomPic += "'"+addressList.get(i).getLocation().trim()+"', ";
+				bu_email += "'"+addressList.get(i).getBu_email().trim()+"', ";
+			}
+		}
+		resultAddress += "]";
+		roomTitle += "]";
+		roomPic += "]";
+		bu_email += "]";
+		
+		serviceMap.put("resultAddress", resultAddress);
+		serviceMap.put("roomTitle", roomTitle);
+		serviceMap.put("roomPic", roomPic);
+		serviceMap.put("bu_email", bu_email);
+		serviceMap.put("bu_id", bu_id);
+		serviceMap.put("ro_count", ro_count);
+		serviceMap.put("checkin", checkin);
+		serviceMap.put("checkout", checkout);
+		serviceMap.put("bu_address", bu_address);
+		
+		return serviceMap;
+	}
+
+
+	public Room getRo_name(String ro_name, String bu_email) {
+		map.clear();
+		map.put("ro_name", ro_name);
+		map.put("bu_email", bu_email);
+		return roomDao.getRo_name(map);
 	}
 
 }

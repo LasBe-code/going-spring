@@ -5,6 +5,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import model.Business;
+import model.BusinessMenubar;
 import model.Member;
 import model.Picture;
 import mybatis.MemberMapperAnno;
@@ -51,6 +52,10 @@ public class MemberDao{
 
 	public List<Picture> selectPic(int pic_num) throws Exception{
 		return sqlSession.getMapper(MemberMapperAnno.class).selectPic(pic_num);
+	}
+
+	public List<BusinessMenubar> getMenubar() {
+		return sqlSession.getMapper(MemberMapperAnno.class).getMenubar();
 	}
 	
 
