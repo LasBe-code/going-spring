@@ -54,6 +54,12 @@ public class SearchController{
 	public String main() {
 	    model.addAttribute("today", DateParse.strToDate(DateParse.getTodayPlus(0)));
 	    model.addAttribute("tomorrow", DateParse.strToDate(DateParse.getTodayPlus(1)));
+	    
+	    try {
+			model.addAttribute("hotBusinessList",searchService.hot10BusinessList());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return "/view/search/main";
 	}
 	
