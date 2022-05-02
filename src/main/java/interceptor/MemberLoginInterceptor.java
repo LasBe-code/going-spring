@@ -17,7 +17,7 @@ public class MemberLoginInterceptor extends HandlerInterceptorAdapter {
 		String email = (String) session.getAttribute("email");
 		
 		if(email == null) {
-			String msg = URLEncoder.encode("로그인이 필요합니다.", "UTF-8");
+			String msg = URLEncoder.encode("로그인이 필요한 서비스입니다.", "UTF-8");
 			response.sendRedirect(request.getContextPath()+"/member/loginForm?msg="+msg);
 			return false;
 		}
