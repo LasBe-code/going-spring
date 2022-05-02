@@ -29,14 +29,17 @@ function requestPay() {
     buyer_name : '${member.name}',
     buyer_tel : '${member.tel}',
     buyer_postcode : '123-456',
-    m_redirect_url : 'http://localhost:8080/reservation/reservePro'
   }, function (rsp) { // callback
       if (rsp.success) {
     	  $.ajax({
-	        	type : "GET",
-	        	url : "${pageContext.request.contextPath}/reservation/reservePro?bo_num=" + rsp.imp_uid + "&payment=" + rsp.pay_method
+	        	type : "POST",
+	        	url : "${pageContext.request.contextPath}/reservation/reservePro",
+	        	contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+	        	header:{"Content-Type":"application/json"},
+	    		dateType:'json',
+	    		data:{bo_num:rsp.imp_uid, payment:rsp.pay_method},
 	        }).done(function(data){
-	        	location.href='${pageContext.request.contextPath}/reservation/reservationList'
+	        	location.href='${pageContext.request.contextPath}/reservation/reservationList'+data
 	        })
       } else {
      	alert('결제 실패')
@@ -44,7 +47,7 @@ function requestPay() {
   });
 }
 
-function chk(){
+function chkReserve(){
 	const check1 = document.querySelector('#check1')
 	const check2 = document.querySelector('#check2')
 	const check3 = document.querySelector('#check3')
@@ -75,7 +78,7 @@ function chk(){
 	        <input type="text" class="form-control form-control-lg mt-3" value="${member.tel}" readonly>
 	      </div>
 	
-	      <div class="mt-5" onclick="chk()">
+	      <div class="mt-5" onclick="chkReserve()">
 	        <div class="form-check">
 	          <input type="checkbox" class="form-check-input" id="check1" name="option1" value="something" required>
 	          <label class="form-check-label" for="check1">숙소이용규칙 및 취소/환불규정 동의</label>
