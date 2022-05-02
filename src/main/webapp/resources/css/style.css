@@ -651,11 +651,14 @@
 .swiper-slide-active + .swiper-slide + .swiper-slide,
 .swiper-slide-active + .swiper-slide + .swiper-slide + .swiper-slide {opacity:1}
 .swiper-button-next, .swiper-button-prev{
-	filter: opacity(0.5) drop-shadow(0 0 0 yellow);
+	filter: invert(100%) brightness(130%);
+	opacity: .9;
 
 }
 .swiper-button-next:disabled, .swiper-button-prev:disabled{
-	filter: opacity(0.5) drop-shadow(0 0 0 yellow);
+	filter: invert(100%) brightness(130%);
+	opacity: .9;
+
 }
 .swiper-slide {
 	width:200px !important;

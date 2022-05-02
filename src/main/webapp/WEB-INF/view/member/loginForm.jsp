@@ -7,10 +7,12 @@
 <title>Insert title here</title>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script type="text/javascript">
-	Kakao.init('7c7fc9be5a5c5e37975ce524e7a39cf2');
-	console.log(Kakao.isInitialized());
-</script>
-<script type="text/javascript">
+
+if ('${param.msg}') {alert('${param.msg}')}
+
+Kakao.init('7c7fc9be5a5c5e37975ce524e7a39cf2');
+console.log(Kakao.isInitialized());
+
 function loginWithKakao() {
   Kakao.Auth.login({
     success: function(authObj) {
