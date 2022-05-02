@@ -48,7 +48,7 @@ public class MemberController{
 	public String logout() {
 		session.invalidate(); // 세션과 관련된 모든 데이터 날리는 메소드
 		model.addAttribute("msg", "로그아웃 하였습니다.");
-		return "/search/main";
+		return "redirect:/search/main";
 	}
 
 	@RequestMapping("loginForm")
@@ -72,6 +72,7 @@ public class MemberController{
 				session.removeAttribute("bu_email");
 				session.setAttribute("email", email);
 				msg = m.getName() + "님, 환영합니다!";
+				model.addAttribute("msg", msg);
 				return "redirect:/search/main";
 				
 			} else { // 아이디 o / 패스워드 x
@@ -104,6 +105,7 @@ public class MemberController{
 				session.setAttribute("menu", menu);
 				session.setAttribute("bu_email", bu_email);
 				msg = bu.getBu_name() + "환영합니다.";
+				model.addAttribute("msg", msg);
 				return "redirect:/room/roomlist";
 			} else { // 아이디 o / 패스워드 x
 				msg = "비밀번호를 확인해주세요.";
@@ -153,13 +155,14 @@ public class MemberController{
 			int num = memberService.signupMember(member);
 			if (num > 0) {
 				msg = member.getName() + "님의 가입이 완료되었습니다.";
+				model.addAttribute("msg", msg);
 				return "redirect:/member/loginForm";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		model.addAttribute("msg", msg);
 		request.getSession().invalidate();
+		model.addAttribute("msg", msg);
 		return "/search/main";
 	}
 
@@ -176,6 +179,7 @@ public class MemberController{
 			int num = memberService.signupBusiness(business, picLocation);
 			if (num > 0) {
 				msg = business.getBu_name() + "님의 가입이 완료되었습니다.";
+				model.addAttribute("msg", msg);
 				return "redirect:/member/loginForm";
 			}
 		} catch (Exception e) {
@@ -326,6 +330,7 @@ public class MemberController{
 				break;
 			case 1:
 				msg = business.getBu_name()+"님의 정보 수정이 완료되었습니다.";
+				model.addAttribute("msg", msg);
 				return "redirect:/room/roomlist";
 				
 			default:
