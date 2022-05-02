@@ -13,9 +13,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import model.Booking;
 import model.Business;
@@ -149,9 +152,9 @@ public class ReservationController{
 		return "/view/reserve/reserve";
 	}
 	
-	@RequestMapping("reservePro")
+	@ResponseBody
+	@PostMapping(value = "reservePro", produces = "application/text; charset=UTF-8")
 	public String reservePro(String bo_num, String payment) {
-		String url = request.getContextPath()+"/reservation/reservationList";
 		String msg = "예약을 실패했습니다.";
 		
 		Booking booking = (Booking) session.getAttribute("booking");
@@ -159,23 +162,23 @@ public class ReservationController{
 		booking.setPayment(payment);
 		booking.setReg_date(DateParse.getTodayPlus(0));
 		booking.setStatus(1);
+		booking.setCheckin(DateParse.dateToStr(booking.getCheckin()));
+		booking.setCheckout(DateParse.dateToStr(booking.getCheckout()));
 		
 		try {
 			int result = reserveService.insertBooking(booking);
+			System.out.println(result);
 			if(result != 0) {
-				request.getSession().removeAttribute("booking");
-				msg = "예약을 성공했습니다.";
+				msg = booking.getBu_title()+"/"+booking.getRo_name()+"에 예약하였습니다.";
+				session.removeAttribute("booking");
+				System.out.println(msg);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			model.addAttribute(booking);
-			return "/view/reserve/reserve";
 		}
 		
-		
 		model.addAttribute("msg", msg);
-		model.addAttribute("url", url);
-		return "/view/alert";
+		return "?msg="+msg;
 	}
 	
 	@RequestMapping("roomDetail")
@@ -192,7 +195,6 @@ public class ReservationController{
 			
 			model.addAttribute("picList", picList);
 			model.addAttribute("room", room);
-			model.addAttribute("ro_num", ro_num);
 			model.addAttribute("pic_num", room.getPic_num());
 			model.addAttribute("info", info);
 			
@@ -205,26 +207,19 @@ public class ReservationController{
 	
 	@RequestMapping("cancel")
 	public String cancel(String bo_num) throws IOException{
-		
-		String url = request.getContextPath()+"/reservation/reservationList";
 		String msg = "예약 취소를 실패했습니다.";
+		model.addAttribute("msg", msg);
 		
 		try {
-			
 			int result = reserveService.reserveCancel(bo_num);
 			if(result != 0) msg = "예약이 취소되었습니다.";
 			model.addAttribute("msg", msg);
-			model.addAttribute("url", url);
 			
 		} catch (Exception e) {
-			
 			e.printStackTrace();
-			model.addAttribute("msg", msg);
-			model.addAttribute("url", url);
-			return "/view/alert";
-			
+			return "redirect:/reservation/reservationList";
 		}
-		return "/view/alert";
+		return "redirect:/reservation/reservationList";
 	}
 	
 	@RequestMapping("review")
@@ -247,7 +242,6 @@ public class ReservationController{
 			int result = reserveService.writeRevire(review);
 			if(result != 0) {
 				msg = "리뷰를 등록했습니다.";
-				model.addAttribute("msg", msg);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -255,6 +249,7 @@ public class ReservationController{
 			return "/common/reviewResult";
 		}
 		
+		model.addAttribute("msg", msg);
 		return "/common/reviewResult";
 	}
 }
