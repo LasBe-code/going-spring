@@ -80,5 +80,19 @@
 			</nav>
 		</div>
 	</c:if>
+	
+	<c:if test="${param.msg != null}">
+		<div class="position-fixed end-0 p-3">
+			<div class="toast show" style="margin-bottom: -101px;">
+				<div class="toast-header">
+					<strong class="me-auto">알림 메시지</strong>
+					<button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+				</div>
+				<div class="toast-body">
+					<p>${param.msg}</p>
+				</div>
+			</div>
+		</div>
+	</c:if>
 </body>
 </html>
