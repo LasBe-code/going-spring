@@ -48,8 +48,7 @@ public class MemberController{
 	public String logout() {
 		session.invalidate(); // 세션과 관련된 모든 데이터 날리는 메소드
 		model.addAttribute("msg", "로그아웃 하였습니다.");
-		model.addAttribute("url", request.getContextPath() + "/search/main");
-		return "/view/alert";
+		return "/search/main";
 	}
 
 	@RequestMapping("loginForm")
@@ -60,7 +59,6 @@ public class MemberController{
 	@RequestMapping("loginPro")
 	public String loginPro(String email, String password) {
 		String msg = "아이디를 확인하세요";
-		String url = request.getContextPath() + "/member/loginForm";
 		Member m = null;
 		
 		try {
@@ -73,15 +71,15 @@ public class MemberController{
 			if (password.equals(m.getPassword())) { // 로그인 성공
 				session.removeAttribute("bu_email");
 				session.setAttribute("email", email);
-				msg = m.getName() + "님이 로그인 하셨습니다.";
-				url = request.getContextPath() + "/search/main";
+				msg = m.getName() + "님, 환영합니다!";
+				return "redirect:/search/main";
+				
 			} else { // 아이디 o / 패스워드 x
 				msg = "비밀번호를 확인하세요.";
 			}
 		}
 		model.addAttribute("msg", msg);
-		model.addAttribute("url", url);
-		return "/view/alert";
+		return "redirect:/member/loginForm";
 	}
 
 	@RequestMapping("buLoginForm")
@@ -92,7 +90,6 @@ public class MemberController{
 	@RequestMapping("buLoginPro")
 	public String buLoginPro(String bu_email, String bu_password) {
 		String msg = "아이디를 확인하세요";
-		String url = request.getContextPath() + "/member/loginForm";
 		Business bu = null;
 		List<BusinessMenubar> menu = new ArrayList<BusinessMenubar>();
 		try {
@@ -106,16 +103,41 @@ public class MemberController{
 			if (bu_password.equals(bu.getBu_password())) { // 로그인 성공
 				session.setAttribute("menu", menu);
 				session.setAttribute("bu_email", bu_email);
-				msg = bu.getBu_name() + "님이 로그인 하셨습니다.";
-				url = request.getContextPath() + "/room/roomlist";
+				msg = bu.getBu_name() + "환영합니다.";
+				return "redirect:/room/roomlist";
 			} else { // 아이디 o / 패스워드 x
-				msg = "비밀번호를 확인하세요.";
+				msg = "비밀번호를 확인해주세요.";
 			}
 		}
 		model.addAttribute("msg", msg);
-		model.addAttribute("url", url);
+		return "redirect:/member/loginForm";
+	}
+	
+	@RequestMapping("kakaoLogin")
+	public String kakaoLogin(String id, String name) {
+		Member m = null;
+		
+		try {
+			m = memberService.getMemberOne(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-		return "/view/alert";
+		if (m != null) { // 카카오로그인 성공
+			session.setAttribute("email", id);
+		} else { // id가 없을 때
+			model.addAttribute("id", id);
+			model.addAttribute("name", name);
+			model.addAttribute("msg", "첫 소셜 로그인에 한해 회원가입을 진행합니다.");
+			return "redirect:/member/kakaoSignup";
+		}
+		model.addAttribute("msg", m.getName() + "님 환영합니다!");
+		return "redirect:/search/main";
+	}
+
+	@RequestMapping("kakaoSignup")
+	public String kakaoSignup() {
+		return "/view/member/kakaoSignup";
 	}
 	
 	@RequestMapping("signupForm")
@@ -125,25 +147,20 @@ public class MemberController{
 
 	@RequestMapping("signupPro")
 	public String signupPro(Member member) {
-		int num = 0;
+		String msg = "회원가입에 실패하였습니다.";
 		
 		try {
-			num = memberService.signupMember(member);
+			int num = memberService.signupMember(member);
+			if (num > 0) {
+				msg = member.getName() + "님의 가입이 완료되었습니다.";
+				return "redirect:/member/loginForm";
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		String msg = "회원가입에 실패하였습니다.";
-		String url = request.getContextPath() + "/member/signupForm";
-		if (num > 0) {
-			msg = member.getName() + "님의 가입이 완료되었습니다.";
-			url = request.getContextPath() + "/search/main";
-		}
-
 		model.addAttribute("msg", msg);
-		model.addAttribute("url", url);
 		request.getSession().invalidate();
-		return "/view/alert";
+		return "/search/main";
 	}
 
 	@RequestMapping("buSignupForm")
@@ -154,24 +171,18 @@ public class MemberController{
 	@RequestMapping("buSignupPro")
 	public String buSignupPro(Business business, String picLocation) {
 		String msg = "회원가입에 실패하였습니다.";
-		String url = request.getContextPath() + "/view/member/buLoginForm";
-		int num = 0;
 		
 		try {
-			num = memberService.signupBusiness(business, picLocation);
+			int num = memberService.signupBusiness(business, picLocation);
+			if (num > 0) {
+				msg = business.getBu_name() + "님의 가입이 완료되었습니다.";
+				return "redirect:/member/loginForm";
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		if (num > 0) {
-			msg = business.getBu_name() + "님의 가입이 완료되었습니다.";
-			url = request.getContextPath() + "/view/member/buLoginForm";
-		}
-		
 		model.addAttribute("msg", msg);
-		model.addAttribute("url", url);
-
-		return "/view/alert";
+		return "/member/buSignupForm";
 	}
 
 	@PostMapping("phoneAuth")
@@ -235,33 +246,6 @@ public class MemberController{
 		}
 		
 		return "/view/member/memberInfo";
-	}
-
-	@RequestMapping("kakaoLogin")
-	public String kakaoLogin(String id, String name) {
-		Member m = null;
-		
-		try {
-			m = memberService.getMemberOne(id);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		if (m != null) { // 카카오로그인 성공
-			session.setAttribute("email", id);
-		} else { // id가 없을 때
-			model.addAttribute("id", id);
-			model.addAttribute("name", name);
-			return "/member/kakaoSignup";
-		}
-		model.addAttribute("msg", m.getName() + "님이 로그인 하셨습니다.");
-		model.addAttribute("url", request.getContextPath() + "/search/main");
-		return "/view/alert";
-	}
-
-	@RequestMapping("kakaoSignup")
-	public String kakaoSignup() {
-		return "/view/member/kakaoSignup";
 	}
 
 	@PostMapping("readId")
@@ -332,7 +316,6 @@ public class MemberController{
 	@RequestMapping("buUpdatePro")
 	public String buUpdatePro(Business business, String picLocation) {
 		String msg = "";
-		String url = request.getContextPath() + "/member/buUpdateForm";
 		
 		try {
 			int result = memberService.modifyBusiness(business, picLocation);
@@ -343,8 +326,8 @@ public class MemberController{
 				break;
 			case 1:
 				msg = business.getBu_name()+"님의 정보 수정이 완료되었습니다.";
-				url = request.getContextPath() + "/room/roomlist";
-				break;
+				return "redirect:/room/roomlist";
+				
 			default:
 				msg = "정보 수정에 실패하였습니다.";
 				break;
@@ -354,8 +337,6 @@ public class MemberController{
 		}
 
 		model.addAttribute("msg", msg);
-		model.addAttribute("url", url);
-
-		return "/view/alert";
+		return "redirect:/member/buUpdateForm";
 	}
 }
