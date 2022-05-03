@@ -193,7 +193,7 @@
 		</dependency>
 
 
-
+		<!-- 테스트 -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -201,14 +201,12 @@
 			<scope>test</scope>
 		</dependency>
         
-        
-		<!-- Spring Test -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 			<version>${spring.version2}</version>
 		</dependency>
-		
+		<!-- 테스트 끝 -->
 		
 		<dependency>
 			<groupId>org.aspectj</groupId>

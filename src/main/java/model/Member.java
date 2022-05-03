@@ -36,10 +36,14 @@ public class Member {
 		this.name = name;
 	}
 	
-	// Admin 코드 setter 보안문제로 설정 x
 	public String getAdmin_check() {
 		return admin_check;
 	}
+	
+	public void setAdmin_check(String admin_check) {
+		this.admin_check = admin_check;
+	}
+	
 	@Override
 	public String toString() {
 		return "{\"email\":\"" + email + "\", \"password\":\"" + password + "\", \"tel\":\"" + tel + "\", \"name\":\""
