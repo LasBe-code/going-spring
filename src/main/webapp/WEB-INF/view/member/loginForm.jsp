@@ -43,7 +43,7 @@ function loginWithKakao() {
 </head>
 <body>
 
-	<div class="login_form_width">
+	<div class="login_form_width" style="padding-top:100px;">
 		<div class="large_text active" style="text-align: center;">
 			<img alt="logo" src="${pageContext.request.contextPath}/resources/image/colorlogo.png" style="width: 200px;"><br>
 		</div>

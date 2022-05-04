@@ -35,7 +35,7 @@ public class AdminController {
 	
 	@RequestMapping("adminLogin")
 	public String adminLogin() {
-		return "/admin/adminLogin";
+		return "/common/adminLogin";
 	}
 	
 	@RequestMapping("adminLoginPro")
@@ -48,18 +48,24 @@ public class AdminController {
 				msg = "관리자 모드입니다.";
 				model.addAttribute("msg", msg);
 				session.setAttribute("admin", email);
-				return "redirect:/admin/businessApproval";
+				return "redirect:/admin/analytics";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		model.addAttribute("msg", msg);
-		return "redirect:/admin/adminLogin";
+		return "redirect:/common/adminLogin";
+	}
+	
+	@RequestMapping("analytics")
+	public String analytics() {
+		return "/admin/analytics";
 	}
 	
 	@RequestMapping("businessApproval")
 	public String businessApproval() {
 		return "/admin/businessApproval";
 	}
+	
 }
