@@ -15,18 +15,30 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+<style type="text/css">
+.header .nav-link {
+	color : #c8c8c8 !important;
+}
+.header .nav-link:hover {
+	color : #ffc107 !important;
+}
+.header-image:hover {
+	opacity: 0.6;
+}
+
+</style>
 </head>
 <body>
-	<nav class="header navbar navbar-expand-sm bg-warning navbar-dark" style="margin-bottom: 0px !important;">
+	<nav class="header navbar navbar-expand-sm navbar-dark" style="margin-bottom: 0px !important; box-shadow: 0px 2px 3px 0px rgb(0 0 0 / 20%);">
       <div class="default_width container-fluid ">
         	
         <c:choose>
         	<c:when test="${bu_email != null}"> <!-- 사업자 로그인 -->
-        		<img alt="logo" src="${pageContext.request.contextPath}/resources/image/logo.png" style="width:120px;"
+        		<img class="header-image" alt="logo" src="${pageContext.request.contextPath}/resources/image/colorlogo.png" style="width:120px;"
         		onclick="location.href='${pageContext.request.contextPath}/room/roomlist'">
         	</c:when>
         	<c:otherwise> <!-- 그 외 -->
-        		<img alt="logo" src="${pageContext.request.contextPath}/resources/image/logo.png" style="width:120px;"
+        		<img class="header-image" alt="logo" src="${pageContext.request.contextPath}/resources/image/colorlogo.png" style="width:120px;"
         		onclick="location.href='${pageContext.request.contextPath}/search/main'">
         	</c:otherwise>
         </c:choose>
