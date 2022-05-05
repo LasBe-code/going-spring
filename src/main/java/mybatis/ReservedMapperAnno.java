@@ -27,6 +27,7 @@ public interface ReservedMapperAnno {
 			+"	LEFT OUTER JOIN "
 			+"	    (select DISTINCT pic_num, FIRST_VALUE(location) OVER(partition by pic_num) as location from picture) p "
 			+"	ON b.pic_num = p.pic_num "
+			+ "	WHERE approval='1' "
 			+"	ORDER BY 2"
 			)
 	List<Business> searchBusinessList(SearchDTO searchDTO);

@@ -162,7 +162,7 @@ public class Business {
 				+ "\", \"bu_name\":\"" + bu_name + "\", \"bu_address\":\"" + bu_address + "\", \"bu_id\":\"" + bu_id
 				+ "\", \"bu_title\":\"" + bu_title + "\", \"pic_num\":\"" + pic_num + "\", \"minPrice\":\"" + minPrice
 				+ "\", \"picLocation\":\"" + picLocation + "\", \"avgScore\":\"" + avgScore + "\", \"revCount\":\""
-				+ revCount + "\"}";
+				+ revCount + "\"}\n";
 	}
 
 	
