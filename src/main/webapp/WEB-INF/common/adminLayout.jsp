@@ -15,6 +15,18 @@
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+<script>
+function openToast(msg){
+	let toastElList = [].slice.call(document.querySelectorAll('.toast'))
+	let toastList = toastElList.map(function(toastEl) {
+	  return new bootstrap.Toast(toastEl)
+	})
+	toastList.forEach(toast => toast.show()) 
+	const toastMsg = document.getElementById("toast-msg")
+	toastMsg.innerHTML = msg	
+}
+</script>
+
 </head>
 <body>
 	<c:if test="${param.msg != null}">
@@ -30,7 +42,19 @@
 			</div>
 		</div>
 	</c:if>
-
+	
+	<div class="position-fixed end-0 top-0" style="margin: 0 30px 0 0; opacity: 1 !important;">
+		<div class="toast">
+			<div class="toast-header">
+				<strong class="me-auto">알림 메세지</strong>
+				<button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+			</div>
+			<div class="toast-body">
+				<p id="toast-msg"></p>
+			</div>
+		</div>
+	</div>
+	
 	<div id="sidebar-wrapper">
 		<ul class="sidebar-nav">
 			<li class="sidebar-brand border-bottom">
