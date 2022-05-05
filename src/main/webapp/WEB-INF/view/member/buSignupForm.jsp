@@ -66,7 +66,7 @@
 	}
 
 	function emailChk(){
-		const email = document.f.email.value
+		const email = document.f.bu_email.value
 		let resultText = document.querySelector("#result")
 		
 		if(email.indexOf('@') != -1 && email.indexOf('.com') != -1){
