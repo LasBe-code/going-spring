@@ -48,24 +48,39 @@ public class AdminController {
 				msg = "관리자 모드입니다.";
 				model.addAttribute("msg", msg);
 				session.setAttribute("admin", email);
-				return "redirect:/admin/analytics";
+				return "redirect:/admin/monthlySales";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		model.addAttribute("msg", msg);
-		return "redirect:/common/adminLogin";
+		return "redirect:/admin/adminLogin";
 	}
 	
-	@RequestMapping("analytics")
-	public String analytics() {
-		return "/admin/analytics";
+	@RequestMapping("monthlySales")
+	public String monthlySales() {
+		return "/admin/monthlySales";
+	}
+	
+	@RequestMapping("areaSales")
+	public String areaSales() {
+		return "/admin/areaSales";
+	}
+	
+	@RequestMapping("categorySales")
+	public String categorySales() {
+		return "/admin/categorySales";
 	}
 	
 	@RequestMapping("businessApproval")
 	public String businessApproval() {
 		return "/admin/businessApproval";
+	}
+	
+	@RequestMapping("reviewReport")
+	public String reviewReport() {
+		return "/admin/reviewReport";
 	}
 	
 }

@@ -37,29 +37,33 @@
 				<a href="#" style="font-size: 25px; font-weight: 900 !important;">GOING ADMIN</a>
 			</li>
 			<li class="nav-menu">
-				<a href="#">
+				<a href="${pageContext.request.contextPath}/admin/monthlySales">
 					<span class="material-icons nav-icon"> assessment </span>
-					Analytics
+					월별 매출
 				</a>
-				<!-- <ul class="sidebar-subnav">
-					<li class="nav-menu">
-						<a>월별 매출</a>
-					</li>
-					<li class="nav-menu">
-						<a>지역별 매출</a>
-					</li>
-				</ul> -->
 			</li>
 			<li class="nav-menu">
-				<a href="#">
+				<a href="${pageContext.request.contextPath}/admin/areaSales">
+					<span class="material-icons nav-icon"> map </span>
+					지역별 매출
+				</a>
+			</li>
+			<li class="nav-menu">
+				<a href="${pageContext.request.contextPath}/admin/categorySales">
+					<span class="material-icons nav-icon"> business </span>
+					숙소 카테고리별 매출
+				</a>
+			</li>
+			<li class="nav-menu">
+				<a href="${pageContext.request.contextPath}/admin/businessApproval">
 					<span class="material-icons nav-icon"> how_to_reg </span>
-					Business Approval
+					사업자 가입 승인
 				</a>
 			</li>
 			<li class="nav-menu">
-				<a href="#">
+				<a href="${pageContext.request.contextPath}/admin/reviewReport">
 					<span class="material-icons nav-icon"> rate_review </span>
-					Review Report
+					리뷰 신고 관리
 				</a>
 			</li>
 		</ul>
