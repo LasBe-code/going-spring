@@ -19,6 +19,27 @@ input[type="color"]:focus,
   outline: 0 none;
 }
 
+.pagination > .page-item > a {
+	color:#9d9982;
+}
+
+.pagination > .active > a {
+	background-color: #ffc107 !important;
+	border-color : #ffc107 !important;
+	color:white !important;
+}
+
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover
+{
+    background-color: #ffc107;
+	border-color : #ffc107;
+	color:white;
+	opacity: 0.7;
+}
+
 .row a:hover {
 	color : #ffc107 !important;
 	opacity: 0.7;

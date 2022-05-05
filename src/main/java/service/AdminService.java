@@ -1,9 +1,13 @@
 package service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import model.Business;
 import model.Member;
+import repository.AdminDao;
 import repository.MemberDao;
 import repository.RoomDao;
 
@@ -11,12 +15,12 @@ import repository.RoomDao;
 public class AdminService {
 	
 	private final MemberDao memberDao;
-	private final RoomDao roomDao;
+	private final AdminDao adminDao;
 
 	@Autowired
-	public AdminService(MemberDao memberDao, RoomDao roomDao) {
+	public AdminService(MemberDao memberDao, AdminDao adminDao) {
 		this.memberDao = memberDao;
-		this.roomDao = roomDao;
+		this.adminDao = adminDao;
 	}
 	
 	public Boolean adminLogin(String email, String password) throws Exception{
@@ -27,5 +31,20 @@ public class AdminService {
 		
 		return false;
 	}
-
+	
+	public List<Business> notApprovalBuList(int startPage, int endPage) throws Exception{
+		return adminDao.notApprovalBuList(startPage, endPage);
+	}
+	
+	public int notApprovalBuCount() throws Exception {
+		return adminDao.notApprovalBuCount();
+	}
+	
+	public int businessApproval(String bu_email) throws Exception {
+		return adminDao.businessApproval(bu_email);
+	}
+	
+	public int businessApprovalCancel(String bu_email) throws Exception {
+		return adminDao.businessApprovalCancel(bu_email);
+	}
 }

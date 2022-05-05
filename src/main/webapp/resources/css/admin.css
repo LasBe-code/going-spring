@@ -2,10 +2,12 @@
 
  /* 사이드바 스타일 */
  
- body {
- 	background-color : #eff1f1 !important;
- }
- 
+.over-table {
+	overflow-x:auto;
+	min-width:1000px;	
+}
+
+
  #sidebar-wrapper {
     position: fixed;
     margin-right : 250px;
@@ -92,5 +94,9 @@
   	background-color: #ffc107 !important;
   	color : white !important;
   	font-weight: bold;
+  }
+  .ok_btn {
+  	width:20px;
+  	height:20px;
   }
   
