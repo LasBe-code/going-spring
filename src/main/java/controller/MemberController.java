@@ -101,12 +101,16 @@ public class MemberController{
 		}
 
 		if (bu != null) {
-			if (bu_password.equals(bu.getBu_password())) { // 로그인 성공
-				session.setAttribute("menu", menu);
-				session.setAttribute("bu_email", bu_email);
-				msg = bu.getBu_name() + "환영합니다.";
-				model.addAttribute("msg", msg);
-				return "redirect:/room/roomlist";
+			if (bu_password.equals(bu.getBu_password())) { // 비밀번호 일치
+				if(bu.getApproval().equals("0")) { // 사업자 계정 미승인
+					msg = "관리자의 가입 승인이 필요합니다.";
+				} else { // 로그인 성공
+					session.setAttribute("menu", menu);
+					session.setAttribute("bu_email", bu_email);
+					msg = bu.getBu_name() + "환영합니다.";
+					model.addAttribute("msg", msg);
+					return "redirect:/room/roomlist";
+				}
 			} else { // 아이디 o / 패스워드 x
 				msg = "비밀번호를 확인해주세요.";
 			}
@@ -178,7 +182,7 @@ public class MemberController{
 		try {
 			int num = memberService.signupBusiness(business, picLocation);
 			if (num > 0) {
-				msg = business.getBu_name() + "님의 가입이 완료되었습니다.";
+				msg = business.getBu_name() + "님의 가입이 완료되었습니다. \n 관리자의 가입 승인까지 별도의 시간이 소요됩니다.";
 				model.addAttribute("msg", msg);
 				return "redirect:/member/loginForm";
 			}

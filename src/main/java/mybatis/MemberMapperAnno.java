@@ -14,7 +14,7 @@ public interface MemberMapperAnno {
 	@Insert("insert into member values(#{email}, #{password}, #{tel}, #{name}, '0')")
 	int insertMember(Member member);
 	
-	@Insert("insert into business values(#{bu_email},#{bu_password},#{bu_tel},#{bu_name},#{bu_address},#{bu_id},#{bu_title},#{pic_num})")
+	@Insert("insert into business values(#{bu_email},#{bu_password},#{bu_tel},#{bu_name},#{bu_address},#{bu_id},#{bu_title},#{pic_num}, '0' )")
 	int insertBusiness(Business business);
 	
 	@Insert("insert into picture values(#{pic_num},#{location})")

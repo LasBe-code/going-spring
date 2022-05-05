@@ -5,6 +5,7 @@ public class Business {
 	private String bu_id;
 	private String bu_title;
 	private int pic_num;
+	private String approval;
 	
 	private String location;
 	private String minPrice, picLocation;
@@ -40,22 +41,7 @@ public class Business {
 		this.picLocation = picLocation;
 	}
 	
-	public Business(String bu_email, String bu_password, String bu_tel, String bu_name, String bu_address, String bu_id,
-			String bu_title, int pic_num, String minPrice, String picLocation, String avgScore, String revCount) {
-		super();
-		this.bu_email = bu_email;
-		this.bu_password = bu_password;
-		this.bu_tel = bu_tel;
-		this.bu_name = bu_name;
-		this.bu_address = bu_address;
-		this.bu_id = bu_id;
-		this.bu_title = bu_title;
-		this.pic_num = pic_num;
-		this.minPrice = minPrice;
-		this.picLocation = picLocation;
-		this.avgScore = avgScore;
-		this.revCount = revCount;
-	}
+	
 
 	public String getBu_email() {
 		return bu_email;
@@ -119,6 +105,14 @@ public class Business {
 
 	public void setPic_num(int pic_num) {
 		this.pic_num = pic_num;
+	}
+	
+	public String getApproval() {
+		return approval;
+	}
+
+	public void setApproval(String approval) {
+		this.approval = approval;
 	}
 
 	public String getMinPrice() {
