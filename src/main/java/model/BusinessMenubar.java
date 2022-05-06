@@ -1,6 +1,8 @@
 package model;
 
-public class BusinessMenubar {
+import java.io.Serializable;
+
+public class BusinessMenubar implements Serializable{
 
 	private int menu_num;
 	private String menu_name;

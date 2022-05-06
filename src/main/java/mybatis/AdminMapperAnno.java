@@ -29,14 +29,21 @@ public interface AdminMapperAnno {
 	int deleteBusiness(String bu_email);
 	
 //	사업자 월별 매출
-	@Select("select sum(bo.price) price from business bu, booking bo "
-			+ " where bu.bu_title = bo.bu_title and bu.bu_email = #{bu_email} and checkin like '____'||#{mon}||'%' ")
+	@Select("select sum(bo.price) price from booking bo where checkin like '____'||#{mon}||'%' ")
 	Booking selectSales(Map<String, Object> map);
 
 	
 //	지역별 월별 매출
-	@Select("select sum(bo.price) price from business bu, booking bo "
-			+ "where bu.bu_title = bo.bu_title and bu.bu_address like #{area}||'%' and bo.checkin like '____'||#{month}||'%' ")
+	@Select("select sum(bo.price) price "
+			+ " from business bu, booking bo "
+			+ " where bu.bu_title = bo.bu_title and bu.bu_address like #{area}||'%' and bo.checkin like '____'||#{month}||'%' ")
 	Booking selectAreaSales(Map<String, Object> map);
+
+//	카테고리별 월별 매출
+	@Select("select sum(bo.price) price, bu.bu_id "
+			+ " from business bu, booking bo "
+			+ " where bu.bu_title = bo.bu_title and bu.bu_id like #{bu_id}||'%' and bo.checkin like '____'||#{month}||'%' "
+			+ " group by bu.bu_id order by bu.bu_id ")
+	Booking categorySales(Map<String, Object> map);
 	
 }

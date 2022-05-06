@@ -8,8 +8,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import model.Booking;
 import model.Business;
 import mybatis.AdminMapperAnno;
+import mybatis.RoomMapperAnno;
 
 @Repository
 public class AdminDao {
@@ -29,6 +31,14 @@ public class AdminDao {
 		return sqlSession.getMapper(AdminMapperAnno.class).notApprovalBuList(map);
 	}
 	
+	public Booking categorySales(Map<String, Object> map) {
+		return sqlSession.getMapper(AdminMapperAnno.class).categorySales(map);
+	}
+	
+	public Booking selectAreaSales(Map<String, Object> map) throws Exception  {
+		return sqlSession.getMapper(AdminMapperAnno.class).selectAreaSales(map);
+	}
+	
 	public int businessApproval(String bu_email) throws Exception {
 		return sqlSession.getMapper(AdminMapperAnno.class).businessApproval(bu_email);
 	}
@@ -40,4 +50,9 @@ public class AdminDao {
 	public int notApprovalBuCount() throws Exception{
 		return sqlSession.getMapper(AdminMapperAnno.class).notApprovalBuCount();
 	}
+
+	public Booking selectSales(Map<String, Object> map) {
+		return sqlSession.getMapper(AdminMapperAnno.class).selectSales(map);
+	}
+
 }

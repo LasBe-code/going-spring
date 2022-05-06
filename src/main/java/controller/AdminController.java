@@ -1,6 +1,8 @@
 package controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -19,7 +21,7 @@ import service.AdminService;
 @Controller
 @RequestMapping("/admin/")
 public class AdminController {
-
+	private static Map<Object, Object> controllerMap = new HashMap<Object, Object>();
 	HttpServletRequest request;
 	Model model;
 	HttpSession session;
@@ -65,16 +67,54 @@ public class AdminController {
 
 	@RequestMapping("monthlySales")
 	public String monthlySales() {
+		
+		try {
+			String bu_email =(String)session.getAttribute("bu_email");
+			
+			controllerMap.clear();
+			controllerMap = adminService.sales(bu_email);
+			
+			model.addAttribute("result", controllerMap.get("result"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		return "/admin/monthlySales";
 	}
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping("areaSales")
-	public String areaSales() {
+	public String areaSales(String month) {
+		
+		try {
+			controllerMap.clear();
+			controllerMap = adminService.areaSales(month);
+			
+			model.addAttribute("month", controllerMap.get("month"));
+			model.addAttribute("result", controllerMap.get("result"));
+		}
+		 catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		return "/admin/areaSales";
+
 	}
 
 	@RequestMapping("categorySales")
-	public String categorySales() {
+	public String categorySales(String month) {
+		
+		try {
+			controllerMap.clear();
+			controllerMap = adminService.categorySales(month);
+			
+			model.addAttribute("month", controllerMap.get("month"));
+			model.addAttribute("result", controllerMap.get("result"));
+		}
+		 catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		return "/admin/categorySales";
 	}
 
