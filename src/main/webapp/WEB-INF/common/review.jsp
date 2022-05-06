@@ -7,9 +7,6 @@
 <title>Insert title here</title>
 
 </head>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <style type="text/css">
 #myform fieldset {
 	display: inline-block; /* 하위 별점 이미지들이 있는 영역만 자리를 차지함.*/

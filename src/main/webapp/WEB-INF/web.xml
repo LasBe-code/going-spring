@@ -9,6 +9,11 @@
   
 	<jsp-config>
 		<jsp-property-group>
+			<url-pattern>/WEB-INF/*</url-pattern>
+			<include-prelude>/WEB-INF/common/everyLayout.jsp</include-prelude>
+		</jsp-property-group>
+		
+		<jsp-property-group>
 			<url-pattern>/WEB-INF/view/*</url-pattern>
 			<include-prelude>/WEB-INF/common/head.jsp</include-prelude>
 		</jsp-property-group>
@@ -17,6 +22,7 @@
 			<url-pattern>/WEB-INF/admin/*</url-pattern>
 			<include-prelude>/WEB-INF/common/adminLayout.jsp</include-prelude>
 		</jsp-property-group>
+		
 	</jsp-config>  
 	
  									<!-- xml일때 서블릿방식 -->
