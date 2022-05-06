@@ -18,6 +18,7 @@ import model.Business;
 import model.BusinessMenubar;
 import model.Member;
 import model.Picture;
+import model.Review;
 import service.MemberService;
 
 
@@ -347,5 +348,19 @@ public class MemberController{
 
 		model.addAttribute("msg", msg);
 		return "redirect:/member/buUpdateForm";
+	}
+	
+	@RequestMapping("myReview")
+	public String myReview() {
+		try {
+
+			List<Review> reviewList = memberService.myReivew((String)session.getAttribute("email"));
+			model.addAttribute("reviewList", reviewList);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "/view/member/myReview";
 	}
 }

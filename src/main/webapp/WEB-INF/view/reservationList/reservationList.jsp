@@ -52,7 +52,10 @@
 				<a href="${pageContext.request.contextPath}/member/memberInfo">
 					내정보관리<br> <br>
 				</a>
-					검색 기간 정할 수 있도록 수정
+				<a href="${pageContext.request.contextPath}/member/myReview">
+					내가 작성한 리뷰<br>
+					<br>
+				</a>
 			</div>
 
 			<div class="col-sm-10 mt-5">

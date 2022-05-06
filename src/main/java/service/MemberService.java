@@ -10,6 +10,7 @@ import model.Business;
 import model.BusinessMenubar;
 import model.Member;
 import model.Picture;
+import model.Review;
 import repository.MemberDao;
 import repository.RoomDao;
 import util.Naver_Sens_V2;
@@ -111,7 +112,12 @@ public class MemberService {
 		}
 	}
 
+	public List<Review> myReivew(String email) throws Exception{
+		return memberDao.myReview(email);
+	}
+	
 	public List<BusinessMenubar> getMenubar() {
 		return memberDao.getMenubar();
 	}
+	
 }

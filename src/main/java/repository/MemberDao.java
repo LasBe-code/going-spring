@@ -8,7 +8,9 @@ import model.Business;
 import model.BusinessMenubar;
 import model.Member;
 import model.Picture;
+import model.Review;
 import mybatis.MemberMapperAnno;
+import mybatis.ReviewMapperAnno;
 
 @Repository
 public class MemberDao{
@@ -58,5 +60,7 @@ public class MemberDao{
 		return sqlSession.getMapper(MemberMapperAnno.class).getMenubar();
 	}
 	
-
+	public List<Review> myReview(String email) throws Exception{
+		return sqlSession.getMapper(ReviewMapperAnno.class).memberReviewList(email);
+	}
 }

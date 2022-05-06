@@ -6,7 +6,7 @@ public class Review {
 	private int rev_num, score, reply_num;
 	private String bo_num, email, content, review_date, content_reply;
 	
-	private String ro_name;
+	private String ro_name, bu_title, checkin, checkout;
 	
 	public Review() {}
 	
@@ -118,6 +118,30 @@ public class Review {
 
 	public void setRo_name(String ro_name) {
 		this.ro_name = ro_name;
+	}
+	
+	public String getBu_title() {
+		return bu_title;
+	}
+
+	public void setBu_title(String bu_title) {
+		this.bu_title = bu_title;
+	}
+
+	public String getCheckin() {
+		return checkin;
+	}
+
+	public void setCheckin(String checkin) {
+		this.checkin = checkin;
+	}
+
+	public String getCheckout() {
+		return checkout;
+	}
+
+	public void setCheckout(String checkout) {
+		this.checkout = checkout;
 	}
 
 	@Override
