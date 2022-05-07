@@ -43,7 +43,7 @@ function openToast(msg){
 		</div>
 	</c:if>
 	
-	<div class="position-fixed end-0 top-0" style="margin: 0 30px 0 0; opacity: 1 !important;">
+	<div class="position-fixed end-0 top-0" style="margin: 56px 30px 0 0; opacity: none !important;">
 		<div class="toast">
 			<div class="toast-header">
 				<strong class="me-auto">알림 메세지</strong>
