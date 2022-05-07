@@ -22,7 +22,7 @@
 			</a>
 		</div>
 
-		<div class="col-sm-10">
+		<div class="col-sm-10 mt-3">
 			<c:forEach var="review" items="${reviewList}">
 				<div id="review-box" style="padding: 20px 60px 20px 60px;">
 					<div style="color: #c8c8c8; font-size: 14px">
@@ -54,8 +54,14 @@
 						</div>
 					</div>
 
-					<div class="review_content mt-1">
+					<div class="review_content mt-2">
 						<span>${review.content}</span>
+					</div>
+					
+					<div class="mt-2">
+						<button onclick="deleteRev(${review.rev_num})"  id="${review.rev_num}"
+						type="button" class="btn btn-outline-danger" style="font-size: 13px; vertical-align: middle; padding-top:0; padding-bottom:0;">
+						삭제</button>
 					</div>
 				</div>
 				<hr style="border: 1px solid #dadada; margin: 0 40px 0 40px;">
@@ -64,6 +70,28 @@
 		</div>
 	</div>
 </div>
-
+<script>
+function deleteRev(rev_num) {
+	$.ajax({
+		type:'POST',
+		url:'${pageContext.request.contextPath}/member/deleteMyReview',
+		header:{"Content-Type":"application/json"},
+		dateType:'json',
+		data:{rev_num:rev_num},
+		success : function(result){
+			if(result == true){
+				openToast("삭제를 실패했습니다.")
+			} else {
+				openToast("리뷰를 삭제했습니다.")
+				const btn = document.getElementById(rev_num)
+				btn.disabled = true;
+				btn.style.color = "#c8c8c8";
+				btn.style.borderColor = "#c8c8c8";
+				btn.innerText = "삭제완료";
+			}
+		}
+	})
+}
+</script>
 </body>
 </html>
