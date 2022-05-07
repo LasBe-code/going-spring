@@ -60,7 +60,4 @@ public class MemberDao{
 		return sqlSession.getMapper(MemberMapperAnno.class).getMenubar();
 	}
 	
-	public List<Review> myReview(String email) throws Exception{
-		return sqlSession.getMapper(ReviewMapperAnno.class).memberReviewList(email);
-	}
 }

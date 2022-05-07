@@ -23,6 +23,7 @@ import model.Member;
 import model.Review;
 import model.Room;
 import service.ReserveService;
+import service.ReviewService;
 import service.RoomService;
 
 @Controller
@@ -36,12 +37,14 @@ public class RoomController{
 	HttpSession session;
 	
 	private final RoomService roomService;
-	private final ReserveService reserveService;
+	private final ReviewService reviewService;
+	
 	@Autowired
-	public RoomController(RoomService roomService, ReserveService reserveService) {
+	public RoomController(	RoomService roomService, 
+							ReviewService reviewService) {
 		super();
 		this.roomService = roomService;
-		this.reserveService = reserveService;
+		this.reviewService=reviewService;
 	}
 
 	@ModelAttribute
@@ -391,7 +394,7 @@ public class RoomController{
 			if(re.getContent_reply() == null || "".equals(re.getContent_reply()))
 				re.setContent_reply("");
 			
-			List<Review> reviewList = reserveService.businessReviewList(bu_email);
+			List<Review> reviewList = reviewService.businessReviewList(bu_email);
 			
 			model.addAttribute("reviewList", reviewList);
 		} catch (Exception e) {

@@ -111,10 +111,6 @@ public class MemberService {
 			return memberDao.updateBusiness(business);
 		}
 	}
-
-	public List<Review> myReivew(String email) throws Exception{
-		return memberDao.myReview(email);
-	}
 	
 	public List<BusinessMenubar> getMenubar() {
 		return memberDao.getMenubar();

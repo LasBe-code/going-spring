@@ -35,6 +35,7 @@ import repository.SearchDao;
 import service.BookingService;
 import service.MemberService;
 import service.ReserveService;
+import service.ReviewService;
 import util.DateParse;
 
 @Controller
@@ -47,13 +48,16 @@ public class ReservationController{
 	
 	private final ReserveService reserveService;
 	private final MemberService memberService;
+	private final ReviewService reviewService;
 	
 	@Autowired
 	public ReservationController(
 								ReserveService reserveService,
-								MemberService memberService) {
+								MemberService memberService,
+								ReviewService reviewService) {
 		this.reserveService=reserveService;
 		this.memberService=memberService;
+		this.reviewService=reviewService;
 	}
 	
 	@ModelAttribute
@@ -112,7 +116,7 @@ public class ReservationController{
 					DateParse.dateToStr(checkout));
 			
 			// 숙소에 대한 리뷰 리스트
-			List<Review> reviewList = reserveService.businessReviewList(bu_email);
+			List<Review> reviewList = reviewService.businessReviewList(bu_email);
 			
 			model.addAttribute("buPicList", buPicList);		
 			model.addAttribute("roomList", roomList);
@@ -235,11 +239,10 @@ public class ReservationController{
 	@RequestMapping("reviewPro")
 	public String reviewPro(Review review){
 		String msg = "리뷰 등록을 실패했습니다.";
-		review.setEmail((String) request.getSession().getAttribute("email"));
-		review.setReview_date(DateParse.getTodayPlus(0));
+		review.setEmail((String) session.getAttribute("email"));
 		
 		try {
-			int result = reserveService.writeRevire(review);
+			int result = reviewService.writeReview(review);
 			if(result != 0) {
 				msg = "리뷰를 등록했습니다.";
 			}

@@ -47,21 +47,6 @@ public interface ReservedMapperAnno {
 			+ "	ORDER BY a.ro_price")
 	List<Room> overlapRoomList(Map map);
 	
-	
-	// Business에 해당하는 Review 리스트
-	@Select("	SELECT "
-			+ "    	ro.ro_name, review.* "
-			+ "	FROM "
-			+ "    	review review, booking bo, room ro, business bu "
-			+ "	WHERE "
-			+ "    	review.bo_num = bo.bo_num and "
-			+ "    	bo.ro_num = ro.ro_num and "
-			+ "    	ro.bu_email = bu.bu_email and "
-			+ "    	bu.bu_email = #{bu_email} ")
-	List<Review> businessReviewList(String bu_email);
-	
-	
-	
 	// Business(*) + Review(별점 평균, 리뷰 개수)
 	@Select("	SELECT  "
 			+ "    	b.*, nvl(score.avgScore, 0) as avgScore, nvl(score.revCount, 0) as revCount "

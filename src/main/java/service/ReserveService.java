@@ -40,10 +40,6 @@ public class ReserveService {
 		return reserveDao.overlapRoomList(bu_email, ro_count, checkin, checkout);
 	}
 	
-	public List<Review> businessReviewList(String bu_email) throws Exception {
-		return reserveDao.businessReviewList(bu_email);
-	}
-	
 	public int insertBooking(Booking booking) throws Exception {
 		int result = reserveDao.insertBooking(booking);
 		
@@ -88,9 +84,5 @@ public class ReserveService {
 	
 	public List<Booking> getMemberBookingList(String email) throws Exception {
 		return bookingDao.selectBookingPicRevList(email);
-	}
-	
-	public int writeRevire(Review review) throws Exception {
-		return bookingDao.insertReview(review);
 	}
 }

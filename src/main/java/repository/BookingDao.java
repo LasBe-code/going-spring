@@ -43,12 +43,4 @@ public class BookingDao {
 	public List<Picture> bookingPictureList(int ro_num) throws Exception {
 		return sqlSession.getMapper(BookingMapperAnno.class).bookingPictureList(ro_num);
 	}
-
-	public int nextRevNum() throws Exception {
-		return sqlSession.getMapper(ReviewMapperAnno.class).nextRevNum();
-	}
-	
-	public int insertReview(Review review) throws Exception {
-		return sqlSession.getMapper(ReviewMapperAnno.class).insertReview(review);
-	}
 }

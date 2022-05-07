@@ -20,6 +20,7 @@ import model.Member;
 import model.Picture;
 import model.Review;
 import service.MemberService;
+import service.ReviewService;
 
 
 @Controller
@@ -31,10 +32,13 @@ public class MemberController{
 	HttpSession session;
 	
 	private final MemberService memberService;
+	private final ReviewService reviewService;
 	
 	@Autowired
-	public MemberController(MemberService memberService) {
+	public MemberController(MemberService memberService, 
+							ReviewService reviewService) {
 		this.memberService=memberService;
+		this.reviewService=reviewService;
 	}
 	
 	@ModelAttribute
@@ -354,7 +358,7 @@ public class MemberController{
 	public String myReview() {
 		try {
 
-			List<Review> reviewList = memberService.myReivew((String)session.getAttribute("email"));
+			List<Review> reviewList = reviewService.myReivew((String)session.getAttribute("email"));
 			model.addAttribute("reviewList", reviewList);
 			
 		} catch (Exception e) {
@@ -362,5 +366,18 @@ public class MemberController{
 		}
 		
 		return "/view/member/myReview";
+	}
+	
+	@PostMapping("deleteMyReview")
+	@ResponseBody
+	public Boolean deleteMyReview(int rev_num) {
+		try {
+			if(reviewService.deleteReview(rev_num) != 0 ) {
+				return false;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return true;
 	}
 }

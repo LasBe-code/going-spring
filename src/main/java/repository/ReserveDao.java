@@ -50,11 +50,6 @@ public class ReserveDao{
 		return sqlSession.getMapper(ReservedMapperAnno.class).overlapRoomList(map);
 	}
 	
-	
-	public List<Review> businessReviewList(String bu_email) throws Exception {
-		return sqlSession.getMapper(ReservedMapperAnno.class).businessReviewList(bu_email);
-	}
-	
 	public List<Picture> getPicList(int pic_num) throws Exception {
 		return sqlSession.getMapper(ReservedMapperAnno.class).sbPicList(pic_num);
 	}
