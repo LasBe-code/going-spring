@@ -22,8 +22,8 @@
 <body>
 
 
-	<div class="default_width mt-5">
-		<div class="top row">
+	<div class="default_width">
+		<div class="top row" style="padding-top:25px;">
 			<!-- 숙소 사진 목록 -->
 			<div id="demo" class="carousel col-sm-6" data-bs-ride="carousel">
 				<div class="carousel-indicators">
