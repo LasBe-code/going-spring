@@ -22,7 +22,7 @@ public interface ReservedMapperAnno {
 			+"	FROM "
 			+"	    (select * from business where bu_id = #{bu_id} and ( bu_address like '%${bu_address}%' or bu_title like '%${bu_address}%')) b "
 			+"	LEFT OUTER JOIN "
-			+"	    (select bu_email, min(to_number(ro_price)) as min_price from room where ro_count >= #{ro_count} group by bu_email) r "
+			+"	    (select bu_email, min(to_number(ro_price)) as min_price from room where ro_count >= #{ro_count} and ro_price between to_number(#{lowprice}) and to_number(#{highprice}) group by bu_email) r "
 			+"	ON b.bu_email = r.bu_email "
 			+"	LEFT OUTER JOIN "
 			+"	    (select DISTINCT pic_num, FIRST_VALUE(location) OVER(partition by pic_num) as location from picture) p "

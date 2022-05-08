@@ -810,4 +810,89 @@ input[type="color"]:focus,
 	font-weight: bold;
 	line-height: 1;
 }
+.middle {
+	position: realtive;
+	width: 100%;
+	max-width: 500px;
+	height: 10px;
+}
+.slider {
+	position: relative;
+	z-index: 1;
+	height: 10px;
+	margin: 0 15px;
+}
+.track {
+	position: absolute;
+	z-index: 1;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	border-radius: 5px;
+	background-color: rgba(0,0,0,.1);
+}
+.range {
+	position: absolute;
+	z-index: 2;
+	left: 25%;
+	right: 25%;
+	top: 0;
+	bottom: 0;
+	border-radius: 5px;
+	background-color: #ffc107;
+}
+.thumb {
+	position: absolute;
+	z-index: 3;
+	width: 20px;
+	height: 20px;
+	background-color: #ffc107;
+	border-radius: 50%;
+}
+.thumb.left {
+	left: 25%;
+	transform: translate(-12px, -6px);
+
+}
+.thumb.right {
+	right: 25%;
+	transform: translate(10px, -6px);
+}
+input[type=range] {
+	position: absolute;
+	z-index: 2;
+	pointer-events: none;
+	-webkit-appearance: none;
+	height: 10px;
+	width: 85%;
+	opacity: 0;
+}
+input[type=range]::-webkit-slider-thumb {
+	pointer-events: all;
+	width: 20px;
+	height: 20px;
+	border-radius: 0;
+	border: 0 none;
+	background-color: red;
+	-webkit-appearance: none;
+}
+.pricerangebox {
+	margin-bottom: 20px;
+}
+.rangeresult {
+	display: inline;
+}
+.rangeresult2 {
+	display: inline;
+}
+.pricerangetext {
+	font-size: 7px;
+	display: inline;
+	margin-right: 191px;
+}
+.pricerangetext2 {
+	font-size: 7px;
+	display: inline;
+}
 /* 박상용 끝 */

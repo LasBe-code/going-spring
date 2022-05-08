@@ -74,6 +74,23 @@
 							</ul>
 						</div>
 					</div>
+					<div class="pricerangebox"> 
+					<strong>가격 : </strong><p class="rangeresult"></p>만원 ~ <p class="rangeresult2"></p>만원
+					</div>
+						<div class="middle">
+							<div class="multi-range-slider">
+								<input type="range" class="leftrangevalue" name="lowprice" id="input-left" min="10000" max="1500000" step="10000" value="10000">
+								<input type="range" class="rightrangevalue" name="highprice" id="input-right" min="10000" max="1500000" step="10000" value="1500000">
+								
+								<div class="slider">
+									<div class="track"></div>
+									<div class="range"></div>
+									<div class="thumb left"></div>
+									<div class="thumb right"></div>
+								</div>
+							</div>
+						</div>
+						<p class="pricerangetext">1만원</p><p class="pricerangetext2">150만원</p>
 					<button type=submit class=search_commit_button_size style="border: none;">적용</button>
 				</form>
 			</div>
@@ -82,36 +99,38 @@
 			<!-- 숙소 리스트 -->
 			<div class="search_list_mainbox">
 				<c:forEach var="bu" items="${bu_list}">
-					<div class="search_list_box">
-						<form action="${pageContext.request.contextPath}/reservation/detail" class="search_list_abox" method="get">
-							<input type="hidden" name="bu_email" value="${bu.bu_email }">
-							<input type="hidden" name="checkin" value="${searchDTO.checkin }">
-							<input type="hidden" name="checkout" value="${searchDTO.checkout }">
-							<input type="hidden" name="ro_count" value="${searchDTO.ro_count }">
-							<div class="reserve_room" style="width: 690px; margin-top: 0px; padding-left: 385px;">
-								<p class="reserve_pic_view" style="width: 330px;">
-									<img src="${bu.picLocation}" class="rounded" style="width: 330px; height: 226px; object-fit: cover;">
-								</p>
-								<div style="margin: 0 auto"></div>
-								
-								<div class="search_room_title" style="width: 300px; margin-bottom: -2px;">
-									<strong >${bu.bu_title}</strong>
-									<p class="gray_text" style="font-size: 14px; margin-top:10px;">
-										<img src="https://cdn4.iconfinder.com/data/icons/music-ui-solid-24px/24/location_map_marker_pin-2-512.png" style="width: 20px;"> ${bu.bu_address}
+					<c:if test="${bu.minPrice != null}">
+						<div class="search_list_box">
+							<form action="${pageContext.request.contextPath}/reservation/detail" class="search_list_abox" method="get">
+								<input type="hidden" name="bu_email" value="${bu.bu_email }">
+								<input type="hidden" name="checkin" value="${searchDTO.checkin }">
+								<input type="hidden" name="checkout" value="${searchDTO.checkout }">
+								<input type="hidden" name="ro_count" value="${searchDTO.ro_count }">
+								<div class="reserve_room" style="width: 690px; margin-top: 0px; padding-left: 385px;">
+									<p class="reserve_pic_view" style="width: 330px;">
+										<img src="${bu.picLocation}" class="rounded" style="width: 330px; height: 226px; object-fit: cover;">
 									</p>
-								</div>
-								<div class="reserve_room_price row" style="width: 300px;">
-									<div class="col-sm-3">
-										<strong class="medium_text">가격</strong>
+									<div style="margin: 0 auto"></div>
+									
+									<div class="search_room_title" style="width: 300px; margin-bottom: -2px;">
+										<strong >${bu.bu_title}</strong>
+										<p class="gray_text" style="font-size: 14px; margin-top:10px;">
+											<img src="https://cdn4.iconfinder.com/data/icons/music-ui-solid-24px/24/location_map_marker_pin-2-512.png" style="width: 20px;"> ${bu.bu_address}
+										</p>
 									</div>
-									<div class="col-sm-9 right_text">
-										<b class="large_text"><fmt:formatNumber value="${bu.minPrice}" pattern="#,###" />원</b>
+									<div class="reserve_room_price row" style="width: 300px;">
+										<div class="col-sm-3">
+											<strong class="medium_text">가격</strong>
+										</div>
+										<div class="col-sm-9 right_text">
+											<b class="large_text"><fmt:formatNumber value="${bu.minPrice}" pattern="#,###" />원</b>
+										</div>
 									</div>
+									<input type="submit" class="reserve_room_btn default_btn medium_text rounded" value="숙소 살펴보기" style="margin-left: -5px;">
 								</div>
-								<input type="submit" class="reserve_room_btn default_btn medium_text rounded" value="숙소 살펴보기" style="margin-left: -5px;">
-							</div>
-						</form>
-					</div>
+							</form>
+						</div>
+					</c:if>
 				</c:forEach>
 			</div>
 			<!-- 숙소 리스트 끝 -->
@@ -119,4 +138,53 @@
 		</div>
 	</div>
 </body>
+<script>
+// 가격 검색 범위 설정 (바디 위에 쓸 경우 오류)
+var inputLeft = document.getElementById("input-left");
+var inputRight = document.getElementById("input-right");
+
+var thumbLeft = document.querySelector(".thumb.left");
+var thumbRight = document.querySelector(".thumb.right");
+var range = document.querySelector(".range");
+
+function setLeftValue() {
+	var _this = inputLeft,
+		min = parseInt(_this.min),
+		max = parseInt(_this.max);
+	_this.value = Math.min(parseInt(_this.value), parseInt(inputRight.value) - 50000);
+	var percent = ((_this.value - min) / (max - min)) * 100
+	
+	thumbLeft.style.left = percent + "%";
+	range.style.left = percent + "%";
+}
+setLeftValue();
+
+function setRightValue() {
+	var _this = inputRight,
+		min = parseInt(_this.min),
+		max = parseInt(_this.max);
+	_this.value = Math.max(parseInt(_this.value), parseInt(inputLeft.value) + 50000);
+	var percent = ((_this.value - min) / (max - min)) * 100
+	
+	thumbRight.style.right = (100 - percent) + "%";
+	range.style.right = (100 - percent) + "%";
+}
+setRightValue();
+
+inputLeft.addEventListener("input", setLeftValue);
+inputRight.addEventListener("input", setRightValue);
+// 가격 검색 범위 설정 끝
+// 검색 실시간 텍스트표시
+var result = $(".rangeresult");
+var slider = $(".leftrangevalue")
+slider.on('input', function() {
+    result.html( $(this).val() / 10000);
+});
+var result2 = $(".rangeresult2");
+var slider2 = $(".rightrangevalue")
+slider2.on('input', function() {
+    result2.html( $(this).val() / 10000 );
+});
+// 검색 실시간 텍스트 표시 끝
+</script>
 </html>

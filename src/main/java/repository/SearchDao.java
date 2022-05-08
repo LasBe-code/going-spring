@@ -29,6 +29,8 @@ public class SearchDao {
 
 	// business(인원 수, 숙소 이름, 숙소 주소) + room(최저가, 인원 수 제한) + picture(숙소 사진 첫번째)
 	public List<Business> searchBusinessList(SearchDTO searchDTO) throws Exception {
+		if (searchDTO.getLowprice() ==null) searchDTO.setLowprice("10000");
+		if (searchDTO.getHighprice() ==null) searchDTO.setHighprice("1500000");
 		return sqlSession.getMapper(ReservedMapperAnno.class).searchBusinessList(searchDTO);
 	}
 

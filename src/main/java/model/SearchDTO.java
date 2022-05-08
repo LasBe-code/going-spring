@@ -6,13 +6,17 @@ public class SearchDTO {
 	String checkout;
 	String ro_count;
 	String bu_id;
-	public SearchDTO(String bu_address, String checkin, String checkout, String ro_count, String bu_id) {
+	String lowprice;
+	String highprice;
+	public SearchDTO(String bu_address, String checkin, String checkout, String ro_count, String bu_id, String lowprice, String highprice) {
 		super();
 		this.bu_address = bu_address;
 		this.checkin = checkin;
 		this.checkout = checkout;
 		this.ro_count = ro_count;
 		this.bu_id = bu_id;
+		this.lowprice = lowprice;
+		this.highprice = highprice;
 	}
 	public String getBu_address() {
 		return bu_address;
@@ -44,11 +48,22 @@ public class SearchDTO {
 	public void setBu_id(String bu_id) {
 		this.bu_id = bu_id;
 	}
+	public String getLowprice() {
+		return lowprice;
+	}
+	public void setLowprice(String lowprice) {
+		this.lowprice = lowprice;
+	}
+	public String getHighprice() {
+		return highprice;
+	}
+	public void setHighprice(String highprice) {
+		this.highprice = highprice;
+	}
 	@Override
 	public String toString() {
-		return "{\"bu_address\":\"" + bu_address + "\", \"checkin\":\"" + checkin + "\", \"checkout\":\"" + checkout
-				+ "\", \"ro_count\":\"" + ro_count + "\", \"bu_id\":\"" + bu_id + "\"}";
+		return " {\"bu_address\":\"" + bu_address + "\", \"checkin\":\"" + checkin + "\", \"checkout\":\"" + checkout
+				+ "\", \"ro_count\":\"" + ro_count + "\", \"bu_id\":\"" + bu_id + "\", \"lowprice\":\"" + lowprice
+				+ "\", \"highprice\":\"" + highprice + "\"}";
 	}
-	
-	
 }
