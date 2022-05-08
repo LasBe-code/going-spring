@@ -21,12 +21,12 @@
 					<c:choose>
 						<c:when test="${review.report == '0' }">
 							<div id="reportApproval">
-								<a style="font-size: 30px; background-color: white; border-radius: 100px;" onclick='reportApproval(${review.email}, ${review.rev_num})'>🚨</a>
+								<a style="font-size: 30px; background-color: white; border-radius: 100px; cursor: pointer;" onclick='reportApproval(${review.email}, ${review.rev_num})'>🚨</a>
 							</div>
 						</c:when>
 						<c:when test="${review.report == '1' }">
 							<div id="reportCancle">
-								<a style="font-size: 30px; background-color: red; border-radius: 100px;" onclick='reportCancle(${review.email}, ${review.rev_num})'>🚨</a>
+								<a style="font-size: 30px; background-color: red; border-radius: 100px; cursor: pointer;" onclick='reportCancle(${review.email}, ${review.rev_num})'>🚨</a>
 							</div>
 						</c:when>
 					</c:choose>
