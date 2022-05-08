@@ -23,28 +23,25 @@ import model.Member;
 import model.Review;
 import model.Room;
 import service.ReserveService;
-import service.ReviewService;
 import service.RoomService;
 
 @Controller
 @RequestMapping("/room/")
 public class RoomController{
 	
-	private static Map<Object, Object> mainMap = new HashMap<Object, Object>();
+	private static Map<Object, Object> controllerMap = new HashMap<Object, Object>();
 
 	HttpServletRequest request;
 	Model model;
 	HttpSession session;
 	
 	private final RoomService roomService;
-	private final ReviewService reviewService;
-	
+	private final ReserveService reserveService;
 	@Autowired
-	public RoomController(	RoomService roomService, 
-							ReviewService reviewService) {
+	public RoomController(RoomService roomService, ReserveService reserveService) {
 		super();
 		this.roomService = roomService;
-		this.reviewService=reviewService;
+		this.reserveService = reserveService;
 	}
 
 	@ModelAttribute
@@ -64,11 +61,11 @@ public class RoomController{
 		String bu_email =(String)session.getAttribute("bu_email");
 		
 		try {
-			mainMap.clear();
-			mainMap = roomService.List(bu_email);
+			controllerMap.clear();
+			controllerMap = roomService.List(bu_email);
 			
-			list = (List<Room>) mainMap.get("list");
-			map = (Map<Object, Object>) mainMap.get("map");
+			list = (List<Room>) controllerMap.get("list");
+			map = (Map<Object, Object>) controllerMap.get("map");
 			
 			model.addAttribute("picMap", map);
 			model.addAttribute("list", list);
@@ -93,10 +90,10 @@ public class RoomController{
 		String url = request.getContextPath() + "/room/roomInsert?bu_email="+bu_email;
 		
 		try {
-			mainMap.clear();
-			mainMap = roomService.roomInsertPro(room, bu_email);
-			int rnum = (int) mainMap.get("rnum");
-			int rowCnt = (int) mainMap.get("rowCnt");
+			controllerMap.clear();
+			controllerMap = roomService.roomInsertPro(room, bu_email);
+			int rnum = (int) controllerMap.get("rnum");
+			int rowCnt = (int) controllerMap.get("rowCnt");
 			if(rnum > 0 && rowCnt > 0) {
 				msg = "객실 등록이 완료되었습니다.";
 				url = request.getContextPath() + "/room/roomlist?bu_email="+bu_email;
@@ -117,14 +114,14 @@ public class RoomController{
 	public String roominfo(Integer ro_num) {
 		
 		try {
-			mainMap.clear();
-			mainMap = roomService.roominfo(ro_num);
+			controllerMap.clear();
+			controllerMap = roomService.roominfo(ro_num);
 			
-			model.addAttribute("p_list", mainMap.get("p_list"));
-			model.addAttribute("room", mainMap.get("room"));
-			model.addAttribute("ro_num", mainMap.get("ro_num"));
-			model.addAttribute("pic_num", mainMap.get("pic_num"));
-			model.addAttribute("info", mainMap.get("info"));
+			model.addAttribute("p_list", controllerMap.get("p_list"));
+			model.addAttribute("room", controllerMap.get("room"));
+			model.addAttribute("ro_num", controllerMap.get("ro_num"));
+			model.addAttribute("pic_num", controllerMap.get("pic_num"));
+			model.addAttribute("info", controllerMap.get("info"));
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -138,13 +135,13 @@ public class RoomController{
 	public String roomUpdate(Integer ro_num, Integer pic_num) {
 
 		try {
-			mainMap.clear();
-			mainMap = roomService.roomUpdate(ro_num, pic_num);
+			controllerMap.clear();
+			controllerMap = roomService.roomUpdate(ro_num, pic_num);
 			
 			model.addAttribute("pic_num", pic_num);
-			model.addAttribute("room", mainMap.get("room"));
+			model.addAttribute("room", controllerMap.get("room"));
 			model.addAttribute("ro_num", ro_num);
-			model.addAttribute("pic", mainMap.get("pic"));
+			model.addAttribute("pic", controllerMap.get("pic"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -159,10 +156,10 @@ public class RoomController{
 		String bu_email =(String)session.getAttribute("bu_email");
 		room.setBu_email(bu_email);
 		try {
-			mainMap.clear();
-			mainMap = roomService.roomUpdatePro(room);
-			int rnum = (int) mainMap.get("rnum");
-			int pic = (int) mainMap.get("pic");
+			controllerMap.clear();
+			controllerMap = roomService.roomUpdatePro(room);
+			int rnum = (int) controllerMap.get("rnum");
+			int pic = (int) controllerMap.get("pic");
 			
 			String msg = "객실 수정시 오류가 발생했습니다.";
 			String url = request.getContextPath() + "/room/roomUpdate?ro_num="+room.getRo_num()+"&pic_num="+room.getPic_num();
@@ -194,7 +191,7 @@ public class RoomController{
 	public String roomDeletePro(Room r, Business bu) {
 		
 		String bu_email =(String)session.getAttribute("bu_email");
-		mainMap.clear();
+		controllerMap.clear();
 		try {
 			int room = roomService.roomDeltePro(r, bu, bu_email);
 			String msg = "객실 삭제시 오류가 발생했습니다.";
@@ -205,7 +202,7 @@ public class RoomController{
 				url = request.getContextPath() + "/room/roomlist?bu_email="+bu_email;
 			}
 			else {
-				msg = (String) mainMap.get("msg");
+				msg = (String) controllerMap.get("msg");
 			}
 			model.addAttribute("msg", msg);
 			model.addAttribute("url", url);
@@ -228,32 +225,30 @@ public class RoomController{
 			// 한페이지에 출력할 게시글 갯수
 			int limit = 10;
 			
-			// pageNum을 세션에 저장해서 작업후 뒤로가기할때 바로전에 보던 페이지 출력
-			if(pageNum != null){
-				session.setAttribute("pageNum", pageNum);
-			}
-			pageNum = (String) session.getAttribute("pageNum");
+			
 			if(pageNum == null)
 				pageNum = "1";
 					
 			pageInt = Integer.parseInt(pageNum);
 					
-//			한페이지에 출력할 게시글 rownum의 번호
+//			한페이지에 출력할 게시글 rownum의 번호 
+//			1페이지면 startPage = 1 endPage = 10 이며 db에서 rownum 1번 부터 10번까지 데이터를 가져온다
+//			2페이지면 startPage = 11 endPage = 20 이며 db에서 rownum 11번 부터 20번까지 데이터를 가져온다
 			int startPage = (pageInt-1)*limit + 1;
 			int endPage = (pageInt-1)*limit + limit;
 //			게시글 갯수
 			
-			mainMap.clear();
-			mainMap = roomService.reservation(search, searchName, request, bu_email, startPage,endPage);
+			controllerMap.clear();
+			controllerMap = roomService.reservation(search, searchName, request, bu_email, startPage,endPage);
 			
-			String msg = (String) mainMap.get("msg");
+			String msg = (String) controllerMap.get("msg");
 			if(msg != null) {
 				model.addAttribute("msg", msg);
-				model.addAttribute("url",mainMap.get("url"));
+				model.addAttribute("url",controllerMap.get("url"));
 				return "/view/alert";
 			}
 			
-			int count = (int) mainMap.get("count");
+			int count = (int) controllerMap.get("count");
 			
 			// -----------------------------------------------------------------------------
 			// 게시글 갯수를 확인하는 메서드
@@ -270,7 +265,7 @@ public class RoomController{
 			
 			model.addAttribute("search", search);
 			model.addAttribute("searchName", searchName);
-			model.addAttribute("bk", mainMap.get("bk"));
+			model.addAttribute("bk", controllerMap.get("bk"));
 			model.addAttribute("boaroomServiceNum", boaroomServiceNum);
 			model.addAttribute("bottomLine", bottomLine);
 			model.addAttribute("startNum", startNum);
@@ -292,34 +287,15 @@ public class RoomController{
 		try {
 			String bu_email =(String)session.getAttribute("bu_email");
 			
-			mainMap.clear();
-			mainMap = roomService.sales(bu_email);
+			controllerMap.clear();
+			controllerMap = roomService.sales(bu_email);
 			
-			model.addAttribute("result", mainMap.get("result"));
+			model.addAttribute("result", controllerMap.get("result"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		return "/view/entrepreneur/sales";
-	}
-	
-	@SuppressWarnings("unchecked")
-	@RequestMapping("areaSales")
-	public String areaSales(String month) {
-		
-		try {
-			mainMap.clear();
-			mainMap = roomService.areaSales(month);
-			
-			model.addAttribute("month", mainMap.get("month"));
-			model.addAttribute("result", mainMap.get("result"));
-		}
-		 catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return "/view/entrepreneur/areaSales";
-
 	}
 	
 	@RequestMapping("todayCheckin")
@@ -328,11 +304,11 @@ public class RoomController{
 		try {
 			String bu_email =(String)session.getAttribute("bu_email");
 			
-			mainMap.clear();
-			mainMap = roomService.todayCheckin(bu_email);
+			controllerMap.clear();
+			controllerMap = roomService.todayCheckin(bu_email);
 			
-			model.addAttribute("notCheckin", mainMap.get("notCheckin"));
-			model.addAttribute("checkinOk", mainMap.get("checkinOk"));
+			model.addAttribute("notCheckin", controllerMap.get("notCheckin"));
+			model.addAttribute("checkinOk", controllerMap.get("checkinOk"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -360,11 +336,11 @@ public class RoomController{
 		
 		String bu_email =(String)session.getAttribute("bu_email");
 		try {
-			mainMap.clear();
-			mainMap = roomService.todayCheckOut(bu_email);
+			controllerMap.clear();
+			controllerMap = roomService.todayCheckOut(bu_email);
 			
-			model.addAttribute("notCheckOut", mainMap.get("notCheckOut"));
-			model.addAttribute("checkOutOk", mainMap.get("checkOutOk"));
+			model.addAttribute("notCheckOut", controllerMap.get("notCheckOut"));
+			model.addAttribute("checkOutOk", controllerMap.get("checkOutOk"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -389,18 +365,57 @@ public class RoomController{
 	@RequestMapping("roomReview")
 	public String roomReview(Review re) {
 		String bu_email = (String)session.getAttribute("bu_email");
-		
+		int reply = 0;
 		try {
 			if(re.getContent_reply() == null || "".equals(re.getContent_reply()))
 				re.setContent_reply("");
+			else {
+				reply = roomService.updateReply(re.getRev_num(),re.getContent_reply());
+			}
 			
-			List<Review> reviewList = reviewService.businessReviewList(bu_email);
-			
+			List<Review> reviewList = reserveService.businessReviewList(bu_email);
+			System.out.println("reviewList = " + reviewList);
 			model.addAttribute("reviewList", reviewList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "/view/entrepreneur/roomReview";
+	}
+	
+	
+	@RequestMapping("roomReviewDelete")
+	public String roomReviewDelete(Integer rev_num) {
+		int delete = 0;
+		
+		try {
+			delete = roomService.deleteReply(rev_num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/room/roomReview";
+	}
+	
+	@RequestMapping("reviewApproval")
+	public String reviewApproval(Integer rev_num) {
+		try {
+			int reviewApproval = roomService.reviewApproval(rev_num);
+			System.out.println("reviewApproval = " +reviewApproval);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/room/roomReview";
+	}
+	
+	@RequestMapping("reportCancle")
+	public String reportCancle(Integer rev_num) {
+		System.out.println("rev_num = "+rev_num);
+		try {
+			int reportCancle = roomService.reportCancle(rev_num);
+			System.out.println("reportCancle = " +reportCancle);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/room/roomReview";
 	}
 	
 	

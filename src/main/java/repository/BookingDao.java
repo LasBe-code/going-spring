@@ -43,4 +43,8 @@ public class BookingDao {
 	public List<Picture> bookingPictureList(int ro_num) throws Exception {
 		return sqlSession.getMapper(BookingMapperAnno.class).bookingPictureList(ro_num);
 	}
+
+	public List<Review> businessReviewList(String bu_email) {
+		return sqlSession.getMapper(BookingMapperAnno.class).businessReviewList(bu_email);
+	}
 }

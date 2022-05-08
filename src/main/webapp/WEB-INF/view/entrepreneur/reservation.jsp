@@ -65,6 +65,7 @@
 	        		<c:when test="${b.status == '1'}">예약 완료</c:when>
 	        		<c:when test="${b.status == '2'}">결제 취소</c:when>
 	        		<c:when test="${b.status == '3'}">이용 완료</c:when>
+	        		<c:when test="${b.status == '4'}">입실 완료</c:when>
 	        	</c:choose>
 	        </td>
 	      </tr>

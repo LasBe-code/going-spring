@@ -156,7 +156,10 @@ public class RoomService {
 			serviceMap.put("msg", "비밀번호가 틀렸습니다.");
 		}else {
 			// 비밀번호가 일치하면 객실 삭제
-			room = roomDao.deleteRoom(bu_email, ro_num);
+			map.clear();
+			map.put("bu_email", bu_email);
+			map.put("ro_num", ro_num);
+			room = roomDao.deleteRoom(map);
 		}
 		
 		return room;
@@ -249,38 +252,6 @@ public class RoomService {
 		serviceMap.put("result", result);
 		return serviceMap;
 	}
-	
-	
-	public Map<Object, Object> areaSales(String month) throws Exception {
-		String[] areas = {"서울", "경기", "강원", "부산"};
-		
-		if(month == null) {
-			LocalDate now = LocalDate.now();
-			int month1 = now.getMonthValue();
-			month = "0"+month1;
-		}
-		String result = "";
-		map.put("month", month);
-		for(String area : areas) {
-			map.put("area", area);
-//			지역별 월매출
-			Booking bo = roomDao.selectAreaSales(map);
-			if(result!="") { 
-				result += ","; 
-			}
-			if(bo == null) {
-				result += "['"+area+"', "+"0"+"]";
-			}
-			else {
-				result += "['"+area+"', "+bo.getPrice()+"]";
-			}
-		}
-		serviceMap.clear();
-		serviceMap.put("result", result);
-		serviceMap.put("month", month);
-		return serviceMap;
-	}
-	
 	
 	public Map<Object, Object> todayCheckin(String bu_email) throws Exception {
 		
@@ -410,6 +381,29 @@ public class RoomService {
 		map.put("ro_name", ro_name);
 		map.put("bu_email", bu_email);
 		return roomDao.getRo_name(map);
+	}
+
+
+	public int updateReply(int rev_num, String content_reply) {
+		map.clear();
+		map.put("rev_num", rev_num);
+		map.put("content_reply", content_reply);
+		return roomDao.updateReply(map);
+	}
+
+
+	public int deleteReply(Integer rev_num) {
+		return roomDao.deleteReply(rev_num);
+	}
+
+
+	public int reviewApproval(Integer rev_num) {
+		return roomDao.reviewApproval(rev_num);
+	}
+
+
+	public int reportCancle(Integer rev_num) {
+		return roomDao.reportCancle(rev_num);
 	}
 
 }

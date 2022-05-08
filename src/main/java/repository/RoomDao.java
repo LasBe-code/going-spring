@@ -17,7 +17,6 @@ import mybatis.RoomMapperAnno;
 
 @Component
 public class RoomDao {
-	private Map<Object, Object> map = new HashMap<Object, Object>();
 	private final SqlSession sqlSession;
 	
 	@Autowired
@@ -64,10 +63,7 @@ public class RoomDao {
 	}
 
 
-	public int deleteRoom(String bu_email, int ro_num)  throws Exception {
-		map.clear();
-		map.put("bu_email", bu_email);
-		map.put("ro_num", ro_num);
+	public int deleteRoom(Map<String, Object> map)  throws Exception {
 		return sqlSession.getMapper(RoomMapperAnno.class).deleteRoom(map);
 	}
 
@@ -89,10 +85,6 @@ public class RoomDao {
 		return sqlSession.getMapper(RoomMapperAnno.class).searchName(map);
 	}
 
-	public String picList(Map<String, Object> map) throws Exception  {
-		return sqlSession.getMapper(RoomMapperAnno.class).picList(map);
-	}
-
 	public Business selectBusiness(String bu_email) throws Exception  {
 		return sqlSession.getMapper(RoomMapperAnno.class).selectBusiness(bu_email);
 	}
@@ -107,10 +99,6 @@ public class RoomDao {
 
 	public Booking selectSales(Map<String, Object> map) throws Exception  {
 		return sqlSession.getMapper(RoomMapperAnno.class).selectSales(map);
-	}
-
-	public Booking selectAreaSales(Map<String, Object> map) throws Exception  {
-		return sqlSession.getMapper(RoomMapperAnno.class).selectAreaSales(map);
 	}
 
 	public int countBoard(Map<String, Object> map)  throws Exception {
@@ -155,5 +143,21 @@ public class RoomDao {
 
 	public Room getRo_name(Map<String, Object> map) {
 		return sqlSession.getMapper(RoomMapperAnno.class).getRo_name(map);
+	}
+
+	public int updateReply(Map<String, Object> map) {
+		return sqlSession.getMapper(RoomMapperAnno.class).updateReply(map);
+	}
+
+	public int deleteReply(Integer rev_num) {
+		return sqlSession.getMapper(RoomMapperAnno.class).deleteReply(rev_num);
+	}
+
+	public int reviewApproval(Integer rev_num) {
+		return sqlSession.getMapper(RoomMapperAnno.class).reviewApproval(rev_num);
+	}
+
+	public int reportCancle(Integer rev_num) {
+		return sqlSession.getMapper(RoomMapperAnno.class).reportCancle(rev_num);
 	}
 }

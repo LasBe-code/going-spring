@@ -3,8 +3,8 @@ package model;
 
 public class Review {
 	
-	private int rev_num, score, reply_num;
-	private String bo_num, email, content, review_date, content_reply;
+	private int rev_num, score;
+	private String bo_num, email, content, review_date, content_reply, report;
 	
 	private String ro_name, bu_title, checkin, checkout;
 	
@@ -32,33 +32,35 @@ public class Review {
 		this.ro_name = ro_name;
 	}
 	
-	public Review(int rev_num, int score, int reply_num, String bo_num, String email, String content,
-			String review_date, String content_reply, String ro_name) {
+	public Review(int rev_num, int score, String bo_num, String email, String content,
+			String review_date, String content_reply, String ro_name, String report) {
 		super();
 		this.rev_num = rev_num;
 		this.score = score;
-		this.reply_num = reply_num;
 		this.bo_num = bo_num;
 		this.email = email;
 		this.content = content;
 		this.review_date = review_date;
 		this.content_reply = content_reply;
 		this.ro_name = ro_name;
+		this.report = report;
 	}
 	
-	
 
-	public int getReply_num() {
-		return reply_num;
+	
+	
+	public String getReport() {
+		return report;
+	}
+
+	public void setReport(String report) {
+		this.report = report;
 	}
 
 	public String getContent_reply() {
 		return content_reply;
 	}
 
-	public void setReply_num(int reply_num) {
-		this.reply_num = reply_num;
-	}
 
 	public void setContent_reply(String content_reply) {
 		this.content_reply = content_reply;
@@ -146,10 +148,10 @@ public class Review {
 
 	@Override
 	public String toString() {
-		return "Review [rev_num=" + rev_num + ", score=" + score + ", reply_num=" + reply_num + ", bo_num=" + bo_num
-				+ ", email=" + email + ", content=" + content + ", review_date=" + review_date + ", content_reply="
-				+ content_reply + ", ro_name=" + ro_name + "]";
+		return "Review [rev_num=" + rev_num + ", score=" + score + ", bo_num=" + bo_num + ", email=" + email
+				+ ", content=" + content + ", review_date=" + review_date + ", content_reply=" + content_reply
+				+ ", report=" + report + ", ro_name=" + ro_name + ", bu_title=" + bu_title + ", checkin=" + checkin
+				+ ", checkout=" + checkout + "]";
 	}
 
-	
 }

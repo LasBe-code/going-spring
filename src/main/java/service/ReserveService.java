@@ -85,4 +85,8 @@ public class ReserveService {
 	public List<Booking> getMemberBookingList(String email) throws Exception {
 		return bookingDao.selectBookingPicRevList(email);
 	}
+
+	public List<Review> businessReviewList(String bu_email) {
+		return bookingDao.businessReviewList(bu_email);
+	}
 }

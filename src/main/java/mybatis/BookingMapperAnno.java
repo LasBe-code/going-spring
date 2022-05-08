@@ -8,6 +8,7 @@ import model.Booking;
 import model.Business;
 import model.Member;
 import model.Picture;
+import model.Review;
 
 public interface BookingMapperAnno {
 	
@@ -95,4 +96,10 @@ public interface BookingMapperAnno {
 	      + "    WHERE rownum < 11 "
 	      + "    ORDER BY revCount desc ")
 	  List<Business> hot10BusinessList(Map map);
+
+	  
+	  @Select("select * "
+	  		+ " from review re, booking bo, business bu "
+	  		+ " where re.bo_num = bo.bo_num and bo.bu_title = bu.bu_title and bu.bu_email = #{bu_email}")
+	  List<Review> businessReviewList(String bu_email);
 }
