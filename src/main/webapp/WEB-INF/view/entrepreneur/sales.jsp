@@ -39,7 +39,10 @@
         ]);
 
         var options = {
-          title: '월 별 매출'
+          title: '월 별 매출',
+          series: {
+              0: { color: '#ffc107' }
+            }
         };
 
         var chart = new google.visualization.ColumnChart(document.getElementById('ColumnChart'));
@@ -47,6 +50,6 @@
         chart.draw(data, options);
       }
     </script>
-<div id="ColumnChart" style="width: 1200px; height: 600px; margin: 0px auto; margin-top: 100px;"></div>
+<div id="ColumnChart" style="width: 1200px; height: 600px; margin: 0px auto;"></div>
 </body>
 </html>
