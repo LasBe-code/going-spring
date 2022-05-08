@@ -30,7 +30,7 @@ function openToast(msg){
 <body>
 
 	<c:if test="${param.msg != null}">
-		<div class="position-fixed end-0 p-3" style="margin: 56px 30px 0 0;">
+		<div class="position-fixed end-0 p-3" style="margin: 56px 30px 0 0; position: fixed; z-index: 10;">
 			<div class="toast show" style="margin-bottom: -101px;">
 				<div class="toast-header">
 					<strong class="me-auto">알림 메시지</strong>
@@ -43,7 +43,7 @@ function openToast(msg){
 		</div>
 	</c:if>
 	
-	<div class="position-fixed end-0 top-0" style="margin: 56px 30px 0 0; opacity: none !important;">
+	<div class="position-fixed end-0 top-0" style="margin: 56px 30px 0 0; opacity: none !important; position: fixed; z-index: 10;">
 		<div class="toast">
 			<div class="toast-header">
 				<strong class="me-auto">알림 메세지</strong>

@@ -9,7 +9,7 @@
 </head>
 <body>
 	
-	<div id="sidebar-wrapper">
+	<div id="sidebar-wrapper" style="position: fixed; z-index: 10;">
 		<ul class="sidebar-nav">
 			<li class="sidebar-brand border-bottom">
 				<a href="#" style="font-size: 25px; font-weight: 900 !important;">GOING ADMIN</a>
