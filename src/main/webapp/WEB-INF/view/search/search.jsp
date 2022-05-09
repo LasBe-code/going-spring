@@ -75,12 +75,13 @@
 						</div>
 					</div>
 					<div class="pricerangebox"> 
-					<strong>가격 : </strong><p class="rangeresult"></p>만원 ~ <p class="rangeresult2"></p>만원
+					<strong>가격 : </strong><p class="rangeresult"><fmt:formatNumber type="number" maxFractionDigits="0" value="${searchDTO.lowprice / 10000 }" /></p>만원 ~ 
+					<p class="rangeresult2"><fmt:formatNumber type="number" maxFractionDigits="0" value="${searchDTO.highprice / 10000}" /></p>만원
 					</div>
 						<div class="middle">
 							<div class="multi-range-slider">
-								<input type="range" class="leftrangevalue" name="lowprice" id="input-left" min="10000" max="1500000" step="10000" value="10000">
-								<input type="range" class="rightrangevalue" name="highprice" id="input-right" min="10000" max="1500000" step="10000" value="1500000">
+								<input type="range" class="leftrangevalue" name="lowprice" id="input-left" min="10000" max="1500000" step="10000" value="${searchDTO.lowprice}">
+								<input type="range" class="rightrangevalue" name="highprice" id="input-right" min="10000" max="1500000" step="10000" value="${searchDTO.highprice}">
 								
 								<div class="slider">
 									<div class="track"></div>
@@ -90,7 +91,9 @@
 								</div>
 							</div>
 						</div>
+						<div class="pricerangetextbox">
 						<p class="pricerangetext">1만원</p><p class="pricerangetext2">150만원</p>
+						</div>
 					<button type=submit class=search_commit_button_size style="border: none;">적용</button>
 				</form>
 			</div>
@@ -183,7 +186,7 @@ slider.on('input', function() {
 var result2 = $(".rangeresult2");
 var slider2 = $(".rightrangevalue")
 slider2.on('input', function() {
-    result2.html( $(this).val() / 10000 );
+    result2.html( $(this).val() / 10000);
 });
 // 검색 실시간 텍스트 표시 끝
 </script>

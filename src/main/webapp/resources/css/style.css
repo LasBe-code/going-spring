@@ -896,4 +896,7 @@ input[type=range]::-webkit-slider-thumb {
 	font-size: 7px;
 	display: inline;
 }
+.pricerangetextbox {
+	margin-bottom: 20px;
+}
 /* 박상용 끝 */
