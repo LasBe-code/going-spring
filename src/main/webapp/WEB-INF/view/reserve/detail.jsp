@@ -193,6 +193,10 @@
 							
 							<div class="review_content mt-1">
 								<span>${review.content}</span>
+								<c:if test="${review.content_reply ne null}">
+									<br><br>&nbsp;&nbsp;<span class="material-icons">subdirectory_arrow_right</span>
+									${review.content_reply}
+								</c:if>
 							</div>
 						</div>
 						<hr style="border: 1px solid #dadada; margin:0 40px 0 40px; ">

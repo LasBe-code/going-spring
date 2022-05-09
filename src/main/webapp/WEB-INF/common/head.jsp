@@ -9,7 +9,7 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reservationList.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/memberInfo.css">
-
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <style type="text/css">
 .header .nav-link {
