@@ -74,7 +74,7 @@
       </div>
     </nav>
 	<c:if test="${bu_email != null}">
-		<div class="container" style="margin-top:100px">
+		<div class="container" style="margin-top:25px">
 			<nav class="navbar navbar-expand-sm bg-light navbar-light" style="width: 60%; margin:0px auto;">
 				<div style="margin: 0px auto;">
 					<ul class="navbar-nav">

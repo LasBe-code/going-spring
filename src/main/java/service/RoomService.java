@@ -66,6 +66,8 @@ public class RoomService {
 		room.setBu_email(bu_email);
 		room.setPic_num(picNum);
 		
+		System.out.println(room);
+		
 		String[] picList = room.getLocation().split("\\n");
 		
 		for (String pic : picList) {
