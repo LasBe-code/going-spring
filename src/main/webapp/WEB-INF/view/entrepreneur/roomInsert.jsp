@@ -17,7 +17,7 @@
 
 <div class="container" style="width: 800px; margin-top: 100px;">
 <h2 style="text-align: center;">객실등록</h2>
-  <form action="${pageContext.request.contextPath}/room/roomInsertPro" enctype="multipart/form-data" method="post" name="f">
+  <form action="${pageContext.request.contextPath}/room/roomInsertPro" method="post" name="f">
     <div class="mb-3 mt-3">
       <label>객실이름 : </label>
       <span id="roomNameCheck"></span>
