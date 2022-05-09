@@ -72,8 +72,8 @@ public class SearchController{
 		// 카테고리 별 검색 시 현재 날짜로 날짜 설정
 		if(searchDTO.getCheckin() == null) searchDTO.setCheckin(today);
 		if(searchDTO.getCheckout() == null) searchDTO.setCheckout(tomorrow);
-		if(searchDTO.getLowprice() == null) searchDTO.setLowprice("1");
-		if(searchDTO.getHighprice() == null) searchDTO.setHighprice("150");
+		if(searchDTO.getLowprice() == null) searchDTO.setLowprice("10000");
+		if(searchDTO.getHighprice() == null) searchDTO.setHighprice("1500000");
 		
 		try {
 			
