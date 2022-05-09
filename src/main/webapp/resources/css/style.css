@@ -50,6 +50,17 @@ select:focus {
   box-shadow: 10px 10px 30px black;
 }
 
+.over-table {
+	overflow-x : hidden;
+	min-width: 600px;
+}
+.over-td
+{
+ max-width: 0;
+ overflow: hidden;
+ text-overflow: ellipsis;
+ white-space: nowrap;
+}
 .default_width {
 	width: 1024px !important;
 	margin: 0 auto !important;
