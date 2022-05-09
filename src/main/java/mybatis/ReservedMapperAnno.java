@@ -85,8 +85,12 @@ public interface ReservedMapperAnno {
 	@Select("select boseq.nextval from dual")
 	int nextBoNum();
 	
-	@Insert("insert into booking "
-			+ "values(#{bo_num}, #{email}, #{payment}, #{price}, #{bu_title}, #{ro_name}, #{checkin}, #{checkout}, #{ro_num}, #{reg_date}, #{status})")
+	@Insert("	INSERT INTO booking ("
+			+ "		bo_num, email, payment, price, bu_title, "
+			+ "		ro_name, checkin, checkout, ro_num, reg_date, status) "
+			+ "	VALUES("
+			+ "		#{bo_num}, #{email}, #{payment}, #{price}, #{bu_title}, "
+			+ "		#{ro_name}, #{checkin}, #{checkout}, #{ro_num}, #{reg_date}, #{status})")
 	int insertBooking(Booking b);
 	
 	@Insert("insert into reserved values(#{ro_num}, #{re_date})")

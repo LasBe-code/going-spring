@@ -137,7 +137,7 @@ public class ReservationController{
 	
 	@RequestMapping("reserve")
 	public String reserve(Booking booking) {
-		String email = (String) request.getSession().getAttribute("email");
+		String email = (String) session.getAttribute("email");
 		Member m=null;
 		
 		try {
