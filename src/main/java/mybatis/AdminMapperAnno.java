@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Update;
 
 import model.Booking;
 import model.Business;
+import model.Review;
 
 public interface AdminMapperAnno {
 	
@@ -46,4 +47,6 @@ public interface AdminMapperAnno {
 			+ " group by bu.bu_id order by bu.bu_id ")
 	Booking categorySales(Map<String, Object> map);
 	
+	@Select("SELECT r.*, b.bu_title, b.ro_name FROM review r, booking b WHERE r.report='1' and r.bo_num = b.bo_num")
+	List<Review> reportedReview();
 }

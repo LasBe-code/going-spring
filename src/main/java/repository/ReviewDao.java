@@ -31,4 +31,7 @@ public class ReviewDao {
 	public int deleteReview(int rev_num) throws Exception {
 		return sqlSession.getMapper(ReviewMapperAnno.class).deleteReview(rev_num);
 	}
+	public int reportCancel(int rev_num) {
+		return sqlSession.getMapper(ReviewMapperAnno.class).reportCancel(rev_num);
+	}
 }

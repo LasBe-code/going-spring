@@ -16,7 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import model.Business;
+import model.Review;
 import service.AdminService;
+import service.ReviewService;
+import service.RoomService;
 
 @Controller
 @RequestMapping("/admin/")
@@ -27,10 +30,13 @@ public class AdminController {
 	HttpSession session;
 
 	private final AdminService adminService;
+	private final ReviewService reviewService;
 
 	@Autowired
-	public AdminController(AdminService adminService) {
-		this.adminService = adminService;
+	public AdminController(	AdminService adminService,
+							ReviewService reviewService) {
+		this.adminService=adminService;
+		this.reviewService=reviewService;
 	}
 
 	@ModelAttribute
@@ -183,7 +189,36 @@ public class AdminController {
 	
 	@RequestMapping("reviewReport")
 	public String reviewReport() {
+		try {
+			List<Review> reviewList = adminService.reportedReview();
+			model.addAttribute("reviewList", reviewList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return "/admin/reviewReport";
+	}
+	
+	@ResponseBody
+	@PostMapping("reviewDelete")
+	public Boolean reviewDelete(int rev_num) {
+		try {
+			int result = reviewService.deleteReview(rev_num);
+			if(result != 0) return false; 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
+	@ResponseBody
+	@PostMapping("reportCancel")
+	public Boolean reportCancel(int rev_num) {
+		try {
+			int result = reviewService.reportCancel(rev_num);
+			if(result != 0) return false; 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 }

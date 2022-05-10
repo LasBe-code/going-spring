@@ -28,6 +28,10 @@ public class ReviewService {
 		return reviewDao.deleteReview(rev_num);
 	}
 	
+	public int reportCancel(int rev_num) throws Exception {
+		return reviewDao.reportCancel(rev_num);
+	}
+	
 	public List<Review> myReivew(String email) throws Exception{
 		return reviewDao.myReview(email);
 	}

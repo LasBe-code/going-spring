@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import model.Booking;
 import model.Business;
+import model.Review;
 import mybatis.AdminMapperAnno;
 import mybatis.RoomMapperAnno;
 
@@ -51,8 +52,12 @@ public class AdminDao {
 		return sqlSession.getMapper(AdminMapperAnno.class).notApprovalBuCount();
 	}
 
-	public Booking selectSales(Map<String, Object> map) {
+	public Booking selectSales(Map<String, Object> map){
 		return sqlSession.getMapper(AdminMapperAnno.class).selectSales(map);
+	}
+
+	public List<Review> reportedReview() throws Exception{
+		return sqlSession.getMapper(AdminMapperAnno.class).reportedReview();
 	}
 
 }

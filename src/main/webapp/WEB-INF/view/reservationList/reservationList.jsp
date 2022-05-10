@@ -122,7 +122,7 @@
 					</div>
 					<!-- 예약완료 끝 -->
 
-					<!-- 이용완료 -->
+					<!-- 예약취소 -->
 					<div class="tab-pane fade" id="status_2">
 						<c:forEach var="booking" items="${bookingList}" varStatus="s">
 							<c:if test="${booking.status == 2}">
@@ -153,12 +153,12 @@
 							</c:if>
 						</c:forEach>
 					</div>
-					<!-- 이용완료 끝 -->
+					<!-- 예약취소 끝 -->
 
-					<!-- 예약취소 -->
+					<!-- 이용완료 -->
 					<div class="tab-pane fade" id="status_3">
 						<c:forEach var="booking" items="${bookingList}" varStatus="s">
-							<c:if test="${booking.status == 3}">
+							<c:if test="${booking.status == 3 || booking.status == 4}">
 								<div class="reserveMember_room">
 									<p class="reserveMember_pic_view">
 										<img src="${booking.location}" class="reserveMember_pic rounded">
@@ -203,7 +203,7 @@
 							</c:if>
 						</c:forEach>
 					</div>
-					<!-- 예약취소 끝 -->
+					<!-- 이용완료 끝 -->
 				</div>
 			</div>
 		</div>

@@ -40,4 +40,7 @@ public interface ReviewMapperAnno {
 	
 	@Delete(" DELETE FROM review WHERE rev_num=#{rev_num}")
 	int deleteReview(int rev_num);
+	
+	@Update(" UPDATE review SET report = '0' WHERE rev_num = #{rev_num} ")
+	int reportCancel(int rev_num);
 }

@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 import model.Booking;
 import model.Business;
 import model.Member;
+import model.Review;
 import repository.AdminDao;
 import repository.MemberDao;
+import repository.ReviewDao;
 import repository.RoomDao;
 
 @Service
@@ -22,11 +24,15 @@ public class AdminService {
 	
 	private final MemberDao memberDao;
 	private final AdminDao adminDao;
+	private final ReviewDao reviewDao;
 
 	@Autowired
-	public AdminService(MemberDao memberDao, AdminDao adminDao) {
+	public AdminService(	MemberDao memberDao, 
+							AdminDao adminDao,
+							ReviewDao reviewDao) {
 		this.memberDao = memberDao;
 		this.adminDao = adminDao;
+		this.reviewDao = reviewDao;
 	}
 	
 	public Boolean adminLogin(String email, String password) throws Exception{
@@ -141,6 +147,9 @@ public class AdminService {
 	public int businessApprovalCancel(String bu_email) throws Exception {
 		return adminDao.businessApprovalCancel(bu_email);
 	}
-
+	
+	public List<Review> reportedReview() throws Exception {
+		return adminDao.reportedReview();
+	}
 	
 }
