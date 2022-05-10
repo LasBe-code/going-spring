@@ -38,7 +38,6 @@
 			data:{bu_email:bu_email},
 			success : function(result){
 				if(result == true){
-					alert('실패했습니다.')
 				} else {
 					likeCheck.innerHTML = heart;
 					openToast(msg)
