@@ -279,8 +279,28 @@ select:focus {
 	color : red;
 	float : right;
 	cursor: pointer;
-	opacity: 0.9;
+	opacity: 0.7;
 }
+.like_icon:hover{
+	opacity: 0.4;
+}
+
+.wishlist-box {
+	width : 100%;
+	height : 150px;
+	padding : 10px 10px 10px 10px;
+	margin : 10px 20px 10px 20px;
+	border : 1px solid rgba(0, 0, 0, 0.1);
+	border-radius: 5px;
+}
+.wishlist-img {
+	background-size : cover;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+}
+
 
 .reserveMember_room {
 	height: 275px;

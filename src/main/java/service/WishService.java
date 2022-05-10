@@ -1,8 +1,11 @@
 package service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import model.Business;
 import repository.WishDao;
 
 @Service
@@ -20,6 +23,10 @@ public class WishService {
 	
 	public int deleteWish(String email, String bu_email) throws Exception {
 		return wishDao.deleteWish(email, bu_email);
+	}
+	
+	public List<Business> wishBusinessList(String email) throws Exception {
+		return wishDao.wishBusienssList(email);
 	}
 	
 }

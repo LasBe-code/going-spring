@@ -21,6 +21,8 @@ import model.Picture;
 import model.Review;
 import service.MemberService;
 import service.ReviewService;
+import service.WishService;
+import util.DateParse;
 
 
 @Controller
@@ -33,12 +35,15 @@ public class MemberController{
 	
 	private final MemberService memberService;
 	private final ReviewService reviewService;
+	private final WishService wishService;
 	
 	@Autowired
 	public MemberController(MemberService memberService, 
-							ReviewService reviewService) {
+							ReviewService reviewService,
+							WishService wishService) {
 		this.memberService=memberService;
 		this.reviewService=reviewService;
+		this.wishService=wishService;
 	}
 	
 	@ModelAttribute
@@ -380,4 +385,23 @@ public class MemberController{
 		}
 		return true;
 	}
+	
+	@RequestMapping("myWish")
+	public String myWish() {
+		
+		try {
+			
+			String email = (String) session.getAttribute("email");
+			List<Business> businessList = wishService.wishBusinessList(email);
+			model.addAttribute("businessList", businessList);
+			model.addAttribute("today", DateParse.getTodayPlus(0));
+			model.addAttribute("tomorrow", DateParse.getTodayPlus(1));
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "/view/member/myWish";
+	}
+	
 }

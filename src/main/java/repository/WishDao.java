@@ -1,13 +1,14 @@
 package repository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import mybatis.ReservedMapperAnno;
+import model.Business;
 import mybatis.WishMapperAnno;
 
 @Repository
@@ -32,5 +33,9 @@ public class WishDao {
 		map.clear();
 		map.put("email", email);	map.put("bu_email", bu_email);
 		return sqlSession.getMapper(WishMapperAnno.class).deleteWish(map);
+	}
+	
+	public List<Business> wishBusienssList(String email) throws Exception {
+		return sqlSession.getMapper(WishMapperAnno.class).wishBusinessList(email);
 	}
 }
