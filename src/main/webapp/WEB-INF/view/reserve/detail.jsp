@@ -7,45 +7,7 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=35d71e137b481a1c8d8befd339cf5e29&libraries=services"></script>
 <script src="${pageContext.request.contextPath}/resources/js/dateCheck.js"></script>
-<script>
-	function roomDetail(ro_num, bu_email) {
-		const url = '${pageContext.request.contextPath}/reservation/roomDetail?ro_num='
-				+ ro_num + '&bu_email=' + bu_email
-		console.log(url + ', ' + ro_num)
-		const op = 'width=550, height=1000, location=no, toolbar=no'
 
-		open(url, '방 정보', op)
-	}
-	function wishChange(bu_email) {
-		let likeCheck = document.getElementById("wish");
-		let url;
-		let msg;
-		let heart;
-		if(likeCheck.innerHTML.trim() == 'favorite_border'){
-			url = '${pageContext.request.contextPath}/wish/insert'
-			msg = '이 숙소를 찜했습니다'
-			heart = 'favorite'
-		} else {
-			url = '${pageContext.request.contextPath}/wish/delete'
-			msg = '찜을 취소했습니다'
-			heart = 'favorite_border'
-		}
-		$.ajax({
-			type:'POST',
-			url:url,
-			header:{"Content-Type":"application/json"},
-			dateType:'json',
-			data:{bu_email:bu_email},
-			success : function(result){
-				if(result == true){
-				} else {
-					likeCheck.innerHTML = heart;
-					openToast(msg)
-				}
-			}
-		})
-	}
-</script>
 
 </head>
 <body>
@@ -303,6 +265,45 @@ geocoder.addressSearch(address, function(result, status) {
      infowindow.open(map, marker);
  } 
 });
+</script>
+<script>
+	function roomDetail(ro_num, bu_email) {
+		const url = '${pageContext.request.contextPath}/reservation/roomDetail?ro_num='
+				+ ro_num + '&bu_email=' + bu_email
+		console.log(url + ', ' + ro_num)
+		const op = 'width=550, height=1000, location=no, toolbar=no'
+
+		open(url, '방 정보', op)
+	}
+	function wishChange(bu_email) {
+		let likeCheck = document.getElementById("wish");
+		let url;
+		let msg;
+		let heart;
+		if(likeCheck.innerHTML.trim() == 'favorite_border'){
+			url = '${pageContext.request.contextPath}/wish/insert'
+			msg = '이 숙소를 찜했습니다'
+			heart = 'favorite'
+		} else {
+			url = '${pageContext.request.contextPath}/wish/delete'
+			msg = '찜을 취소했습니다'
+			heart = 'favorite_border'
+		}
+		$.ajax({
+			type:'POST',
+			url:url,
+			header:{"Content-Type":"application/json"},
+			dateType:'json',
+			data:{bu_email:bu_email},
+			success : function(result){
+				if(result == true){
+				} else {
+					likeCheck.innerHTML = heart;
+					openToast(msg)
+				}
+			}
+		})
+	}
 </script>
 </body>
 </html>
