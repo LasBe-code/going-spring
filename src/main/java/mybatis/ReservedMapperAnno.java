@@ -47,9 +47,10 @@ public interface ReservedMapperAnno {
 			+ "	ORDER BY a.ro_price")
 	List<Room> overlapRoomList(Map map);
 	
-	// Business(*) + Review(별점 평균, 리뷰 개수)
+	
+	// Business(*) + Review(별점 평균, 리뷰 개수), email - bu_email 필요
 	@Select("	SELECT  "
-			+ "    	b.*, nvl(score.avgScore, 0) as avgScore, nvl(score.revCount, 0) as revCount "
+			+ "    	b.*, nvl(score.avgScore, 0) as avgScore, nvl(score.revCount, 0) as revCount, nvl(wish, 0) as wish "
 			+ "	FROM  "
 			+ "    	business b "
 			+ "    	LEFT OUTER JOIN "
@@ -65,8 +66,18 @@ public interface ReservedMapperAnno {
 			+ "            	bu.bu_email = #{bu_email} "
 			+ "        	GROUP BY ro.bu_email) score "
 			+ "    	ON b.bu_email = score.bu_email "
+			+ "		LEFT OUTER JOIN "
+			+ "        ( "
+			+ "        SELECT "
+			+ "            bu_email, count(*) as wish "
+			+ "        FROM "
+			+ "            wish "
+			+ "        WHERE "
+			+ "            email = #{email} "
+			+ "        GROUP BY bu_email) wish "
+			+ "    ON b.bu_email = wish.bu_email "
 			+ "	WHERE b.bu_email=#{bu_email}")
-	Business reviewAvgCountBusinessOne(String bu_email);
+	Business reviewAvgCountBusinessOne(Map map);
 	
 //	사업자의 주소를 가져와 지도로 출력
 	@Select("SELECT * FROM (select location, bu_address, bu_title, bu_email, "
