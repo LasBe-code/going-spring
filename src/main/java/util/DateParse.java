@@ -12,6 +12,7 @@ public class DateParse {
 	private static SimpleDateFormat strFormat = new SimpleDateFormat("yyyyMMdd");
 	private static DateTimeFormatter localDateFormat = DateTimeFormatter.ofPattern("yyyyMMdd");
 	
+	// 외부에서 객체 생성 금지 
 	private DateParse() {}
 	
 	// yyyy-MM-dd -> yyyyMMdd	=>	DB에 넣기 위해 사용

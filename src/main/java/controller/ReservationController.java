@@ -99,11 +99,13 @@ public class ReservationController{
 			String checkin, String checkout) {
 		String today = DateParse.getTodayPlus(0);			
 		String tomorrow = DateParse.getTodayPlus(1);
+		String email = (String) session.getAttribute("email");
+		if(email == null) email="";
 		
 		try {
 			
 			// 숙소 정보 + 별점 평균 + 리뷰 개수
-			Business bu = reserveService.getReviewAvgCountBusiness(bu_email); 
+			Business bu = reserveService.getReviewAvgCountBusiness(bu_email, email); 
 			
 			// 숙소 사진
 			List<Picture> buPicList = reserveService.getPicList(bu.getPic_num()); 

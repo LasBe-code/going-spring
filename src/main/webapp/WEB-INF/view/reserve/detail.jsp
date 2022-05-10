@@ -16,6 +16,36 @@
 
 		open(url, '방 정보', op)
 	}
+	function wishChange(bu_email) {
+		let likeCheck = document.getElementById("wish");
+		let url;
+		let msg;
+		let heart;
+		if(likeCheck.innerHTML.trim() == 'favorite_border'){
+			url = '${pageContext.request.contextPath}/wish/insert'
+			msg = '이 숙소를 찜했습니다'
+			heart = 'favorite'
+		} else {
+			url = '${pageContext.request.contextPath}/wish/delete'
+			msg = '찜을 취소했습니다'
+			heart = 'favorite_border'
+		}
+		$.ajax({
+			type:'POST',
+			url:url,
+			header:{"Content-Type":"application/json"},
+			dateType:'json',
+			data:{bu_email:bu_email},
+			success : function(result){
+				if(result == true){
+					alert('실패했습니다.')
+				} else {
+					likeCheck.innerHTML = heart;
+					openToast(msg)
+				}
+			}
+		})
+	}
 </script>
 
 </head>
@@ -24,6 +54,7 @@
 
 	<div class="default_width">
 		<div class="top row" style="padding-top:25px;">
+			
 			<!-- 숙소 사진 목록 -->
 			<div id="demo" class="carousel col-sm-6" data-bs-ride="carousel">
 				<div class="carousel-indicators">
@@ -60,16 +91,44 @@
 					</span> ${bu.bu_title}
 				</b>
 				
-				<div class="mt-1 mb-1 bu_review_box">
-					<li><span class="bu_review_star">⭐</span> <span class="bu_review_avg"> ${bu.avgScore}</span>
-					<span class="bu_review_avg_sub">/5</span></li>
-					<li><span class="bu_review_count">후기 <span style="color:red; font-size: 19px; font-weight: bold;">${bu.revCount}</span>개</span></li>
+				<div class="row">
+					
+					<!-- 별점, 리뷰, 주소 -->
+					<div class="col-sm-8">
+						<div class="mt-1 mb-1 bu_review_box">
+							<li><span class="bu_review_star">⭐</span> <span class="bu_review_avg"> ${bu.avgScore}</span>
+							<span class="bu_review_avg_sub">/5</span></li>
+							<li><span class="bu_review_count">후기 <span style="color:red; font-size: 19px; font-weight: bold;">${bu.revCount}</span>개</span></li>
+						</div>
+						
+						<p class="gray_text" style="margin-bottom: 10px;">
+						<img src="https://cdn4.iconfinder.com/data/icons/music-ui-solid-24px/24/location_map_marker_pin-2-512.png" style="width: 20px;"> 
+							${bu.bu_address}
+						</p>
+					</div>
+					
+					<!-- 찜하기 -->
+					<div class="col-sm-4">
+						<c:choose>
+							<c:when test="${bu.wish == 0}">
+							<button onclick="wishChange('${bu.bu_email}')" style="float:right; border:none;background:none;">
+								<span class="material-icons like_icon" id="wish"> 
+									favorite_border
+								</span>
+							</button>
+							</c:when>
+							
+							<c:when test="${bu.wish == 1 }">
+								<button onclick="wishChange('${bu.bu_email}')" style="float:right; border:none;background:none;">
+									<span class="material-icons like_icon" id="wish"> 
+										favorite 
+									</span>
+								</button>
+							</c:when>
+						</c:choose>
+					</div>
 				</div>
 				
-				<p class="gray_text" style="margin-bottom: 10px;">
-				<img src="https://cdn4.iconfinder.com/data/icons/music-ui-solid-24px/24/location_map_marker_pin-2-512.png" style="width: 20px;"> 
-					${bu.bu_address}
-				</p>
 				
 				<div class="event-bg text-white rounded">
 					<ul>

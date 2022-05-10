@@ -11,6 +11,8 @@ public class Business {
 	private String minPrice, picLocation;
 	private String avgScore, revCount;
 	
+	private String wish;
+	
 	public Business() {}
 	
 	public Business(String bu_email, String bu_password, String bu_tel, String bu_name, String bu_address, String bu_id,
@@ -154,6 +156,16 @@ public class Business {
 
 	public void setLocation(String location) {
 		this.location = location;
+	}
+
+	
+	
+	public String getWish() {
+		return wish;
+	}
+
+	public void setWish(String wish) {
+		this.wish = wish;
 	}
 
 	@Override

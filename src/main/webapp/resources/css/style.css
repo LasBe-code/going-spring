@@ -273,6 +273,15 @@ select:focus {
 	flex-wrap: wrap;
 }
 
+.like_icon{
+	font-size : 50px !important;
+	top:0;
+	color : red;
+	float : right;
+	cursor: pointer;
+	opacity: 0.9;
+}
+
 .reserveMember_room {
 	height: 275px;
 	overflow: hidden;

@@ -27,8 +27,8 @@ public class ReserveService {
 		this.bookingDao = bookingDao;
 	}
 
-	public Business getReviewAvgCountBusiness(String bu_email) throws Exception {
-		return reserveDao.reviewAvgCountBusinessOne(bu_email);
+	public Business getReviewAvgCountBusiness(String bu_email, String email) throws Exception {
+		return reserveDao.reviewAvgCountBusinessOne(bu_email, email);
 	}
 	
 	public List<Picture> getPicList(int pic_num) throws Exception {

@@ -53,8 +53,10 @@ public class ReserveDao{
 	public List<Picture> getPicList(int pic_num) throws Exception {
 		return sqlSession.getMapper(ReservedMapperAnno.class).sbPicList(pic_num);
 	}
-	public Business reviewAvgCountBusinessOne(String bu_email) throws Exception {
-		return sqlSession.getMapper(ReservedMapperAnno.class).reviewAvgCountBusinessOne(bu_email);
+	public Business reviewAvgCountBusinessOne(String bu_email, String email) throws Exception {
+		map.clear();
+		map.put("bu_email", bu_email);	map.put("email", email);
+		return sqlSession.getMapper(ReservedMapperAnno.class).reviewAvgCountBusinessOne(map);
 	}
 	
 	

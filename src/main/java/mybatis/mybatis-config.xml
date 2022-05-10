@@ -12,6 +12,7 @@
 		<mapper class="mybatis.BookingMapperAnno"/>
 		<mapper class="mybatis.ReviewMapperAnno"/>
 		<mapper class="mybatis.AdminMapperAnno"/>
+		<mapper class="mybatis.WishMapperAnno"/>
 	</mappers>
 	
 </configuration>
