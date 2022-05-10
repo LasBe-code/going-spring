@@ -128,6 +128,10 @@ public class RoomDao {
 	public int updateTodayCheckin(Map<String, Object> map)  throws Exception {
 		return sqlSession.getMapper(RoomMapperAnno.class).updateTodayCheckin(map);
 	}
+	
+	public int updateTodayCheckOut(Map<String, Object> map)  throws Exception {
+		return sqlSession.getMapper(RoomMapperAnno.class).updateTodayCheckOut(map);
+	}
 
 	public List<Booking> selectNotCheckOut(Map<String, Object> map) throws Exception  {
 		return sqlSession.getMapper(RoomMapperAnno.class).selectNotCheckOut(map);
@@ -137,27 +141,33 @@ public class RoomDao {
 		return sqlSession.getMapper(RoomMapperAnno.class).selectcheckOutOk(map);
 	}
 
-	public int updateAndDeleteTodayCheckOut(Map<String, Object> map)  throws Exception {
+	public int countReserved(Map<String, Object> map)  throws Exception {
 		return sqlSession.getMapper(RoomMapperAnno.class).countReserved(map);
 	}
+	
+	public int deleteReserved(Map<String, Object> map) throws Exception{
+		return sqlSession.getMapper(RoomMapperAnno.class).deleteReserved(map);
+	}
 
-	public Room getRo_name(Map<String, Object> map) {
+	public Room getRo_name(Map<String, Object> map) throws Exception{
 		return sqlSession.getMapper(RoomMapperAnno.class).getRo_name(map);
 	}
 
-	public int updateReply(Map<String, Object> map) {
+	public int updateReply(Map<String, Object> map)throws Exception {
 		return sqlSession.getMapper(RoomMapperAnno.class).updateReply(map);
 	}
 
-	public int deleteReply(Integer rev_num) {
+	public int deleteReply(Integer rev_num) throws Exception{
 		return sqlSession.getMapper(RoomMapperAnno.class).deleteReply(rev_num);
 	}
 
-	public int reviewApproval(Integer rev_num) {
+	public int reviewApproval(Integer rev_num)throws Exception {
 		return sqlSession.getMapper(RoomMapperAnno.class).reviewApproval(rev_num);
 	}
 
-	public int reportCancle(Integer rev_num) {
+	public int reportCancle(Integer rev_num) throws Exception{
 		return sqlSession.getMapper(RoomMapperAnno.class).reportCancle(rev_num);
 	}
+
+
 }

@@ -339,6 +339,7 @@ public class RoomController{
 			controllerMap.clear();
 			controllerMap = roomService.todayCheckOut(bu_email);
 			
+			System.out.println("controllerMap.get(\"checkOutOk\") = "+ controllerMap.get("checkOutOk"));
 			model.addAttribute("notCheckOut", controllerMap.get("notCheckOut"));
 			model.addAttribute("checkOutOk", controllerMap.get("checkOutOk"));
 		} catch (Exception e) {

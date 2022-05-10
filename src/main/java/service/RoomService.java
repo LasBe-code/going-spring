@@ -296,7 +296,7 @@ public class RoomService {
 		List<Booking> notCheckOut = roomDao.selectNotCheckOut(map);
 //		체크아웃하고 나간 객실 내역
 		List<Booking> checkOutOk = roomDao.selectcheckOutOk(map);
-		
+		System.out.println("checkOutOk = "+ checkOutOk);
 		serviceMap.clear();
 		serviceMap.put("notCheckOut", notCheckOut);
 		serviceMap.put("checkOutOk", checkOutOk);
@@ -312,7 +312,14 @@ public class RoomService {
 		map.put("bo_num", bo_num);
 		map.put("checkout", checkout);
 		
-		int rowCnt = roomDao.updateAndDeleteTodayCheckOut(map);
+		int rowCnt = roomDao.countReserved(map);
+		System.out.println("rowCnt = " + rowCnt);
+		if(rowCnt > 0) {
+			int delete = roomDao.deleteReserved(map);
+		}
+		
+		roomDao.updateTodayCheckOut(map);
+		
 	}
 
 
@@ -378,7 +385,7 @@ public class RoomService {
 	}
 
 
-	public Room getRo_name(String ro_name, String bu_email) {
+	public Room getRo_name(String ro_name, String bu_email) throws Exception{
 		map.clear();
 		map.put("ro_name", ro_name);
 		map.put("bu_email", bu_email);
@@ -386,7 +393,7 @@ public class RoomService {
 	}
 
 
-	public int updateReply(int rev_num, String content_reply) {
+	public int updateReply(int rev_num, String content_reply) throws Exception{
 		map.clear();
 		map.put("rev_num", rev_num);
 		map.put("content_reply", content_reply);
@@ -394,17 +401,17 @@ public class RoomService {
 	}
 
 
-	public int deleteReply(Integer rev_num) {
+	public int deleteReply(Integer rev_num) throws Exception{
 		return roomDao.deleteReply(rev_num);
 	}
 
 
-	public int reviewApproval(Integer rev_num) {
+	public int reviewApproval(Integer rev_num) throws Exception{
 		return roomDao.reviewApproval(rev_num);
 	}
 
 
-	public int reportCancle(Integer rev_num) {
+	public int reportCancle(Integer rev_num) throws Exception{
 		return roomDao.reportCancle(rev_num);
 	}
 
