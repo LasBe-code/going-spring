@@ -47,10 +47,12 @@
 					<strong class="search_strong_font">검색</strong> <br>
 					<input type=search class=search_text placeholder=지역,숙소명 name="bu_address" value="${searchDTO.bu_address}" style="padding-left:0px;" required>
 					
-					<hr class="gray_line">
 					<div class=search_button_box>
 						<div></div>
 					</div>
+					
+					<hr class="gray_line">
+					
 					<div class=search_select_box>
 						<div>
 							<strong class="search_strong_font">숙소 유형</strong>
@@ -74,6 +76,9 @@
 							</ul>
 						</div>
 					</div>
+					
+					<hr class="gray_line">
+					
 					<div class="pricerangebox"> 
 					<strong>가격 : </strong><p class="rangeresult"><fmt:formatNumber type="number" maxFractionDigits="0" value="${searchDTO.lowprice / 10000 }" /></p>만원 ~ 
 					<p class="rangeresult2"><fmt:formatNumber type="number" maxFractionDigits="0" value="${searchDTO.highprice / 10000}" /></p>만원

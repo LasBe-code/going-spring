@@ -16,6 +16,7 @@
 		<jsp-property-group>
 			<url-pattern>/WEB-INF/view/*</url-pattern>
 			<include-prelude>/WEB-INF/common/head.jsp</include-prelude>
+			<include-coda>/WEB-INF/common/footer.jsp</include-coda>
 		</jsp-property-group>
 		
 		<jsp-property-group>

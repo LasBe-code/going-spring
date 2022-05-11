@@ -132,9 +132,20 @@ select:focus {
 	background-color: gray;
 }
 
-;
+
 .navbar {
 	content: none !important;
+}
+
+
+.footer-box {
+	width : 1024px;
+	padding : 30px 30px 30px 30px;
+	margin : 0 auto;
+}
+
+.footer-logo { 
+	width : 120px;
 }
 
 .container-fluid:before, .container-fluid:after, .container-fluid {
