@@ -24,7 +24,6 @@ public class WishController {
 	
 	@Autowired
 	public WishController(WishService wishService) {
-		System.out.println("wishController On");
 		this.wishService = wishService;
 	}
 	

@@ -379,9 +379,6 @@ public class RoomService {
 		serviceMap.put("checkout", checkout);
 		serviceMap.put("bu_address", bu_address);
 		
-		System.out.println(serviceMap);
-		System.out.println(resultAddress);
-		
 		return serviceMap;
 	}
 
