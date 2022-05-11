@@ -52,6 +52,14 @@
 			<mvc:mapping path="/room/**"/>
 			<bean class="interceptor.BusinessLoginInterceptor"/>
 		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/admin/monthlySales"/>
+			<mvc:mapping path="/admin/areaSales"/>
+			<mvc:mapping path="/admin/categorySales"/>
+			<mvc:mapping path="/admin/businessApproval"/>
+			<mvc:mapping path="/admin/reviewReport"/>
+			<bean class="interceptor.AdminLoginInterceptor"/>
+		</mvc:interceptor>
 	</mvc:interceptors>
 
 	

@@ -339,7 +339,6 @@ public class RoomController{
 			controllerMap.clear();
 			controllerMap = roomService.todayCheckOut(bu_email);
 			
-			System.out.println("controllerMap.get(\"checkOutOk\") = "+ controllerMap.get("checkOutOk"));
 			model.addAttribute("notCheckOut", controllerMap.get("notCheckOut"));
 			model.addAttribute("checkOutOk", controllerMap.get("checkOutOk"));
 		} catch (Exception e) {
@@ -375,7 +374,6 @@ public class RoomController{
 			}
 			
 			List<Review> reviewList = reserveService.businessReviewList(bu_email);
-			System.out.println("reviewList = " + reviewList);
 			model.addAttribute("reviewList", reviewList);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -400,7 +398,6 @@ public class RoomController{
 	public String reviewApproval(Integer rev_num) {
 		try {
 			int reviewApproval = roomService.reviewApproval(rev_num);
-			System.out.println("reviewApproval = " +reviewApproval);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -409,10 +406,8 @@ public class RoomController{
 	
 	@RequestMapping("reportCancle")
 	public String reportCancle(Integer rev_num) {
-		System.out.println("rev_num = "+rev_num);
 		try {
 			int reportCancle = roomService.reportCancle(rev_num);
-			System.out.println("reportCancle = " +reportCancle);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
