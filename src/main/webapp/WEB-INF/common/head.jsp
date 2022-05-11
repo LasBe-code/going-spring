@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title></title>
+<title>GOING</title>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/reservationList.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/memberInfo.css">
@@ -41,6 +41,9 @@
         
         <ul class="navbar-nav  justify-content-end">
         	<c:if test="${email != null}"> <!-- 고객 로그인 -->
+        		<li class="nav-item">  
+	            	<a class="nav-link" href="${pageContext.request.contextPath}/search/map">지도검색</a>
+	            </li>
         		<li class="nav-item">
 		           <a class="nav-link" href="${pageContext.request.contextPath}/member/memberInfo">내 정보</a>
 		        </li>
@@ -63,6 +66,9 @@
 		        </li>
         	</c:if>
           <c:if test="${bu_email == null && email == null}"> <!-- 비로그인 -->
+          	<li class="nav-item">  
+            	<a class="nav-link" href="${pageContext.request.contextPath}/search/map">지도검색</a>
+            </li>
           	<li class="nav-item">  
             	<a class="nav-link" href="${pageContext.request.contextPath}/member/loginForm">예약내역</a>
             </li>

@@ -25,54 +25,63 @@
 </head>
 <body>
 
-<div class="container" style="margin-top:100px">
-<div class="default_width">
-	<div class="search_bottom_box mt-3" style="float: left; width: 15%;">
+<div class="default_width row">
+	<div class="search_bottom_box col-sm-4 mt-3">
 	
 		<div class="search_filter_box">
 		<h3>상세조건</h3>
 		<form action="${pageContext.request.contextPath}/search/map" method="get" name="f">
-		<input type="hidden" id="ro_count" name="ro_count" value="${ro_count}">
+		<input type="hidden" id="ro_count" name="ro_count" value="${searchDTO.ro_count}">
 		<div>
-			<input type='date' id="checkin" class="main_checkin_1" name="checkin" value="${checkin}" onchange="dateChk()" required>
+			<input type='date' id="checkin" class="main_checkin_1" name="checkin" value="${searchDTO.checkin}" onchange="dateChk()" required>
 		</div>
 		<div>
-			<input type='date' id="checkout" class="main_checkout_1" name="checkout" value="${checkout}" onchange="dateChk()" style="border:none;" required>
+			<input type='date' id="checkout" class="main_checkout_1" name="checkout" value="${searchDTO.checkout}" onchange="dateChk()" style="border:none;" required>
 		</div>
+		<hr class="gray_line">
+		<strong class="search_strong_font">인원 수</strong>
 		<select id="selectRo_count" class="form-select form-select-lg" style="border: none;" >
 			<option value="none">인원수 선택</option>
-			<option value="1" ${ro_count == '1' ? 'selected' : '' }>1</option>
-			<option value="2" ${ro_count == '2' ? 'selected' : '' }>2</option>
-			<option value="3" ${ro_count == '3' ? 'selected' : '' }>3</option>
-			<option value="4" ${ro_count == '4' ? 'selected' : '' }>4</option>
+			<option value="1" ${searchDTO.ro_count == '1' ? 'selected' : '' }>1</option>
+			<option value="2" ${searchDTO.ro_count == '2' ? 'selected' : '' }>2</option>
+			<option value="3" ${searchDTO.ro_count == '3' ? 'selected' : '' }>3</option>
+			<option value="4" ${searchDTO.ro_count == '4' ? 'selected' : '' }>4</option>
 		</select>
-		<input type=search class=search_text placeholder=지역,숙소명 name="bu_address" id="bu_address" value="${bu_address}" required>
-			<div class=search_button_box>
-				<div>
-				</div>
-			</div>
-			<div class=search_select_box>
+		
+		<hr class="gray_line">
+		<strong class="search_strong_font">검색</strong> <br>
+		<input type=search class=search_text placeholder=지역,숙소명 name="bu_address" id="bu_address" value="${searchDTO.bu_address}" required>
+		<div class=search_button_box>
 			<div>
+			</div>
+		</div>
+		<div class=search_select_box>
+		
+		<hr class="gray_line">
+		
+		<div>
+			
+			
 			<strong class="search_strong_font">숙소 유형</strong>
 				<ul class="search_detail_ul">
 					<li>
 						<input type="checkbox" id="bu_id" name="bu_id" value="1" onclick="NoMultiChk(this)" 
-						style=accent-color:#ffc107 ${bu_id == '1' ? 'checked' : '' }>
+						style=accent-color:#ffc107 ${searchDTO.bu_id == '1' ? 'checked' : '' }>
 						<label class="search_label_font">호텔</label>
 					</li>
 					<li>
 						<input type="checkbox" id="bu_id" name="bu_id" value="2" onclick="NoMultiChk(this)" 
-						style=accent-color:#ffc107 ${bu_id == '2' ? 'checked' : '' }>
+						style=accent-color:#ffc107 ${searchDTO.bu_id == '2' ? 'checked' : '' }>
 						<label class="search_label_font">모텔</label>
 					</li >
 					<li>
 						<input type="checkbox" id="bu_id" name="bu_id" value="3" onclick="NoMultiChk(this)" 
-						style=accent-color:#ffc107 ${bu_id == '3' ? 'checked' : '' }>
+						style=accent-color:#ffc107 ${searchDTO.bu_id == '3' ? 'checked' : '' }>
 						<label class="search_label_font">펜션</label>
 					</li>
 					<li>
 						<input type="checkbox" id="bu_id" name="bu_id" value="4" onclick="NoMultiChk(this)" 
-						style=accent-color:#ffc107 ${bu_id == '4' ? 'checked' : '' }>
+						style=accent-color:#ffc107 ${searchDTO.bu_id == '4' ? 'checked' : '' }>
 						<label class="search_label_font">리조트</label>
 					</li>
 				</ul>
@@ -82,8 +91,7 @@
 		</form>
 		</div>
 	</div>
-</div>
-<div id="map" style="height:600px; float: left; width: 50%; margin-left: 120px; margin-top: 15px;"></div>
+	<div class="col-sm-8 rounded" id="map" style="height:600px; width:600px; margin-top: 15px;"></div>
 </div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=35d71e137b481a1c8d8befd339cf5e29&libraries=services"></script>
 <script type="text/javascript">
@@ -179,7 +187,7 @@ const resultAddress = ${resultAddress}
 const roomTitle = ${roomTitle}
 // 지도에 출력할 사진
 const roomPic = ${roomPic}
-const bu_email = ${bu_email}
+const bu_email = ${business_email}
 
 
 //지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다

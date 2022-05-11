@@ -110,7 +110,7 @@ public class SearchController{
 			e.printStackTrace();
 		}
 		model.addAttribute("searchDTO", searchDTO);
-		model.addAttribute("bu_email", map.get("bu_email"));
+		model.addAttribute("business_email", map.get("bu_email"));
 		model.addAttribute("roomPic", map.get("roomPic"));
 		model.addAttribute("roomTitle", map.get("roomTitle"));
 		model.addAttribute("resultAddress", map.get("resultAddress"));

@@ -154,10 +154,25 @@ public interface RoomMapperAnno {
 	Booking selectAreaSales(Map<String, Object> map);
 
 //	사업자의 주소를 가져와 지도로 출력
-	@Select("select * from (select location, bu_address, bu_title, bu_email, "
-			+ "	ROW_NUMBER() OVER (PARTITION BY pic_num order by pic_num) AS NUM "
-			+ "	FROM (select bu.bu_address, bu.bu_id, bu.bu_title, p.location, p.pic_num,bu.bu_email from  business bu , "
-			+ "	picture p where  bu.pic_num = p.pic_num and bu.bu_id = #{bu_id} and bu.bu_address like #{bu_address}||'%')) where num = 1")
+	@Select("	SELECT "
+			+ "		* "
+			+ "	FROM "
+			+ "		("
+			+ "		SELECT "
+			+ "			location, bu_address, bu_title, bu_email, "
+			+ "			ROW_NUMBER() OVER (PARTITION BY pic_num order by pic_num) AS NUM "
+			+ "		FROM "
+			+ "			("
+			+ "			SELECT "
+			+ "				bu.bu_address, bu.bu_id, bu.bu_title, p.location, p.pic_num,bu.bu_email "
+			+ "			FROM "
+			+ "				business bu , picture p "
+			+ "			WHERE "
+			+ "				bu.pic_num = p.pic_num and "
+			+ "				bu.bu_id = #{bu_id} and "
+			+ "				( bu.bu_address like '%${bu_address}%' or bu.bu_title like '%${bu_address}%'))"
+			+ "			) "
+			+ "	WHERE num = 1")
 	List<Business> addressList(Map<String, Object> map);
 
 	

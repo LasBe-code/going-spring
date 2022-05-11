@@ -338,8 +338,6 @@ public class RoomService {
 			checkin = DateParse.strToDate(DateParse.getTodayPlus(0));
 			checkout = DateParse.strToDate(DateParse.getTodayPlus(1));
 		}
-		System.out.println("in = "+checkin);
-		System.out.println("out = "+checkout);
 		
 		map.put("bu_address", bu_address);
 		map.put("bu_id", bu_id);
@@ -380,6 +378,9 @@ public class RoomService {
 		serviceMap.put("checkin", checkin);
 		serviceMap.put("checkout", checkout);
 		serviceMap.put("bu_address", bu_address);
+		
+		System.out.println(serviceMap);
+		System.out.println(resultAddress);
 		
 		return serviceMap;
 	}
