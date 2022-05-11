@@ -25,7 +25,7 @@
 </head>
 <body>
 
-<div class="default_width row">
+<div class="default_width row" style="margin-bottom:200px;">
 	<div class="search_bottom_box col-sm-4 mt-3">
 	
 		<div class="search_filter_box">
@@ -91,7 +91,7 @@
 		</form>
 		</div>
 	</div>
-	<div class="col-sm-8 rounded" id="map" style="height:600px; width:600px; margin-top: 15px;"></div>
+	<div class="col-sm-10 rounded" id="map" style="height:700px; width:670px; margin-top: 15px; margin-right:0;"></div>
 </div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=35d71e137b481a1c8d8befd339cf5e29&libraries=services"></script>
 <script type="text/javascript">
@@ -257,5 +257,6 @@ for (let i = 0; i < resultAddress.length; i++) {
 }
 
 </script>
+<div style="margin : 300px 0 0 0;"></div>
 </body>
 </html>

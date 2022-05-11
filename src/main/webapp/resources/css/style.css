@@ -137,11 +137,11 @@ select:focus {
 	content: none !important;
 }
 
-
 .footer-box {
 	width : 1024px;
 	padding : 30px 30px 30px 30px;
 	margin : 0 auto;
+	bottom : 0;
 }
 
 .footer-logo { 
@@ -160,6 +160,7 @@ select:focus {
 .login_form_width {
 	width: 336px;
 	margin: 0 auto;
+	height: 100%;
 /* 	padding-top: 100px; */
 }
 

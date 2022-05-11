@@ -60,8 +60,8 @@ function loginWithKakao() {
 			<div id="member-login" class="container tab-pane active">
 				<form action="${pageContext.request.contextPath}/member/loginPro" method="post">
 
-					<input type="text" name="email" class="form-control form-control-lg mt-3" placeholder="이메일"> 
-					<input type="password" name="password" class="form-control form-control-lg mt-1" placeholder="비밀번호"> 
+					<input type="text" name="email" class="form-control form-control-lg mt-3" placeholder="이메일" autocomplete="username"> 
+					<input type="password" name="password" class="form-control form-control-lg mt-1" placeholder="비밀번호" autocomplete="current-password"> 
 					<input type="submit" class="default_btn rounded mt-3" value="로그인">
 					
 					<!-- 카카오톡 로그인 -->
@@ -90,8 +90,8 @@ function loginWithKakao() {
 			<div id="business-login" class="container tab-pane fade">
 				<form action="${pageContext.request.contextPath}/member/buLoginPro" method="post">
 					
-					<input type="text" name="bu_email" class="form-control form-control-lg mt-3" placeholder="이메일"> 
-					<input type="password" name="bu_password" class="form-control form-control-lg mt-1" placeholder="비밀번호"> 
+					<input type="text" name="bu_email" class="form-control form-control-lg mt-3" placeholder="이메일" autocomplete="username"> 
+					<input type="password" name="bu_password" class="form-control form-control-lg mt-1" placeholder="비밀번호" autocomplete="current-password"> 
 					<input type="submit" class="default_btn rounded mt-3" value="사업자 로그인">
 					
 					<hr>
@@ -105,10 +105,11 @@ function loginWithKakao() {
 						</div>
 					</div>
 				</form>
+				<div style="margin : 100px 0 0 0;"></div>
 			</div>
 			<!-- 사업자 로그인 폼 end -->
 		</div>
 	</div>
-
+	<div style="margin : 400px 0 0 0;"></div>
 </body>
 </html>
