@@ -404,4 +404,67 @@ public class MemberController{
 		return "/view/member/myWish";
 	}
 	
+	@RequestMapping("passwordResetMember")
+	public String passwordResetMember() {
+		
+		return "/view/member/passwordResetMember";
+	}
+	
+	@RequestMapping("passwordResetMemberPro")
+	public String passwordResetPro(String email, String password) {
+		String msg = "비밀번호 변경에 실패했습니다.";
+		String url = request.getContextPath()+"/member/passwordResetMember";
+		
+		try {
+			int pass = memberService.passwordResetMember(email, password);
+			System.out.println("pass = "+pass );
+			if(pass > 0) {
+				msg = "비밀번호 변경에 성공했습니다.";
+				url = request.getContextPath()+"/search/main";
+				model.addAttribute("msg", msg);
+				model.addAttribute("url", url);
+				return "/view/alert";
+			}
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		return "/view/alert";
+	}
+	
+	@RequestMapping("passwordResetBusiness")
+	public String passwordResetBusiness() {
+		
+		return "/view/member/passwordResetBusiness";
+	}
+	
+	@RequestMapping("passwordResetBusinessPro")
+	public String passwordResetBusinessPro(String bu_email, String password) {
+		String msg = "비밀번호 변경에 실패했습니다.";
+		String url = request.getContextPath()+"/member/passwordResetBusiness";
+		System.out.println("bu_email = " + bu_email);
+		System.out.println("password = " + password);
+		try {
+			int pass = memberService.passwordResetBusiness(bu_email, password);
+			System.out.println("pass = " +pass);
+			if(pass > 0) {
+				msg = "비밀번호 변경에 성공했습니다.";
+				url = request.getContextPath()+"/search/main";
+				model.addAttribute("msg", msg);
+				model.addAttribute("url", url);
+				return "/view/alert";
+			}
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		return "/view/alert";
+	}
+	
 }

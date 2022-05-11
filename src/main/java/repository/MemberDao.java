@@ -1,6 +1,8 @@
 package repository;
 
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -59,5 +61,14 @@ public class MemberDao{
 	public List<BusinessMenubar> getMenubar() {
 		return sqlSession.getMapper(MemberMapperAnno.class).getMenubar();
 	}
+
+	public int passwordResetMember(Map<String, Object> map) {
+		return sqlSession.getMapper(MemberMapperAnno.class).passwordResetMember(map);
+	}
+
+	public int passwordResetBusiness(Map<String, Object> map) {
+		return sqlSession.getMapper(MemberMapperAnno.class).passwordResetBusiness(map);
+	}
+
 	
 }

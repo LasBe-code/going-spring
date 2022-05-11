@@ -76,7 +76,7 @@ function loginWithKakao() {
 
 					<div class="row mt-3">
 						<div class="col-sm-6" style="text-align: center;">
-							<a class="small_text non_deco">비밀번호 재설정</a>
+							<a class="small_text non_deco" href="${pageContext.request.contextPath}/member/passwordResetMember">비밀번호 재설정</a>
 						</div>
 						<div class="col-sm-6" style="text-align: center;">
 							<a class="small_text non_deco" href="${pageContext.request.contextPath}/member/signupForm">회원가입</a>
@@ -98,7 +98,7 @@ function loginWithKakao() {
 
 					<div class="row mt-3">
 						<div class="col-sm-6" style="text-align: center;">
-							<a class="small_text non_deco">비밀번호 재설정</a>
+							<a class="small_text non_deco" href="${pageContext.request.contextPath}/member/passwordResetBusiness">비밀번호 재설정</a>
 						</div>
 						<div class="col-sm-6" style="text-align: center;">
 							<a class="small_text non_deco" href="${pageContext.request.contextPath}/member/buSignupForm">사업자 회원가입</a>

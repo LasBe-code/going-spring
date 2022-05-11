@@ -1,6 +1,7 @@
 package mybatis;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.*;
 
@@ -43,4 +44,11 @@ public interface MemberMapperAnno {
 
 	@Select("select * from bumenu where menu_status = 1 order by menu_num")
 	List<BusinessMenubar> getMenubar();
+
+	@Update("update (select * from member where email = #{email}) set password = #{password}")
+	int passwordResetMember(Map<String, Object> map);
+
+	@Update("update (select * from business where bu_email = #{bu_email}) set bu_password = #{password}")
+	int passwordResetBusiness(Map<String, Object> map);
+
 }

@@ -1,16 +1,18 @@
 package service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import model.Business;
 import model.BusinessMenubar;
 import model.Member;
 import model.Picture;
-import model.Review;
 import repository.MemberDao;
 import repository.RoomDao;
 import util.Naver_Sens_V2;
@@ -112,8 +114,25 @@ public class MemberService {
 		}
 	}
 	
+	
 	public List<BusinessMenubar> getMenubar() {
 		return memberDao.getMenubar();
+	}
+
+	public int passwordResetMember(String email, String password) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.clear();
+		map.put("email", email);
+		map.put("password", password);
+		return memberDao.passwordResetMember(map);
+	}
+
+	public int passwordResetBusiness(String bu_email, String password) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.clear();
+		map.put("bu_email", bu_email);
+		map.put("password", password);
+		return memberDao.passwordResetBusiness(map);
 	}
 	
 }
