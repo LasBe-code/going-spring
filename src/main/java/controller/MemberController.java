@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -36,14 +37,17 @@ public class MemberController{
 	private final MemberService memberService;
 	private final ReviewService reviewService;
 	private final WishService wishService;
+	private final PasswordEncoder passEnc;
 	
 	@Autowired
 	public MemberController(MemberService memberService, 
 							ReviewService reviewService,
-							WishService wishService) {
+							WishService wishService,
+							PasswordEncoder passEnc) {
 		this.memberService=memberService;
 		this.reviewService=reviewService;
 		this.wishService=wishService;
+		this.passEnc=passEnc;
 	}
 	
 	@ModelAttribute
@@ -78,7 +82,7 @@ public class MemberController{
 		}
 		
 		if (m != null) {
-			if (password.equals(m.getPassword())) { // 로그인 성공
+			if (password.equals(m.getPassword()) || passEnc.matches(password, m.getPassword())) { // 로그인 성공
 				session.removeAttribute("bu_email");
 				session.setAttribute("email", email);
 				msg = m.getName() + "님, 환영합니다!";
@@ -111,7 +115,7 @@ public class MemberController{
 		}
 
 		if (bu != null) {
-			if (bu_password.equals(bu.getBu_password())) { // 비밀번호 일치
+			if (bu_password.equals(bu.getBu_password()) || passEnc.matches(bu_password, bu.getBu_password())) { // 비밀번호 일치
 				if(bu.getApproval().equals("0")) { // 사업자 계정 미승인
 					msg = "관리자의 가입 승인이 필요합니다.";
 				} else { // 로그인 성공
@@ -165,6 +169,9 @@ public class MemberController{
 	public String signupPro(Member member) {
 		String msg = "회원가입에 실패하였습니다.";
 		
+		String encPassword = passEnc.encode(member.getPassword());
+		member.setPassword(encPassword);
+		
 		try {
 			int num = memberService.signupMember(member);
 			if (num > 0) {
@@ -188,6 +195,8 @@ public class MemberController{
 	@RequestMapping("buSignupPro")
 	public String buSignupPro(Business business, String picLocation) {
 		String msg = "회원가입에 실패하였습니다.";
+		String encPassword = passEnc.encode(business.getBu_password());
+		business.setBu_password(encPassword);
 		
 		try {
 			int num = memberService.signupBusiness(business, picLocation);
@@ -414,7 +423,7 @@ public class MemberController{
 	public String passwordResetPro(String email, String password) {
 		String msg = "비밀번호 변경에 실패했습니다.";
 		String url = request.getContextPath()+"/member/passwordResetMember";
-		
+		password = passEnc.encode(password);
 		try {
 			int pass = memberService.passwordResetMember(email, password);
 			System.out.println("pass = "+pass );
@@ -445,8 +454,7 @@ public class MemberController{
 	public String passwordResetBusinessPro(String bu_email, String password) {
 		String msg = "비밀번호 변경에 실패했습니다.";
 		String url = request.getContextPath()+"/member/passwordResetBusiness";
-		System.out.println("bu_email = " + bu_email);
-		System.out.println("password = " + password);
+		password = passEnc.encode(password);
 		try {
 			int pass = memberService.passwordResetBusiness(bu_email, password);
 			System.out.println("pass = " +pass);

@@ -26,7 +26,8 @@
 			<artifactId>hibernate-validator</artifactId>
 			<version>6.0.1.Final</version>
 		</dependency>
-
+		
+		<!-- db관련 -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
@@ -56,6 +57,7 @@
 			<artifactId>osdt_core</artifactId>
 			<version>21.5.0.0</version>
 		</dependency>
+		<!-- db관련 끝 -->
 
 		<dependency>
 			<groupId>com.googlecode.json-simple</groupId>
@@ -207,6 +209,15 @@
 			<version>${spring.version2}</version>
 		</dependency>
 		<!-- 테스트 끝 -->
+		
+		<!-- Spring-security 모듈 -->
+		<dependency> 
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-crypto</artifactId>
+		    <version>5.6.3</version>
+		</dependency>
+
+
 		
 		<!-- AspectJ -->
 		<dependency>

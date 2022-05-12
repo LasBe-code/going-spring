@@ -46,7 +46,8 @@
 		<property name="username" value="ADMIN"/>
 		<property name="password" value="Going1234567"/>
 	</bean>
-	
+		
+	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 	
 	<mvc:interceptors>
 		<mvc:interceptor>

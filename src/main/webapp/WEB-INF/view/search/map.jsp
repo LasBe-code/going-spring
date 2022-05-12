@@ -28,7 +28,7 @@
 <div class="default_width row" style="margin-bottom:200px;">
 	<div class="search_bottom_box col-sm-4 mt-3">
 	
-		<div class="search_filter_box">
+		<div class="search_filter_box" style="height: 600px;">
 		<h3>상세조건</h3>
 		<form action="${pageContext.request.contextPath}/search/map" method="get" name="f">
 		<input type="hidden" id="ro_count" name="ro_count" value="${searchDTO.ro_count}">
@@ -51,47 +51,41 @@
 		<hr class="gray_line">
 		<strong class="search_strong_font">검색</strong> <br>
 		<input type=search class=search_text placeholder=지역,숙소명 name="bu_address" id="bu_address" value="${searchDTO.bu_address}" required>
-		<div class=search_button_box>
-			<div>
-			</div>
-		</div>
+		
 		<div class=search_select_box>
+			<hr class="gray_line">
 		
-		<hr class="gray_line">
-		
-		<div>
-			
-			
-			<strong class="search_strong_font">숙소 유형</strong>
-				<ul class="search_detail_ul">
-					<li>
-						<input type="checkbox" id="bu_id" name="bu_id" value="1" onclick="NoMultiChk(this)" 
-						style=accent-color:#ffc107 ${searchDTO.bu_id == '1' ? 'checked' : '' }>
-						<label class="search_label_font">호텔</label>
-					</li>
-					<li>
-						<input type="checkbox" id="bu_id" name="bu_id" value="2" onclick="NoMultiChk(this)" 
-						style=accent-color:#ffc107 ${searchDTO.bu_id == '2' ? 'checked' : '' }>
-						<label class="search_label_font">모텔</label>
-					</li >
-					<li>
-						<input type="checkbox" id="bu_id" name="bu_id" value="3" onclick="NoMultiChk(this)" 
-						style=accent-color:#ffc107 ${searchDTO.bu_id == '3' ? 'checked' : '' }>
-						<label class="search_label_font">펜션</label>
-					</li>
-					<li>
-						<input type="checkbox" id="bu_id" name="bu_id" value="4" onclick="NoMultiChk(this)" 
-						style=accent-color:#ffc107 ${searchDTO.bu_id == '4' ? 'checked' : '' }>
-						<label class="search_label_font">리조트</label>
-					</li>
-				</ul>
-			</div>
+			<div>
+				<strong class="search_strong_font">숙소 유형</strong>
+					<ul class="search_detail_ul">
+						<li>
+							<input type="checkbox" id="bu_id" name="bu_id" value="1" onclick="NoMultiChk(this)" 
+							style=accent-color:#ffc107 ${searchDTO.bu_id == '1' ? 'checked' : '' }>
+							<label class="search_label_font">호텔</label>
+						</li>
+						<li>
+							<input type="checkbox" id="bu_id" name="bu_id" value="2" onclick="NoMultiChk(this)" 
+							style=accent-color:#ffc107 ${searchDTO.bu_id == '2' ? 'checked' : '' }>
+							<label class="search_label_font">모텔</label>
+						</li >
+						<li>
+							<input type="checkbox" id="bu_id" name="bu_id" value="3" onclick="NoMultiChk(this)" 
+							style=accent-color:#ffc107 ${searchDTO.bu_id == '3' ? 'checked' : '' }>
+							<label class="search_label_font">펜션</label>
+						</li>
+						<li>
+							<input type="checkbox" id="bu_id" name="bu_id" value="4" onclick="NoMultiChk(this)" 
+							style=accent-color:#ffc107 ${searchDTO.bu_id == '4' ? 'checked' : '' }>
+							<label class="search_label_font">리조트</label>
+						</li>
+					</ul>
+				</div>
 			</div>
 			<button type=submit class=search_commit_button_size style="border:none;">적용</button>
 		</form>
 		</div>
 	</div>
-	<div class="col-sm-10 rounded" id="map" style="height:700px; width:670px; margin-top: 15px; margin-right:0;"></div>
+	<div class="col-sm-10 rounded" id="map" style="height:800px; width:670px; margin-top: 15px; margin-right:0;"></div>
 </div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=35d71e137b481a1c8d8befd339cf5e29&libraries=services"></script>
 <script type="text/javascript">
