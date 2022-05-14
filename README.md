@@ -16,7 +16,7 @@ Java와 Spring MVC를 기반으로 제작한 프로젝트입니다.
 
 ## 📙  Site Map
 
-![사이트맵 (2).png](GOING%20-%20SPRING%2065d55764fa834e57b754e36919143cd1/%EC%82%AC%EC%9D%B4%ED%8A%B8%EB%A7%B5_(2).png)
+![사이트맵 (2).png](GOING%20-%20SPRING%2065d55764fa834e57b754e36919143cd1/sitemap.png)
 
 ## 📙  Database ERD
 
