@@ -40,7 +40,8 @@ public class MemberService {
 	public int signupMember(Member member) throws Exception {
 		return memberDao.insertMember(member);
 	}
-
+	
+	@Transactional(rollbackFor = Exception.class)
 	public int signupBusiness(Business business, String picLocation) throws Exception {
 		int picNum = roomDao.nextPicNum();
 		int buResult = memberDao.insertBusiness(business, picNum);
@@ -85,6 +86,7 @@ public class MemberService {
 		return memberDao.selectPic(pic_num);
 	}
 	
+	@Transactional(rollbackFor = Exception.class)
 	public int modifyBusiness(Business business, String picLocation) throws Exception {
 		//기존 사업자 정보 불러오기
 		Business beforeBusiness = memberDao.selectBusinessOne(business.getBu_email());

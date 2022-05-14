@@ -181,7 +181,7 @@ public interface RoomMapperAnno {
 			+ "		select b.bo_num, m.name, m.tel, b.ro_name, b.checkin, b.checkout,  r.ro_count, b.status "
 			+ "		from member m, room r, booking b "
 			+ "		where r.bu_email = #{bu_email} and r.ro_name = b.ro_name and m.email = b.email and b.status = 1) "
-			+ " where checkin = #{checkin} ")
+			+ " where checkin <= #{checkin} ")
 	List<Booking> selectNotCheckin(Map<String, Object> map);
 
 	

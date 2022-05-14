@@ -129,7 +129,7 @@ public class RoomService {
 		
 		int p = roomDao.deleteLocation(room.getPic_num());
 		
-		String[] picList = room.getLocation().split("\n");
+		String[] picList = room.getLocation().split("\r\n");
 		int pic = 0;	
 		for(String lo : picList) {
 			picLocation = new Picture(room.getPic_num(),lo);

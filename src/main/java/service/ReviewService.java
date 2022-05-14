@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import model.Review;
 import repository.ReviewDao;
@@ -18,6 +19,7 @@ public class ReviewService {
 		this.reviewDao = reviewDao;
 	}
 	
+	@Transactional(rollbackFor = Exception.class)
 	public int writeReview(Review review) throws Exception {
 		review.setRev_num(reviewDao.nextRevNum());
 		review.setReview_date(DateParse.getTodayPlus(0));

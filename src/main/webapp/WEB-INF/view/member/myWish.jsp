@@ -25,7 +25,9 @@
 			</a>
 		</div>
 
-		<div class="col-sm-10 mt-3">
+		<div class="col-sm-10 mt-4">
+			<h4 class="mt-3">찜한 숙소</h4>
+			<hr>
 			<c:forEach var="bu" items="${businessList}">
 				<div class="row wishlist-box">
 					<div class="col-sm-3 wishlist-img rounded" style="background-image: url(${bu.location})"
@@ -57,6 +59,7 @@
 			
 			</c:forEach>
 		</div>
+		<div style="margin:200px 0 200px 0;"></div>
 	</div>
 </div>
 <script>

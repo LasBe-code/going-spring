@@ -156,7 +156,6 @@ public class RoomController{
 		String bu_email =(String)session.getAttribute("bu_email");
 		room.setBu_email(bu_email);
 		try {
-			controllerMap.clear();
 			controllerMap = roomService.roomUpdatePro(room);
 			int rnum = (int) controllerMap.get("rnum");
 			int pic = (int) controllerMap.get("pic");

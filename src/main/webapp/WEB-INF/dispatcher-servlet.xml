@@ -4,18 +4,18 @@
 		xmlns:context="http://www.springframework.org/schema/context"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xmlns:aop="http://www.springframework.org/schema/aop"
+		xmlns:tx="http://www.springframework.org/schema/tx"
 		xsi:schemaLocation="
 			http://www.springframework.org/schema/beans
 				http://www.springframework.org/schema/beans/spring-beans.xsd
-			
 			http://www.springframework.org/schema/context
 				http://www.springframework.org/schema/context/spring-context.xsd
-			
 			http://www.springframework.org/schema/mvc
 				http://www.springframework.org/schema/mvc/spring-mvc.xsd
-			
 			http://www.springframework.org/schema/aop 
-				http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+				http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+			 http://www.springframework.org/schema/tx
+                http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 			
 	<mvc:annotation-driven/>
 	<context:component-scan base-package="controller, service, repository, aop"/>
@@ -31,6 +31,13 @@
 		<property name="suffix" value=".jsp"/>
 	</bean>
 	
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<property name="url" value="jdbc:oracle:thin:@going_medium?TNS_ADMIN=/Users/lasbe/Wallet_going"/>
+		<property name="username" value="ADMIN"/>
+		<property name="password" value="Going1234567"/>
+	</bean>
+	
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
 		<property name="dataSource" ref="dataSource"/>
@@ -40,14 +47,13 @@
 		<constructor-arg ref="sqlSessionFactory"/>
 	</bean>
 	
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
-		<property name="url" value="jdbc:oracle:thin:@going_medium?TNS_ADMIN=/Users/lasbe/Wallet_going"/>
-		<property name="username" value="ADMIN"/>
-		<property name="password" value="Going1234567"/>
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
 	</bean>
-		
+	<tx:annotation-driven/>
+	
 	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+	
 	
 	<mvc:interceptors>
 		<mvc:interceptor>

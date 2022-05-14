@@ -18,6 +18,7 @@ public class Logging {
 		try {
 			obj = pjp.proceed();
 		} catch (Exception e) {
+			e.printStackTrace();
 			System.out.println("["+pjp.getSignature()+"] : 오류 발생");
 		} finally {
 			sw.stop();

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import model.Booking;
 import model.Business;
@@ -40,6 +41,7 @@ public class ReserveService {
 		return reserveDao.overlapRoomList(bu_email, ro_count, checkin, checkout);
 	}
 	
+	@Transactional(rollbackFor = Exception.class)
 	public int insertBooking(Booking booking) throws Exception {
 		int result = reserveDao.insertBooking(booking);
 		
@@ -64,6 +66,7 @@ public class ReserveService {
 	}
 	
 	// 상태 변경 후 예약 중복 테이블 삭제
+	@Transactional(rollbackFor = Exception.class)
 	public int reserveCancel(String bo_num) throws Exception {
 		
 		int result = bookingDao.updateBookingStatus(bo_num);
