@@ -60,14 +60,14 @@ Java와 Spring MVC를 기반으로 제작한 프로젝트입니다.
 
 ### 📙  AOP를 이용한 Logging
 
-### 📙  리팩토링
+### 📙  [리팩토링](https://fate-close-2ba.notion.site/29f439b4840d471e976da90a1c265ffd)
 
 ### 📙  Spring Security를 이용한 비밀번호 암호화
 
 ### 📙  트랜잭션 사용
 
-# ⚡️ [프로젝트 주요 기능](https://fate-close-2ba.notion.site/39aba2e82f38452da4058024006a3b00)
 
+# ⚡️ [프로젝트 주요 기능](https://fate-close-2ba.notion.site/39aba2e82f38452da4058024006a3b00)
 
 ### 📙  로그인 및 회원가입
 
