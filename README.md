@@ -1,5 +1,3 @@
-# GOING - SPRING
-
 # 🎒숙박플랫폼 GOING
 
 Java와 Spring MVC를 기반으로 제작한 프로젝트입니다.
@@ -55,7 +53,7 @@ Java와 Spring MVC를 기반으로 제작한 프로젝트입니다.
 - GitHub
 - SQL Developer
 
-# ⚡️ 프로젝트 키워드
+# ⚡️ [프로젝트 키워드] (https://fate-close-2ba.notion.site/39aba2e82f38452da4058024006a3b00)
 
 
 ### 📙  JUnit을 이용한 단위 테스트
@@ -71,108 +69,21 @@ Java와 Spring MVC를 기반으로 제작한 프로젝트입니다.
 # ⚡️ 프로젝트 주요 기능
 
 
-## 📙  로그인 및 회원가입
+### 📙  로그인 및 회원가입
 
-![Untitled](GOING%20-%20SPRING%2065d55764fa834e57b754e36919143cd1/Untitled.png)
+### 📙  숙소 검색
 
-- 고객과 사업자 로그인, 회원가입 분리
-- 카카오 API를 이용한 소셜 로그인
-- 네이버 SENS를 이용한 문자인증
-- 비동기적으로 중복체크, 문자인증
-- 비밀번호 암호화 - 복호화
+### 📙  사업자 페이지
 
-## 📙  숙소 검색
+### 📙  숙소 찜하기
 
-![Untitled](GOING%20-%20SPRING%2065d55764fa834e57b754e36919143cd1/Untitled%201.png)
+### 📙  결제 및 예약
 
-![Untitled](GOING%20-%20SPRING%2065d55764fa834e57b754e36919143cd1/Untitled%202.png)
+### 📙  리뷰
 
-![Untitled](GOING%20-%20SPRING%2065d55764fa834e57b754e36919143cd1/Untitled%203.png)
-
-- 메인 화면에서 검색창, 숙소 카테고리별, 추천으로 원하는 숙소를 탐색할 수 있습니다.
-- 검색 결과창에서는 기존 검색 결과와 함께 가격 범위를 조정하여 재검색이 가능합니다.
-- 지도 검색에서는 검색 결과를 지도에 출력해 숙소 위치를 직관적으로 파악할 수 있습니다.
-
-## 📙  사업자 페이지
-
-![Untitled](GOING%20-%20SPRING%2065d55764fa834e57b754e36919143cd1/Untitled%204.png)
-
-- 고객과 분리된 사업자 페이지에서는 숙소와 관련된 모든 작업을 수행할 수 있습니다.
-
-## 📙  숙소 찜하기
-
-![Untitled](GOING%20-%20SPRING%2065d55764fa834e57b754e36919143cd1/Untitled%205.png)
-
-![Untitled](GOING%20-%20SPRING%2065d55764fa834e57b754e36919143cd1/Untitled%206.png)
-
-- 원하는 숙소를 찜하거나 취소할 수 있고, 찜한 목록은 마이페이지에서 확인 가능합니다.
-
-## 📙  결제 및 예약
-
-![Untitled](GOING%20-%20SPRING%2065d55764fa834e57b754e36919143cd1/Untitled%207.png)
-
-- 아임포트 API를 이용해 결제 서비스를 구현했으며 예약된 방은 중복처리되어 예약이 불가능하게 됩니다.
-
-![Untitled](GOING%20-%20SPRING%2065d55764fa834e57b754e36919143cd1/Untitled%208.png)
-
-![Untitled](GOING%20-%20SPRING%2065d55764fa834e57b754e36919143cd1/Untitled%209.png)
-
-- 사업자는 입실할 고객과 퇴실할 고객의 예약 상태를 유연하게 변경할 수 있습니다.
-- 만약 체크아웃 날짜보다 일찍 퇴실 처리할 경우 예약 중복 처리된 방은 다시 예약할 수 있도록 처리됩니다.
-
-## 📙  리뷰
-
-### 🔎  고객
-
-![Untitled](GOING%20-%20SPRING%2065d55764fa834e57b754e36919143cd1/Untitled%2010.png)
-
-![Untitled](GOING%20-%20SPRING%2065d55764fa834e57b754e36919143cd1/Untitled%2011.png)
-
-![Untitled](GOING%20-%20SPRING%2065d55764fa834e57b754e36919143cd1/Untitled%2012.png)
-
-![Untitled](GOING%20-%20SPRING%2065d55764fa834e57b754e36919143cd1/Untitled%2013.png)
-
-- 퇴실 완료처리된 예약에 한해 고객은 1회 별점 평가과 리뷰 작성이 가능합니다.
-- 작성된 평가와 리뷰는 숙소 상세페이지에서 확인 가능합니다.
-
-### 🔎  사업자
-
-![Untitled](GOING%20-%20SPRING%2065d55764fa834e57b754e36919143cd1/Untitled%2014.png)
-
-![Untitled](GOING%20-%20SPRING%2065d55764fa834e57b754e36919143cd1/Untitled%2015.png)
-
-![Untitled](GOING%20-%20SPRING%2065d55764fa834e57b754e36919143cd1/Untitled%2016.png)
-
-- 숙박 업체에 등록된 리뷰를 모두 확인할 수 있습니다.
-- 고객이 작성한 리뷰에 답글을 달 수 있으며, 악성 댓글일 경우 관리자에게 신고할 수 있습니다.
-
-## 📙  관리자 모드
-
-### 🔎  **통계**
-
-![Untitled](GOING%20-%20SPRING%2065d55764fa834e57b754e36919143cd1/Untitled%2017.png)
-
-- 서비스 관리자는 전반적인 서비스 매출에 대한 통계를 확인할 수 있습니다.
-
-### 🔎  **사업자 가입 승인**
-
-![Untitled](GOING%20-%20SPRING%2065d55764fa834e57b754e36919143cd1/Untitled%2018.png)
-
-![Untitled](GOING%20-%20SPRING%2065d55764fa834e57b754e36919143cd1/Untitled%2019.png)
-
-- 사업자(숙박 업체)는 관리자의 승인을 한번 거쳐야 서비스를 이용할 수 있도록 했습니다.
-
-### 🔎  리뷰 모니터링
-
-![Untitled](GOING%20-%20SPRING%2065d55764fa834e57b754e36919143cd1/Untitled%2020.png)
-
-![Untitled](GOING%20-%20SPRING%2065d55764fa834e57b754e36919143cd1/Untitled%2021.png)
-
-- 사업자가 신고한 리뷰는 관리자가 모니터링합니다.
-- 정당한 리뷰라면 신고를 철회하고, 악성 리뷰라면 삭제할 수 있습니다.
+### 📙  관리자 모드
 
 # ⚡️ Troubleshooting
-
 
 ## 📙 예약 날짜 저장 / 동일 기간 예약 중복 처리
 
