@@ -53,7 +53,7 @@ Java와 Spring MVC를 기반으로 제작한 프로젝트입니다.
 - GitHub
 - SQL Developer
 
-# ⚡️ [프로젝트 키워드](https://fate-close-2ba.notion.site/39aba2e82f38452da4058024006a3b00)
+# ⚡️ 프로젝트 키워드
 
 
 ### 📙  JUnit을 이용한 단위 테스트
@@ -66,7 +66,7 @@ Java와 Spring MVC를 기반으로 제작한 프로젝트입니다.
 
 ### 📙  트랜잭션 사용
 
-# ⚡️ 프로젝트 주요 기능
+# ⚡️ [프로젝트 주요 기능](https://fate-close-2ba.notion.site/39aba2e82f38452da4058024006a3b00)
 
 
 ### 📙  로그인 및 회원가입
