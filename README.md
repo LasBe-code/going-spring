@@ -13,19 +13,19 @@ Java와 Spring MVC를 기반으로 제작한 프로젝트입니다.
 # ⚡️ 프로젝트 구성 및 설계
 
 
-## 📙  Site Map
+### 📙  Site Map
 
 ![사이트맵 (2).png](GOING%20-%20SPRING%2065d55764fa834e57b754e36919143cd1/sitemap.png)
 
-## 📙  Database ERD
+### 📙  Database ERD
 
 ![GOING (3).png](GOING%20-%20SPRING%2065d55764fa834e57b754e36919143cd1/GOING_(3).png)
 
 사진을 저장하는 BUSINESS(사업자)와 ROOM(객실) 테이블은 동일하고 중복되지 않는 시퀀스(pic_num)를 공유해 사진의 위치를 저장하도록 했습니다.   
 
-## 📙  사용 기술
+### 📙  사용 기술
 
-### 🔎  **백앤드**
+**백앤드**
 
 - Java 11
 - Spring MVC
@@ -34,20 +34,20 @@ Java와 Spring MVC를 기반으로 제작한 프로젝트입니다.
 - JUnit4
 - MyBatis
 
-### 🔎  **DB & WAS**
+**DB & WAS**
 
 - Oracle
 - Oracle Cloud
 - Tomcat 9
 
-### 🔎  **프론트**
+**프론트**
 
 - HTML/CSS
 - JavaScript
 - Bootstrap 5
 - JQuery
 
-### 🔎  **Environment & Tool**
+**Environment & Tool**
 
 - Mac, Windows 10
 - Eclipse
@@ -58,32 +58,15 @@ Java와 Spring MVC를 기반으로 제작한 프로젝트입니다.
 # ⚡️ 프로젝트 키워드
 
 
-## 📙  JUnit을 이용한 단위 테스트
+### 📙  JUnit을 이용한 단위 테스트
 
-## 📙  AOP를 이용한 Logging
+### 📙  AOP를 이용한 Logging
 
-## 📙  리팩토링
+### 📙  리팩토링
 
-### 🔎  Date 타입의 데이터를 파싱하는 코드를 분리했습니다.
+### 📙  Spring Security를 이용한 비밀번호 암호화
 
-### 🔎  SqlSessionFactory → SqlSessionTemplate
-
-- 세션을 여닫고 커밋하는 중복 코드를 제거했습니다.
-- 스프링 트랜잭션을 적용했습니다.
-- Thread-Safe하게 세션 객체를 공유합니다.
-
-### 🔎  Field Injection → Constructor Injection
-
-- Final 키워드를 사용해 불필요한 변경의 가능성을 차단했습니다.
-- StackOverFlow를 방지합니다.
-
-### 🔎  비즈니스 로직 분리
-
-- 별도의 Service 파일이 없었던 기존의 프로젝트를 목적에 맞게 Controller, Service, Repository로   분리했습니다.
-
-## 📙  Spring Security를 이용한 비밀번호 암호화
-
-## 📙  트랜잭션 사용
+### 📙  트랜잭션 사용
 
 # ⚡️ 프로젝트 주요 기능
 
