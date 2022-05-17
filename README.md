@@ -67,7 +67,7 @@ Java와 Spring MVC를 기반으로 제작한 프로젝트입니다.
 ### 📙  트랜잭션 사용
 
 
-# ⚡️ [프로젝트 주요 기능](https://fate-close-2ba.notion.site/39aba2e82f38452da4058024006a3b00)
+# ⚡️ [프로젝트 주요 기능](https://www.notion.so/GOING-31fb2f99c5c84a098a448b423d1e98b8#a6e8329d5b594dd19cb9417d02a9b8c8)
 
 ### 📙  로그인 및 회원가입
 
