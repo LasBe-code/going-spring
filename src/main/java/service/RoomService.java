@@ -13,6 +13,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import model.Booking;
 import model.Business;
@@ -34,30 +35,14 @@ public class RoomService {
 	}
 
 	
-	public Map<Object, Object> List(String bu_email) throws Exception{
-		List<Room> list = new ArrayList<Room>();
-		Map<Object, Object> map = new HashMap<>();
-		List<Picture> picList = new ArrayList<Picture>();
-		
-//		business 메일을 사용하는 사업자의 객실 리스트 저장
-		list = roomDao.roomList(bu_email);
-		
-//		각 객실번호에 해당하는 사진가져오기
-		for(Room room : list) {
-			picList = roomDao.selectPic(room.getPic_num());
-			map.put(room.getRo_num(), picList.get(0).getLocation().trim());
-		}
-		serviceMap.clear();
-		serviceMap.put("list", list);
-		serviceMap.put("map", map);
-		
-		return serviceMap;
+	public List<Room> roomList(String bu_email) throws Exception{
+		return roomDao.roomList(bu_email);
 	}
 	
-	public Map<Object, Object> roomInsertPro(Room room, String bu_email) throws Exception {
+	public int roomInsertPro(Room room, String bu_email) throws Exception {
 		
 		Picture p = new Picture();
-		int rowCnt = 0;
+		int picResult = 0;
 		
 		int roomNum = roomDao.nextRoNum();
 		int picNum = roomDao.nextPicNum();
@@ -73,16 +58,18 @@ public class RoomService {
 		for (String pic : picList) {
 //			사진 링크를 picture table에 저장
 			p = new Picture(picNum, pic.trim());
-			rowCnt = roomDao.insertPicture(p);
+			picResult = roomDao.insertPicture(p);
+			if(picResult == 0)
+				break;
 		}
 		
 //		room객체에 저장된 값을 room table에 저장
-		int rnum = roomDao.insertRoom(room);
-		serviceMap.clear();
-		serviceMap.put("rnum", rnum);
-		serviceMap.put("rowCnt", rowCnt);
+		int roomResult = roomDao.insertRoom(room);
 		
-		return serviceMap;
+		if(picResult == 0 || roomResult == 0)
+			return 0;
+		
+		return 1;
 	}
 	
 
@@ -96,7 +83,7 @@ public class RoomService {
 			p_list.add(picList.get(i).getLocation());
 		}
 //		선택한 객실의 정보를 가져와서 저장
-		String info = room.getRo_info().replace("\r\n", "<br/>");
+		String info = room.getRo_info().replace("\\n", "<br/>");
 		serviceMap.clear();
 		serviceMap.put("p_list", p_list);
 		serviceMap.put("room", room);
@@ -123,26 +110,29 @@ public class RoomService {
 		return serviceMap;
 	}
 	
-	
-	public Map<Object, Object> roomUpdatePro(Room room) throws Exception {
-		Picture picLocation = null;
-		
+	@Transactional()
+	public int roomUpdatePro(Room room) throws Exception {
+		Picture picture = null;
+		int picResult = 0;
 		int p = roomDao.deleteLocation(room.getPic_num());
 		
-		String[] picList = room.getLocation().split("\r\n");
-		int pic = 0;	
-		for(String lo : picList) {
-			picLocation = new Picture(room.getPic_num(),lo);
-			pic = roomDao.insertPicture(picLocation);
+		String[] picList = room.getLocation().split("\\n");
+		
+		for (String pic : picList) {
+//			사진 링크를 picture table에 저장
+			picture = new Picture(room.getPic_num(), pic.trim());
+			picResult = roomDao.insertPicture(picture);
+			if(picResult == 0)
+				break;
 		}
 		
-		// room객체에 저장된 값을 room table에 저장
-		int rnum = roomDao.updateRoom(room);
+//		room객체에 저장된 값을 room table에 저장
+		int roomResult = roomDao.updateRoom(room);
 		
-		serviceMap.clear();
-		serviceMap.put("rnum", rnum);
-		serviceMap.put("pic", pic);
-		return serviceMap;
+		if(picResult == 0 || roomResult == 0)
+			return 0;
+		
+		return 1;
 	}
 	
 	public int roomDeltePro(Room r, Business bu, String bu_email) throws Exception{

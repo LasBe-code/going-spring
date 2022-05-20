@@ -56,19 +56,11 @@ public class RoomController{
 	
 	@RequestMapping("roomlist")
 	public String List() {
-		List<Room> list = new ArrayList<Room>();
-		Map<Object, Object> map = new HashMap<>();
 		String bu_email =(String)session.getAttribute("bu_email");
 		
 		try {
-			controllerMap.clear();
-			controllerMap = roomService.List(bu_email);
-			
-			list = (List<Room>) controllerMap.get("list");
-			map = (Map<Object, Object>) controllerMap.get("map");
-			
-			model.addAttribute("picMap", map);
-			model.addAttribute("list", list);
+			List<Room> roomList = roomService.roomList(bu_email);
+			model.addAttribute("list", roomList);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -90,11 +82,9 @@ public class RoomController{
 		String url = request.getContextPath() + "/room/roomInsert?bu_email="+bu_email;
 		
 		try {
-			controllerMap.clear();
-			controllerMap = roomService.roomInsertPro(room, bu_email);
-			int rnum = (int) controllerMap.get("rnum");
-			int rowCnt = (int) controllerMap.get("rowCnt");
-			if(rnum > 0 && rowCnt > 0) {
+			int result = roomService.roomInsertPro(room, bu_email);
+			
+			if(result == 1) {
 				msg = "객실 등록이 완료되었습니다.";
 				url = request.getContextPath() + "/room/roomlist?bu_email="+bu_email;
 			}
@@ -156,14 +146,12 @@ public class RoomController{
 		String bu_email =(String)session.getAttribute("bu_email");
 		room.setBu_email(bu_email);
 		try {
-			controllerMap = roomService.roomUpdatePro(room);
-			int rnum = (int) controllerMap.get("rnum");
-			int pic = (int) controllerMap.get("pic");
+			int result = roomService.roomUpdatePro(room);
 			
 			String msg = "객실 수정시 오류가 발생했습니다.";
 			String url = request.getContextPath() + "/room/roomUpdate?ro_num="+room.getRo_num()+"&pic_num="+room.getPic_num();
 			
-			if(rnum > 0 && pic > 0) {
+			if(result != 0) {
 				msg = "객실 수정이 완료되었습니다.";
 				url = request.getContextPath() + "/room/roomlist?bu_email="+bu_email;
 			}

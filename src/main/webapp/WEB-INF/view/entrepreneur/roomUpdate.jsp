@@ -1,22 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
 
 <div class="container" style="width: 800px; margin-top: 100px;">
 <h2 style="text-align: center;">객실정보수정</h2>
-  <form action="${pageContext.request.contextPath}/room/roomUpdatePro" method="post" enctype="multipart/form-data" name="f">
+  <form action="${pageContext.request.contextPath}/room/roomUpdatePro" method="post" name="f">
     <div class="mb-3 mt-3">
       <label>객실이름 : </label>
       <span id="roomNameCheck"></span>

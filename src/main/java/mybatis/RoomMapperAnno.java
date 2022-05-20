@@ -20,6 +20,24 @@ public interface RoomMapperAnno {
 	@Select("select * from room where bu_email = #{bu_email} order by lpad(ro_price, 10, '0')")
 	List<Room> roomList(String bu_email);
 	
+	@Select("	SELECT "
+			+ "    	location, room.* "
+			+ "	FROM "
+			+ "    	room "
+			+ "    	LEFT OUTER JOIN "
+			+ "    	( "
+			+ "    	SELECT "
+			+ "        	DISTINCT pic_num, FIRST_VALUE(location) OVER(partition by pic_num) as location "
+			+ "    	FROM "
+			+ "        	picture "
+			+ "    	) p "
+			+ "    	ON room.pic_num = p.pic_num "
+			+ "	WHERE "
+			+ "    	bu_email=#{bu_email} "
+			+ "	ORDER BY "
+			+ "		lpad(ro_price, 10, '0')")
+	List<Room> roomPicList(String bu_email);
+	
 //	사진 등록시 시퀀스 +1
 	@Select("select picseq.nextval from dual")
 	int nextPicNum();

@@ -25,7 +25,7 @@ public class RoomDao {
 	}
 
 	public List<Room> roomList(String bu_email) throws Exception {	
-		return sqlSession.getMapper(RoomMapperAnno.class).roomList(bu_email);
+		return sqlSession.getMapper(RoomMapperAnno.class).roomPicList(bu_email);
 	}
 	
 	public int nextPicNum() throws Exception  {
